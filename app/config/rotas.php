@@ -18,3 +18,12 @@ $Rotas->onGroup("api-usuario","GET","","getAll");
 $Rotas->onGroup("api-usuario","POST","","insert");
 $Rotas->onGroup("api-usuario","PUT","{p}","update");
 $Rotas->onGroup("api-usuario","DELETE","{p}","update");
+
+
+// Imagem
+$Rotas->group("api-imagem","api/imagem","Api\Imagem");
+$Rotas->onGroup("api-imagem","GET","get","getAll");
+$Rotas->onGroup("api-imagem","GET","get/{p}","get");
+$Rotas->onGroup("api-imagem","POST","insert/{p}","insert");
+$Rotas->onGroup("api-imagem","PUT","principal/{p}","principal");
+$Rotas->onGroup("api-imagem","DELETE","delete/{p}","delete");
