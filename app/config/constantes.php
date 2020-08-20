@@ -1,6 +1,7 @@
 <?php
 
 // Nome do App
+
 define("SITE_NOME", "Ótica Vendrame - Catálogo");
 
 define("NUM_PAG", 24);

@@ -1,0 +1,19 @@
+@font-face
+{
+    font-family:"Foundry";
+    src:url('fontes/foundry-ligth.otf');
+    font-weight:100;
+}
+@font-face
+{
+    font-family:"Foundry";
+    src:url('fontes/foundry-regular.otf');
+    font-weight:500;
+}
+
+@font-face
+{
+    font-family:"Foundry";
+    src:url('fontes/foundry-bold.otf');
+    font-weight:bold;
+}

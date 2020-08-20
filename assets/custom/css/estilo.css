@@ -1,3 +1,12 @@
+@import "fonte.css";
+
+body, html
+{
+    font-family: 'Foundry';
+    font-weight: 500;
+    background-color: #f1f1f1;
+}
+
 .centraliza-itens
 {
     display: flex;
@@ -8,6 +17,13 @@
     text-align: center;
 }
 
+.centraliza-itens-sem-text
+{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 
 .bloqueiaBody,
 .bloqueiaForm
@@ -38,4 +54,140 @@
 .bloqueiaBody::after
 {
     position: fixed;
+}
+
+
+
+
+
+/*
+==================================================
+               PAGINA - LOGIN
+==================================================
+*/
+
+.login .espaco-form
+{
+    min-height: 100vh;
+}
+
+.login input
+{
+    background-color: transparent !important;
+    color: #fff !important;
+    border: 2px solid #ced4da;
+}
+
+.login .espaco-form img
+{
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.login label
+{
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.login button
+{
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #fff;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-top: 15px;
+    transition: all 0.5s;
+}
+
+.login button:hover
+{
+    background-color: #fff;
+    border: 2px solid #fff;
+    color: #204f93;
+    transition: all 0.5s;
+}
+
+
+
+/*
+==================================================
+               PAGINA - INDEX
+==================================================
+*/
+
+.index
+{
+    background-color: #f1f1f1;
+}
+
+.index .tamanho
+{
+    min-height: 100vh;
+    width: 100%;
+}
+
+.index form
+{
+    width: 100%;
+}
+
+.index input
+{
+    height: 50px;
+    color: #204f93 ;
+}
+
+.index .btn-busca
+{
+    float: right;
+    border: 0px;
+    border-radius: 0px 5px 5px 0px;
+    background-color: #204f93;
+    height: 50px;
+}
+
+.index .busca
+{
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    position: relative
+}
+
+.index .input-busca
+{
+    background: transparent;
+    border: 0;
+    outline: 0;
+    height: 50px;
+    width: calc(100% - 56px);
+    float: left
+}
+
+.index small
+{
+    color: #204f93 !important;
+}
+
+.index .logo
+{
+    width: 300px;
+}
+
+.index .resultado
+{
+    position: absolute;
+    background-color: #fff;
+    min-height: 100px;
+    width: 100%;
+    margin-top: 5px;
+    display: none;
+}
+
+.index .margin-form
+{
+    margin-top: 30%;
 }

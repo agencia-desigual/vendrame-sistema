@@ -1,34 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-    <title><?= SITE_NOME; ?></title>
+<?php $this->view("site/include/header"); ?>
 
-    <!-- SEO Meta  ================================================== -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="distribution" content="global" />
-    <meta name="revisit-after" content="2 Days" />
-    <meta name="robots" content="ALL" />
-    <meta name="language" content="pt-br" />
+    <div class="index">
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-md-7">
+                    <div class="margin-form centraliza-itens-sem-text">
 
-    <!-- Responsivo  ================================================== -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                        <!-- FORMULARIO -->
+                        <form>
+                            <div class="form-group">
+                                <div class="text-center mb-4">
+                                    <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-branca.png">
+                                </div>
+                                <div class="busca">
+                                    <input type="text" class="form-control input-busca" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <button type="submit" class="btn btn-primary btn-busca">
+                                        <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
 
-    <!-- Autoload ===================================================== -->
-    <?php $this->view("autoload/css"); ?>
-</head>
-<body>
+                                            <g>
+                                                <title>background</title>
+                                                <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+                                            </g>
+                                            <g>
+                                                <title>Layer 1</title>
+                                                <path fill="#ffffff" id="svg_2" d="m31.12,26.879l-7.342,-7.342c-1.095,1.701 -2.541,3.148 -4.242,4.242l7.343,7.342c1.172,1.172 3.071,1.172 4.241,0c1.173,-1.169 1.173,-3.068 0,-4.242z"/>
+                                                <path fill="#ffffff" id="svg_3" d="m24,12c0,-6.627 -5.373,-12 -12,-12s-12,5.373 -12,12s5.373,12 12,12s12,-5.373 12,-12zm-12,9c-4.964,0 -9,-4.036 -9,-9c0,-4.963 4.036,-9 9,-9c4.963,0 9,4.037 9,9c0,4.964 -4.037,9 -9,9z"/>
+                                                <path fill="#ffffff" id="svg_4" d="m5,12l2,0c0,-2.757 2.242,-5 5,-5l0,-2c-3.86,0 -7,3.142 -7,7z"/>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                    <div style="clear: both"></div>
+                                </div>
+                                <div style="position: relative">
+                                    <div class="resultado"></div>
+                                </div>
+                                <small id="emailHelp" class="form-text text-muted">Encontre os produtos</small>
+                            </div>
+                        </form>
+                        <!-- FIM >> FORMULARIO -->
 
-    <div class="container">
-        <div class="row text-center">
-            <h1>Hello Word!</h1>
-            <p>Bem-vindo ao framework fodastico das galáxias!!!</p>
+                        <!-- MARCAS -->
+                        <div class="row">
+                            <div class="col-md-4 col-6">asdasd</div>
+                            <div class="col-md-4 col-6">asdasd</div>
+                            <div class="col-md-4 col-6">asdasd</div>
+                        </div>
+                        <!-- FIM >> MARCAS -->
+
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
         </div>
     </div>
 
-    <!-- Autoload JS ================================================== -->
-    <?php $this->view("autoload/js"); ?>
-</body>
-</html>
+<?php $this->view("site/include/footer") ?>
