@@ -6,10 +6,10 @@ $Rotas->onError("404", function (){
 });
 
 // -- Seta os grupos
-//$Rotas->group("Principal","api","Principal");
+//$Rotas->group("Site","api","Site");
 
 // -- Rotas de Grupos
-//$Rotas->onGroup("Principal","GET","a","index");
+//$Rotas->onGroup("Site","GET","a","index");
 
 // -- Rotas sem grupo
-$Rotas->on("GET","","Principal::index");
+$Rotas->on("GET","","Site::index");
