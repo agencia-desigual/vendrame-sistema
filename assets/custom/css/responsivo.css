@@ -1,0 +1,12 @@
+@media only screen and (max-width: 767px)
+{
+}
+
+@media only screen and (max-width: 425px)
+{
+    .index .logo
+    {
+        width: 300px;
+    }
+
+}

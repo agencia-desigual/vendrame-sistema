@@ -37,6 +37,8 @@ class Site extends CI_controller
         $view = "";
         $usuario = null;
 
+        $_SESSION["usuario"] = "Edilson";
+
         // Verificando se o usuario está logado
         $usuario = (!empty($_SESSION["usuario"])) ? $_SESSION["usuario"] : null;
 
@@ -62,6 +64,7 @@ class Site extends CI_controller
                     "modulos" => ["Produtos"]
                 ]
             ];
+
         }
         else
         {
