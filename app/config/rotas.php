@@ -1,15 +1,20 @@
 <?php
 
 // Erro 404
-$Rotas->onError("404", function (){
-   echo "Erro - 404";
-});
+$Rotas->onError("404", "Site\Principal::error404");
 
-// -- Seta os grupos
-//$Rotas->group("Site","api","Site");
 
-// -- Rotas de Grupos
-//$Rotas->onGroup("Site","GET","a","index");
+/**
+ *  ===========================================================
+ *                          ROTAS DA API
+ *  ===========================================================
+ */
 
-// -- Rotas sem grupo
-$Rotas->on("GET","","Site::index");
+// Usuário
+$Rotas->group("api-usuario","api/usuario","Api\Usuario");
+$Rotas->onGroup("api-usuario","POST","login","login");
+$Rotas->onGroup("api-usuario","GET","{p}","get");
+$Rotas->onGroup("api-usuario","GET","","getAll");
+$Rotas->onGroup("api-usuario","POST","","insert");
+$Rotas->onGroup("api-usuario","PUT","{p}","update");
+$Rotas->onGroup("api-usuario","DELETE","{p}","update");
