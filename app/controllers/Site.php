@@ -11,7 +11,7 @@ namespace Controller;
 use Sistema\Controller as CI_controller;
 
 
-class Principal extends CI_controller
+class Site extends CI_controller
 {
 
     // Método construtor
@@ -28,4 +28,4 @@ class Principal extends CI_controller
     }
 
 
-} // END::Class Principal
+} // END::Class Site
