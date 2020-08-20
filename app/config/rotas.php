@@ -11,5 +11,11 @@ $Rotas->onError("404", function (){
 // -- Rotas de Grupos
 //$Rotas->onGroup("Site","GET","a","index");
 
-// -- Rotas sem grupo
+// -- Rotas sem grupo --- INDEX
 $Rotas->on("GET","","Site::index");
+
+// -- Rotas sem grupo --- LOGIN
+$Rotas->on("GET","login","Site::login");
+
+// -- Rotas sem grupo --- SAIR
+$Rotas->on("GET","sair","Site::sair");

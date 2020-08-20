@@ -156,19 +156,20 @@ class Controller
         // Monta o array padrão
         $dados = [
             "seo" => [
-                "title" => SITE_NOME . " Socks | Conforto e versatilidade aos seus pés",
-                "description" => "Meônia Socks possui as meias mais confortaveis e versateis, produzida para agradar até os mais exigentes.",
-                "keywords" => "meônia, socks, meias, conforto, confortavel, birigui, fábrica, loja da fábrica, versatil",
+                "title" => SITE_NOME . " | Catálogos",
+                "description" => "",
+                "keywords" => "",
                 "distribution" => "global",
+                "googlebot" => "",
                 "revisit-after" => "2 Days",
                 "robots" => "ALL",
                 "language" => "pt-br"
             ],
             "smo" => [
                 "url" => BASE_URL,
-                "title" =>  SITE_NOME . " | Nada é básico com Meônia Socks",
+                "title" =>  SITE_NOME . " | Catálogos",
                 "site_name" => SITE_NOME,
-                "description" => "Meônia Socks possui as meias mais confortaveis e versateis, produzida para agradar até os mais exigentes.",
+                "description" => "",
                 "image" => BASE_URL . 'assets/custom/img/smo.jpg',
                 "image_type" => "image/png",
                 "image_width" => "960",
