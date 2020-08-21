@@ -14,21 +14,13 @@ $Rotas->onError("404", "Site\Principal::error404");
 // Usuário
 $Rotas->group("api-usuario","api/usuario","Api\Usuario");
 $Rotas->onGroup("api-usuario","POST","login","login");
-$Rotas->onGroup("api-usuario","GET","{p}","get");
-$Rotas->onGroup("api-usuario","GET","","getAll");
-$Rotas->onGroup("api-usuario","POST","","insert");
-$Rotas->onGroup("api-usuario","PUT","{p}","update");
-$Rotas->onGroup("api-usuario","DELETE","{p}","update");
+$Rotas->onGroup("api-usuario","GET","get","getAll");
+$Rotas->onGroup("api-usuario","GET","get/{p}","get");
+$Rotas->onGroup("api-usuario","POST","insert/{p}","insert");
+$Rotas->onGroup("api-usuario","PUT","update/{p}","update");
+$Rotas->onGroup("api-usuario","DELETE","delete/{p}","delete");
 
 
-
-
-
-/**
- *  ===========================================================
- *                      ROTAS DO SITE
- *  ===========================================================
- */
 
 // Imagem
 $Rotas->group("api-imagem","api/imagem","Api\Imagem");
@@ -37,6 +29,22 @@ $Rotas->onGroup("api-imagem","GET","get/{p}","get");
 $Rotas->onGroup("api-imagem","POST","insert/{p}","insert");
 $Rotas->onGroup("api-imagem","PUT","principal/{p}","principal");
 $Rotas->onGroup("api-imagem","DELETE","delete/{p}","delete");
+
+
+// Marca
+$Rotas->group("api-marca","api/marca","Api\Marca");
+$Rotas->onGroup("api-marca","GET","get","getAll");
+$Rotas->onGroup("api-marca","GET","get/{p}","get");
+$Rotas->onGroup("api-marca","POST","insert/{p}","insert");
+$Rotas->onGroup("api-marca","PUT","update/{p}","update");
+$Rotas->onGroup("api-marca","DELETE","delete/{p}","delete");
+
+
+/**
+ *  ===========================================================
+ *                      ROTAS DO SITE
+ *  ===========================================================
+ */
 
 
 // -- Rotas sem grupo --- INDEX
