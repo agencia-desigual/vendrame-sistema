@@ -21,7 +21,6 @@ $Rotas->onGroup("api-usuario","PUT","update/{p}","update");
 $Rotas->onGroup("api-usuario","DELETE","delete/{p}","delete");
 
 
-
 // Imagem
 $Rotas->group("api-imagem","api/imagem","Api\Imagem");
 $Rotas->onGroup("api-imagem","GET","get","getAll");
@@ -38,6 +37,41 @@ $Rotas->onGroup("api-marca","GET","get/{p}","get");
 $Rotas->onGroup("api-marca","POST","insert/{p}","insert");
 $Rotas->onGroup("api-marca","PUT","update/{p}","update");
 $Rotas->onGroup("api-marca","DELETE","delete/{p}","delete");
+
+
+// Categorias
+$Rotas->group("api-categoria","api/categoria","Api\Categoria");
+$Rotas->onGroup("api-categoria","GET","get","getAll");
+$Rotas->onGroup("api-categoria","GET","get/{p}","get");
+$Rotas->onGroup("api-categoria","POST","insert","insert");
+$Rotas->onGroup("api-categoria","POST","update/{p}","update");
+$Rotas->onGroup("api-categoria","DELETE","delete/{p}","delete");
+
+
+// Produto
+$Rotas->group("api-produto","api/produto","Api\Produto");
+$Rotas->onGroup("api-produto","GET","get","getAll");
+$Rotas->onGroup("api-produto","GET","get/{p}","get");
+$Rotas->onGroup("api-produto","POST","insert","insert");
+$Rotas->onGroup("api-produto","POST","update/{p}","update");
+$Rotas->onGroup("api-produto","DELETE","delete/{p}","delete");
+
+
+// Ficha Técnica
+$Rotas->group("api-ficha","api/ficha","Api\FichaTecnica");
+$Rotas->onGroup("api-ficha","POST","insert/{p}","insert");
+$Rotas->onGroup("api-ficha","PUT","update/{p}","update");
+$Rotas->onGroup("api-ficha","DELETE","delete/{p}","delete");
+
+
+// Atributo
+$Rotas->group("api-atributo","api/atributo","Api\Atributo");
+$Rotas->onGroup("api-atributo","POST","insert/{p}","insert");
+$Rotas->onGroup("api-atributo","POST","update/{p}","update");
+$Rotas->onGroup("api-atributo","DELETE","delete/{p}","delete");
+
+$Rotas->onGroup("api-atributo","POST","produto/{p}/{p}","vinculaProduto");
+$Rotas->onGroup("api-atributo","DELETE","produto/{p}","desvinculaProduto");
 
 
 /**
