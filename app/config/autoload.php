@@ -1,6 +1,10 @@
 <?php
 
 $pluginsAutoLoad = [
+    "alertify" => [
+        "js" => ["js/alertify"],
+        "css" => ["css/alertify"]
+    ],
     "jquery" => [
         "js" => ["jquery-3.4.1.min"],
         "css" => null

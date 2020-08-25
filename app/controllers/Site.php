@@ -13,6 +13,7 @@ class Site extends CI_controller
     // Objetos
     private $objHelperApoio;
 
+
     // Método construtor
     function __construct()
     {
@@ -82,6 +83,27 @@ class Site extends CI_controller
 
 
 
+    public function dashboard()
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+
+        // Recupera o usuário
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Verifica se é admin
+        if($usuario->nivel == "admin")
+        {
+
+        }
+        else
+        {
+            // Redireciona para a home
+            header("Location: " . BASE_URL);
+        } // Error >> Usuário sem permissão
+
+    } // End >> fun::dashboard()
 
 
 

@@ -133,13 +133,22 @@ function enviaApi(tipo, url, dados = null, token = null, alertTipy = "swal")
 * -------------------------------------------------
 * @param mensagem
 */
-function error(mensagem)
+function error(mensagem, tipo = "swal")
 {
-    Swal.fire({
-        type: 'error',
-        title: 'Oops...',
-        text: mensagem
-    });
+    if(tipo === "swal")
+    {
+        Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: mensagem
+        });
+    }
+    else
+    {
+        alertify.set('notifier','position', 'top-center');
+        alertify.error(mensagem);
+    }
+
 } // End >> Fun::error()
 
 
@@ -152,14 +161,24 @@ function error(mensagem)
  * -------------------------------------------------
  * @param mensagem
  */
-function success(mensagem)
+function success(mensagem, tipo = "swal")
 {
-    Swal.fire({
-        type: 'success',
-        title: 'Sucesso!',
-        text: mensagem
-    });
+    if(tipo === "swal")
+    {
+        Swal.fire({
+            type: 'success',
+            title: 'Sucesso!',
+            text: mensagem
+        });
+    }
+    else
+    {
+        alertify.set('notifier','position', 'top-center');
+        alertify.success(mensagem);
+    }
+
 } // End >> Fun::success()
+
 
 
 

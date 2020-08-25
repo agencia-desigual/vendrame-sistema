@@ -30,7 +30,7 @@ $("#formLogin").on("submit", function () {
             Global.session.set("token", data.objeto.token);
 
             // Avisa que deu certo
-            alertify.success(data.mensagem);
+            Global.setSuccess(data.mensagem, "alertify");
 
             // Atualiza a página
             setTimeout(() => {
@@ -95,7 +95,7 @@ function realizaLogin(user, senha)
             else
             {
                 // Avisa que deu merda
-                alertify.error(data.mensagem);
+                Global.setError(data.mensagem, "alertify");
 
                 reject(true);
             }
