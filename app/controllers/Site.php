@@ -61,7 +61,7 @@ class Site extends CI_controller
                 "usuario" => $usuario,
                 "marcas" => $marcas,
                 "js" => [
-                    "modulos" => ["Produtos"]
+                    "modulos" => ["Produto"]
                 ]
             ];
 

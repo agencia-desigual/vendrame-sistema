@@ -41,6 +41,61 @@ class Produto extends Controller
 
 
     /**
+     * Método responsável por retornar a busca de produtos
+     * por nome, conforme preenchido no input de pesquisa
+     * -----------------------------------------------------------------
+     * @param $nome
+     * -----------------------------------------------------------------
+     * @author edilson-pereira
+     * @url api/produto/pesquisa/[nome]
+     * @method GET
+     */
+    public function pesquisa($nome)
+    {
+        // Variaveis
+        $dados = null;
+        $objeto = null;
+        $sql = null;
+
+        $sql = "SELECT * FROM produto WHERE status = true AND nome LIKE '%{$nome}%' LIMIT 0,10";
+
+        // Busca o produto
+        $produtos = $this->objModelProduto->query($sql)->fetchAll(\PDO::FETCH_OBJ);
+
+        // Veirifca se encontrou o produto
+        if (!empty($produtos))
+        {
+
+            $this->debug($produtos);
+
+//            foreach ($produtos as $produto)
+//            {
+//                // Busca as imagens do produto
+//                $produto->img = $this->objHelperApoio->getImagem($produto->id_produto, "produto");
+//
+//                // Busca a empresa do produto
+//                $produto->empresa = $this->objModelEmpresa
+//                    ->get(["id_empresa" => $produto->id_empresa])
+//                    ->fetch(\PDO::FETCH_OBJ);
+//            }
+        }
+
+
+
+        // Monta o array de retorno
+        $dados = [
+            "tipo" => true,
+            "code" => 200,
+            "produtos" =>  $produtos
+        ];
+
+        // Retorna
+        $this->api($dados);
+
+    } // End >> fun::pesquisa()
+
+
+    /**
      * Método responsável por inserir um determinado
      * produto no sistema.
      * --------------------------------------------------
