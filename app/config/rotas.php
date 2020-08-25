@@ -93,3 +93,20 @@ $Rotas->on("GET","login","Site::login");
 
 // -- Rotas sem grupo --- SAIR
 $Rotas->on("GET","sair","Site::sair");
+
+
+
+
+/**
+ *  ===========================================================
+ *                      ROTAS DO PAINEL
+ *  ===========================================================
+ */
+
+// -- Dashboard
+$Rotas->on("GET","painel","Site::dashboard");
+
+// -- Usuario
+$Rotas->on("GET","painel/usuarios","Usuario::listar");
+$Rotas->on("GET","painel/usuario/adicionar","Usuario::adicionar");
+$Rotas->on("GET","painel/usuario/alterar/{p}","Usuario::alterar");
