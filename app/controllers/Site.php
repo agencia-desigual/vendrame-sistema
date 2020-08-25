@@ -91,6 +91,73 @@ class Site extends CI_controller
 
 
     /**
+     * Método responsável por montar a página de produtos do
+     * catalogo, já com todos os filtros
+     * ------------------------------------------------------
+     * @url produtos
+     */
+    public function produtos()
+    {
+
+        // Variaveis
+        $dados = null;
+        $view = "";
+        $usuario = null;
+
+        $_SESSION["usuario"] = "Edilson";
+
+        // Verificando se o usuario está logado
+        $usuario = (!empty($_SESSION["usuario"])) ? $_SESSION["usuario"] : null;
+
+        if (!empty($usuario))
+        {
+
+            // Busca as marcas
+            $marcas = null;
+
+            // View correta
+            $view = "site/index";
+
+            // As tags SEO e SMO
+            $seo = $this->getSEO();
+
+            // Dados da view
+            $dados = [
+                "seo" => $seo["seo"],
+                "smo" => $seo["smo"],
+                "usuario" => $usuario,
+                "marcas" => $marcas,
+                "js" => [
+                    "modulos" => ["Produto"]
+                ]
+            ];
+
+        }
+        else
+        {
+            // View correta
+            $view = "site/acesso/login";
+
+            // As tags SEO e SMO
+            $seo = $this->getSEO();
+
+            // Dados da view
+            $dados = [
+                "seo" => $seo["seo"],
+                "smo" => $seo["smo"],
+                "js" => [
+                    "modulos" => ["Login"]
+                ]
+            ];
+        }
+
+        // Carrega a view
+        $this->view($view,$dados);
+    }
+
+
+
+    /**
      * Método responsável por montar a página de sair para o
      * vendedor e o administrador.
      * ------------------------------------------------------

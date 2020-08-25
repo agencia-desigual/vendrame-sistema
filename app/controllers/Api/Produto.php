@@ -10,6 +10,7 @@
 namespace Controller\Api;
 
 // Importações
+use Helper\Apoio;
 use Model\AtributoProduto;
 use Sistema\Controller;
 use Sistema\Helper\Seguranca;
@@ -21,6 +22,9 @@ class Produto extends Controller
     private $objModelProduto;
     private $objModelCategoria;
     private $objModelMarca;
+
+    // Helpers
+    private $objHelperApoio;
 
     private $objSeguranca;
 
@@ -34,6 +38,9 @@ class Produto extends Controller
         $this->objModelProduto = new \Model\Produto();
         $this->objModelCategoria = new \Model\Categoria();
         $this->objModelMarca = new \Model\Marca();
+
+        // Instancia helpers
+        $this->objHelperApoio = new Apoio();
 
         $this->objSeguranca = new Seguranca();
 
@@ -66,18 +73,15 @@ class Produto extends Controller
         if (!empty($produtos))
         {
 
+
+            foreach ($produtos as $produto)
+            {
+                // Busca as imagens do produto
+                $produto->imagem = $this->objHelperApoio->getImagem($produto->id_produto, "produto");
+            }
+
             $this->debug($produtos);
 
-//            foreach ($produtos as $produto)
-//            {
-//                // Busca as imagens do produto
-//                $produto->img = $this->objHelperApoio->getImagem($produto->id_produto, "produto");
-//
-//                // Busca a empresa do produto
-//                $produto->empresa = $this->objModelEmpresa
-//                    ->get(["id_empresa" => $produto->id_empresa])
-//                    ->fetch(\PDO::FETCH_OBJ);
-//            }
         }
 
 

@@ -85,6 +85,9 @@ $Rotas->onGroup("api-atributo","DELETE","produto/{p}","desvinculaProduto");
 // -- Rotas sem grupo --- INDEX
 $Rotas->on("GET","","Site::index");
 
+// -- Rotas sem grupo --- INDEX
+$Rotas->on("GET","produtos","Site::produtos");
+
 // -- Rotas sem grupo --- LOGIN
 $Rotas->on("GET","login","Site::login");
 
