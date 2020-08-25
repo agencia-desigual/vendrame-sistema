@@ -9,6 +9,11 @@
 namespace Helper;
 
 // Inicia a classe
+use Model\Empresa;
+use Model\Imagem;
+use Model\Marca;
+use Model\Produto;
+
 class Apoio
 {
 
@@ -87,5 +92,71 @@ class Apoio
         // Retorna o numero com a letra
         return $numero . $array[$cont];
     }
+
+
+
+    /**
+     * Método responsável por configurar a imagem padrão
+     * de um produto ou de uma marca.
+     * --------------------------------------------------------------
+     * @param $id [Id do produto ou marca]
+     * @param $tipo [marca ou produto]
+     * @return array|string
+     */
+    public function getImagem($id, $tipo = "produto")
+    {
+        // Verifica se é produto ou marca
+        if($tipo == "produto")
+        {
+            // Objeto
+            $objModelProduto = new Produto();
+            $objModelImagem = new Imagem();
+
+            // Busca o produto selecionado
+            $produto = $objModelProduto
+                ->get(["id_produto" => $id])
+                ->fetch(\PDO::FETCH_OBJ);
+
+            // Busca as imagens do produto
+            $imagens = $objModelImagem
+                ->get(["id_produto" => $id])
+                ->fetchAll(\PDO::FETCH_OBJ);
+
+            // Verifica se não encontrou
+            if(empty($imagens))
+            {
+                // Imagem padrão
+                $imagens = BASE_URL . 'assets/theme/site/img/padrao/produto.png';
+            }
+
+            // Retorna
+            return $imagens;
+        }
+        elseif ($tipo == "marca")
+        {
+            // Objeto
+            $objModelMarca = new Marca();
+
+            // Busca a empresa
+            $marca = $objModelMarca
+                ->get(["id_marca" => $id])
+                ->fetch(\PDO::FETCH_OBJ);
+
+            // Verifica se tem logo
+            if(!empty($marca->logo))
+            {
+               $marca->logo = BASE_STORAGE . "marca/" . $marca->logo;
+            }
+            else
+            {
+                $marca->logo = BASE_URL.'assets/theme/site/img/padrao/marca.png';
+            }
+
+            // Retorna
+            return $marca;
+        }
+
+    } // End >> fun::getImagem()
+
 
 } // End >> Class::Apoio()
