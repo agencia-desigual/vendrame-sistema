@@ -64,6 +64,58 @@ $("#formLogin").on("submit", function () {
 
 
 
+/**
+ * Método responsável por cadastrar uma nova newsletter
+ * enviado seus dados para a API correspndente.
+ * ---------------------------------------------------------
+ * @author edilson-pereira
+ */
+$("#formInserirUsuario").on("submit", function(){
+
+    // Não atualiza a página
+    event.preventDefault();
+
+    // Recupera os dados do formulário
+    var form = new FormData(this);
+
+    // Bloqueia o formulário
+    $(this).addClass("bloqueiaForm");
+
+    // Recupera a session
+    var token = Global.session.get("token");
+
+    // Recupera o url
+    var url = Global.config.urlApi + "usuario/insert";
+
+    // Realiza a requisição
+    Global.enviaApi("POST", url, form,token.token, "swal")
+        .then((data) => {
+
+            // Avisa que deu certo
+            Global.setSuccess("Cadastro realizado com sucesso!");
+
+            // Atualiza a pagina
+            setTimeout(function () {
+                location.reload();
+            },1500);
+
+            // Limpa o formulário
+            Global.limparFormulario("#formInserirUsuario");
+
+            // Desbloqueia o formulário
+            $(this).removeClass("bloqueiaForm");
+
+        })
+        .catch((error) => {
+            // Desbloqueia o formulário
+            $(this).removeClass("bloqueiaForm");
+        });
+
+    // Não atualiza mesmo
+    return false;
+});
+
+
 
 /**
  * Método responsável por realizar o login

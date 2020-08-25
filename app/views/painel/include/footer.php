@@ -48,9 +48,6 @@
 <script src="<?= BASE_URL; ?>assets/theme/painel/pages/datatables.init.js"></script>
 <script src="<?= BASE_URL; ?>assets/theme/painel/pages/form-advanced.js"></script>
 
-
-<script src="<?= BASE_URL; ?>assets/theme/painel/pages/dashboard.init.js"></script>
-
 <!-- App js -->
 <script src="<?= BASE_URL; ?>assets/theme/painel/js/app.js"></script>
 
