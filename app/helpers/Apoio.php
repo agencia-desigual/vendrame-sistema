@@ -145,15 +145,15 @@ class Apoio
             // Verifica se tem logo
             if(!empty($marca->logo))
             {
-               $marca->logo = BASE_STORAGE . "marca/" . $marca->logo;
+               $imagem = BASE_STORAGE . "marca/" . $marca->logo;
             }
             else
             {
-                $marca->logo = BASE_URL.'assets/theme/site/img/padrao/marca.png';
+                $imagem = BASE_URL.'assets/theme/site/img/padrao/marca.png';
             }
 
             // Retorna
-            return $marca;
+            return $imagem;
         }
 
     } // End >> fun::getImagem()

@@ -5,6 +5,8 @@ namespace Controller;
 
 // Importação
 use Helper\Apoio;
+use Model\Categoria;
+use Model\Marca;
 use Sistema\Controller as CI_controller;
 
 // Classe
@@ -12,6 +14,8 @@ class Site extends CI_controller
 {
     // Objetos
     private $objHelperApoio;
+    private $objModelMarca;
+    private $objModelCategoria;
 
 
     // Método construtor
@@ -22,6 +26,8 @@ class Site extends CI_controller
 
         // Instancia os objetos
         $this->objHelperApoio = new Apoio();
+        $this->objModelMarca = new Marca();
+        $this->objModelCategoria = new Categoria();
 
     } // End >> fun::__construct()
 
@@ -55,6 +61,63 @@ class Site extends CI_controller
         $this->view("site/index", $dados);
 
     } // End >> fun::index()
+
+
+    /**
+     * Método responsável por montar a página inicial do
+     * catalogo de produtos
+     * ------------------------------------------------------
+     * @url produtos
+     */
+    public function produtos()
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $marcas = null;
+        $categorias = null;
+
+        // Verificando se o usuario está logado
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Busca todas as marcas
+        $marcas = $this->objModelMarca
+            ->get()
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Verificando se encontrou
+        if (!empty($marcas))
+        {
+            // Busca a logo da marca
+            foreach ($marcas as $marca)
+            {
+                // Vincula a logo
+                $marca->logo = $this->objHelperApoio->getImagem($marca->id_marca,"marca");
+            }
+        }
+
+
+
+        // Busca todas as categorias
+        $categoriasPAI = $this->objModelCategoria
+            ->get(["id_categoria_pai" => "IS NULL"])
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Dados da view
+        $dados = [
+            "usuario" => $usuario,
+            "marcas" => $marcas,
+            "categoriasPAI" => $categoriasPAI,
+            "js" => [
+                "modulos" => ["Produtos"]
+            ]
+        ];
+
+        // Carrega a view
+        $this->view("site/produtos", $dados);
+
+    } // End >> fun::produtos()
+
 
 
     /**
@@ -104,73 +167,6 @@ class Site extends CI_controller
         } // Error >> Usuário sem permissão
 
     } // End >> fun::dashboard()
-
-
-
-    /**
-     * Método responsável por montar a página de produtos do
-     * catalogo, já com todos os filtros
-     * ------------------------------------------------------
-     * @url produtos
-     */
-    public function produtos()
-    {
-
-        // Variaveis
-        $dados = null;
-        $view = "";
-        $usuario = null;
-
-        $_SESSION["usuario"] = "Edilson";
-
-        // Verificando se o usuario está logado
-        $usuario = (!empty($_SESSION["usuario"])) ? $_SESSION["usuario"] : null;
-
-        if (!empty($usuario))
-        {
-
-            // Busca as marcas
-            $marcas = null;
-
-            // View correta
-            $view = "site/index";
-
-            // As tags SEO e SMO
-            $seo = $this->getSEO();
-
-            // Dados da view
-            $dados = [
-                "seo" => $seo["seo"],
-                "smo" => $seo["smo"],
-                "usuario" => $usuario,
-                "marcas" => $marcas,
-                "js" => [
-                    "modulos" => ["Produto"]
-                ]
-            ];
-
-        }
-        else
-        {
-            // View correta
-            $view = "site/acesso/login";
-
-            // As tags SEO e SMO
-            $seo = $this->getSEO();
-
-            // Dados da view
-            $dados = [
-                "seo" => $seo["seo"],
-                "smo" => $seo["smo"],
-                "js" => [
-                    "modulos" => ["Login"]
-                ]
-            ];
-        }
-
-        // Carrega a view
-        $this->view($view,$dados);
-    }
 
 
 

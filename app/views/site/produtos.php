@@ -1,64 +1,181 @@
 <?php $this->view("site/include/header"); ?>
 
-    <div class="index">
+
+    <!-- CABEÇALHO -->
+    <div class="cabecalho">
         <div class="container">
             <div class="row">
-                <div class="col"></div>
-                <div class="col-md-7">
-                    <div class="margin-form centraliza-itens-sem-text">
-
-                        <!-- FORMULARIO -->
-                        <form id="pesquisaProduto">
-                            <div class="form-group">
-                                <div class="text-center mb-4">
-                                    <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
-                                </div>
-                                <div class="busca">
-                                    <input type="text" name="busca" class="form-control input-busca" id="pesquisa" aria-describedby="busca" placeholder="Encontre os produtos">
-                                    <button type="submit" class="btn btn-primary btn-busca">
-                                        <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-
-                                            <g>
-                                                <title>background</title>
-                                                <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
-                                            </g>
-                                            <g>
-                                                <title>Layer 1</title>
-                                                <path fill="#ffffff" id="svg_2" d="m31.12,26.879l-7.342,-7.342c-1.095,1.701 -2.541,3.148 -4.242,4.242l7.343,7.342c1.172,1.172 3.071,1.172 4.241,0c1.173,-1.169 1.173,-3.068 0,-4.242z"/>
-                                                <path fill="#ffffff" id="svg_3" d="m24,12c0,-6.627 -5.373,-12 -12,-12s-12,5.373 -12,12s5.373,12 12,12s12,-5.373 12,-12zm-12,9c-4.964,0 -9,-4.036 -9,-9c0,-4.963 4.036,-9 9,-9c4.963,0 9,4.037 9,9c0,4.964 -4.037,9 -9,9z"/>
-                                                <path fill="#ffffff" id="svg_4" d="m5,12l2,0c0,-2.757 2.242,-5 5,-5l0,-2c-3.86,0 -7,3.142 -7,7z"/>
-                                            </g>
-                                        </svg>
-                                    </button>
-                                    <div style="clear: both"></div>
-                                </div>
-                                <div style="position: relative">
-                                    <div class="resultado"></div>
-                                </div>
-                                <small id="emailHelp" class="form-text text-muted"><a style="color: #204f93; text-decoration: none" href="#">Ver todos os produtos</a></small>
-                            </div>
-                        </form>
-                        <!-- FIM >> FORMULARIO -->
-
-                        <!-- MARCAS -->
-                        <div class="row mt-5 animate__animated animate__fadeInUp">
-                            <div class="col-md-4 col-6 centraliza-itens">
-                                <img width="100%" src="<?= BASE_STORAGE ?>marca/ax.png">
-                            </div>
-                            <div class="col-md-4 col-6 centraliza-itens">
-                                <img width="100%" src="<?= BASE_STORAGE ?>marca/rayban.png">
-                            </div>
-                            <div class="col-md-4 col-6 centraliza-itens">
-                                <img width="100%" src="<?= BASE_STORAGE ?>marca/guess.png">
-                            </div>
-                        </div>
-                        <!-- FIM >> MARCAS -->
-
-                    </div>
+                <div class="col-md-12 text-center">
+                    <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
                 </div>
-                <div class="col"></div>
             </div>
         </div>
     </div>
+    <!-- FIM >> CABEÇALHO -->
+
+
+    <!-- FILTROS DE PRODUTOS -->
+    <div class="filtros">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p>Foram encontrados 989 produtos no catálogo</p>
+                    <button onclick="AbreModalFiltro('abre')">FILTRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM >> FILTROS DE PRODUTOS -->
+
+
+    <!-- PRODUTOS -->
+    <div class="produtos">
+        <div class="row">
+            <div class="col-4 card-produto">
+                <div class="thumb" style="background-image: url('<?= BASE_URL ?>assets/theme/site/img/padrao/produto.png')"></div>
+                <div class="referencia">
+                    <p>TESTE-123</p>
+                </div>
+                <div class="nome">
+                    <p>
+                        <?= mb_strimwidth("Mussum Ipsum, cacilds vidis litro abertis. Aenean aliquam molestie leo, vitae iaculis nisl. Casamentiss faiz malandris se pirulitá. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Detraxit consequat et quo num tendi nada.", 0, 40, "...");  ?>
+                    </p>
+                </div>
+                <div class="valor">
+                    <p>R$ <?= number_format('27.5',2,",",".") ?></p>
+                </div>
+            </div>
+            <div class="col-4 card-produto">
+                <div class="thumb" style="background-image: url('<?= BASE_URL ?>assets/theme/site/img/padrao/produto.png')"></div>
+                <div class="referencia">
+                    <p>TESTE-123</p>
+                </div>
+                <div class="nome">
+                    <p>
+                        <?= mb_strimwidth("Mussum Ipsum, cacilds vidis litro abertis. Aenean aliquam molestie leo, vitae iaculis nisl. Casamentiss faiz malandris se pirulitá. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Detraxit consequat et quo num tendi nada.", 0, 40, "...");  ?>
+                    </p>
+                </div>
+                <div class="valor">
+                    <p>R$ <?= number_format('27.5',2,",",".") ?></p>
+                </div>
+            </div>
+            <div class="col-4 card-produto">
+                <div class="thumb" style="background-image: url('<?= BASE_URL ?>assets/theme/site/img/padrao/produto.png')"></div>
+                <div class="referencia">
+                    <p>TESTE-123</p>
+                </div>
+                <div class="nome">
+                    <p>
+                        <?= mb_strimwidth("Mussum Ipsum, cacilds vidis litro abertis. Aenean aliquam molestie leo, vitae iaculis nisl. Casamentiss faiz malandris se pirulitá. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Detraxit consequat et quo num tendi nada.", 0, 40, "...");  ?>
+                    </p>
+                </div>
+                <div class="valor">
+                    <p>R$ <?= number_format('27.5',2,",",".") ?></p>
+                </div>
+            </div>
+            <div class="col-4 card-produto">
+                <div class="thumb" style="background-image: url('<?= BASE_URL ?>assets/theme/site/img/padrao/produto.png')"></div>
+                <div class="referencia">
+                    <p>TESTE-123</p>
+                </div>
+                <div class="nome">
+                    <p>
+                        <?= mb_strimwidth("Mussum Ipsum, cacilds vidis litro abertis. Aenean aliquam molestie leo, vitae iaculis nisl. Casamentiss faiz malandris se pirulitá. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Detraxit consequat et quo num tendi nada.", 0, 40, "...");  ?>
+                    </p>
+                </div>
+                <div class="valor">
+                    <p>R$ <?= number_format('27.5',2,",",".") ?></p>
+                </div>
+            </div>
+            <div class="col-4 card-produto">
+                <div class="thumb" style="background-image: url('<?= BASE_URL ?>assets/theme/site/img/padrao/produto.png')"></div>
+                <div class="referencia">
+                    <p>TESTE-123</p>
+                </div>
+                <div class="nome">
+                    <p>
+                        <?= mb_strimwidth("Mussum Ipsum, cacilds vidis litro abertis. Aenean aliquam molestie leo, vitae iaculis nisl. Casamentiss faiz malandris se pirulitá. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Detraxit consequat et quo num tendi nada.", 0, 40, "...");  ?>
+                    </p>
+                </div>
+                <div class="valor">
+                    <p>R$ <?= number_format('27.5',2,",",".") ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM >> PRODUTOS -->
+
+    <!-- MODAL FILTRO -->
+    <div class="modal-filtro animate__fadeInLeft">
+
+        <div class="conteudo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 item centraliza-itens-sem-text">
+                        <div>
+                            <img class="icone" src="<?= BASE_URL ?>assets/theme/site/img/icones/categorias.svg">
+                            <h1>Categorias</h1>
+                            <div class="itens">
+                                <?php foreach ($categoriasPAI as $categoria) : ?>
+                                    <a href="#"><?= $categoria->nome ?></a>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 item centraliza-itens-sem-text">
+                        <div>
+                            <img class="icone" src="<?= BASE_URL ?>assets/theme/site/img/icones/marca.svg">
+                            <h1>Marcas</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 item centraliza-itens-sem-text">
+                        <div>
+                            <img class="icone" src="<?= BASE_URL ?>assets/theme/site/img/icones/preco.svg">
+                            <h1>Preço</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn-cancelar" onclick="AbreModalFiltro('fecha')">CANCELAR</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn-filtrar">FILTRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM >> MODAL FILTRO -->
+
 
 <?php $this->view("site/include/footer") ?>
+<script>
+
+    // Função para o filtro
+    function AbreModalFiltro(tipo)
+    {
+        if (tipo === "abre")
+        {
+            $(".modal-filtro").css("left","0px");
+            $(".modal-filtro").css("opacity","1");
+        }
+        else
+        {
+            $(".modal-filtro").css("left","-100%");
+            $(".modal-filtro").css("opacity","0");
+        }
+    }
+
+</script>

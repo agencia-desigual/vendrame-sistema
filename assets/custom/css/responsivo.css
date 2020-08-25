@@ -1,5 +1,14 @@
 @media only screen and (max-width: 767px)
 {
+
+}
+
+@media only screen and (max-width: 600px)
+{
+    .card-produto .thumb
+    {
+        min-height: 150px;
+    }
 }
 
 @media only screen and (max-width: 425px)
@@ -7,6 +16,30 @@
     .index .logo
     {
         width: 300px;
+    }
+
+    .card-produto .thumb
+    {
+        min-height: 100px;
+    }
+
+    .card-produto .nome,
+    .card-produto .valor
+    {
+        font-size: 13px;
+    }
+
+    .card-produto .referencia
+    {
+        font-size: 08px;
+    }
+
+    .filtros button
+    {
+        display: block;
+        width: 100%;
+        float: unset;
+        margin-top: 10px;
     }
 
 }
