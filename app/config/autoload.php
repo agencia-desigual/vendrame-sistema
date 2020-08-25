@@ -24,6 +24,10 @@ $pluginsAutoLoad = [
     "dropify" => [
         "js" => ["js/dropify.min"],
         "css" => ["css/dropify.min"],
+    ],
+    "animate" => [
+        "js" => null,
+        "css" => ["css/animate.min"],
     ]
 ];
 

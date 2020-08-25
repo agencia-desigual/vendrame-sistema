@@ -3,6 +3,8 @@
 <head>
 
     <meta charset="utf-8" />
+    <!-- Favicon -->
+    <link href="<?= BASE_URL ?>assets/theme/site/img/favico.png" rel="icon" type="image/png">
 
     <title>Catalogo - Ótica Vendrame</title>
 

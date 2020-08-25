@@ -8,13 +8,13 @@
                     <div class="margin-form centraliza-itens-sem-text">
 
                         <!-- FORMULARIO -->
-                        <form>
+                        <form id="pesquisaProduto">
                             <div class="form-group">
                                 <div class="text-center mb-4">
-                                    <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-branca.png">
+                                    <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
                                 </div>
                                 <div class="busca">
-                                    <input type="text" class="form-control input-busca" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <input type="text" name="busca" class="form-control input-busca" id="pesquisa" aria-describedby="busca" placeholder="Encontre os produtos">
                                     <button type="submit" class="btn btn-primary btn-busca">
                                         <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
 
@@ -35,16 +35,22 @@
                                 <div style="position: relative">
                                     <div class="resultado"></div>
                                 </div>
-                                <small id="emailHelp" class="form-text text-muted">Encontre os produtos</small>
+                                <small style="display: none" id="emailHelp" class="form-text text-muted">Encontre os produtos</small>
                             </div>
                         </form>
                         <!-- FIM >> FORMULARIO -->
 
                         <!-- MARCAS -->
-                        <div class="row">
-                            <div class="col-md-4 col-6">asdasd</div>
-                            <div class="col-md-4 col-6">asdasd</div>
-                            <div class="col-md-4 col-6">asdasd</div>
+                        <div class="row mt-5 animate__animated animate__fadeInUp">
+                            <div class="col-md-4 col-6 centraliza-itens">
+                                <img width="100%" src="<?= BASE_STORAGE ?>marca/ax.png">
+                            </div>
+                            <div class="col-md-4 col-6 centraliza-itens">
+                                <img width="100%" src="<?= BASE_STORAGE ?>marca/rayban.png">
+                            </div>
+                            <div class="col-md-4 col-6 centraliza-itens">
+                                <img width="100%" src="<?= BASE_STORAGE ?>marca/guess.png">
+                            </div>
                         </div>
                         <!-- FIM >> MARCAS -->
 
