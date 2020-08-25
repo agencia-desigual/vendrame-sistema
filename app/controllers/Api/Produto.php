@@ -10,6 +10,7 @@
 namespace Controller\Api;
 
 // Importações
+use Model\AtributoProduto;
 use Sistema\Controller;
 use Sistema\Helper\Seguranca;
 
@@ -293,7 +294,15 @@ class Produto extends Controller
     } // End >> fun::update()
 
 
-
+    /**
+     * Método responsável por deletar um determinado produto
+     * do banco de dados.
+     * -----------------------------------------------------
+     * @param $id [Id do produto]
+     * -----------------------------------------------------
+     * @url api/usuario/delete/[ID]
+     * @method DELETE
+     */
     public function delete($id)
     {
         // Variaveis
@@ -301,6 +310,82 @@ class Produto extends Controller
         $usuario = null;
         $obj = null;
 
+        // Objetos
+        $objModelImagem = new \Model\Imagem();
+        $objModelFichaTecnica = new \Model\FichaTecnica();
+        $objModelAtributoProduto = new AtributoProduto();
+
+        // Recupera o usuário
+        $usuario = $this->objSeguranca->security();
+
+        // Verifica se possui permissão
+        if($usuario->nivel == "admin")
+        {
+            // Busca o objeto a ser deletado
+            $obj = $this->objModelProduto
+                ->get(["id_produto" => $id])
+                ->fetch(\PDO::FETCH_OBJ);
+
+            // Verifica se existe
+            if(!empty($obj))
+            {
+                // Busca todas as imagens
+                $imagens = $objModelImagem
+                    ->get(["id_produto" => $id])
+                    ->fetchAll(\PDO::FETCH_OBJ);
+
+                // Caminho
+                $caminho = "./storage/produto/" . $obj->id_produto . "/";
+
+                // Percorre as imagens
+                foreach ($imagens as $img)
+                {
+                    // Deleta a imagem
+                    unlink($caminho . $img->imagem);
+
+                    // Deleta
+                    $objModelImagem->delete(["id_imagem" => $img->id_imagem]);
+                }
+
+                // Deleta as ficha tecnicas
+                $objModelFichaTecnica->delete(["id_produto" => $id]);
+
+                // Deleta os atributos
+                $objModelAtributoProduto->delete(["id_produto" => $id]);
+
+                // Deleta o produto
+                if($this->objModelProduto->delete(["id_produto" => $id]) != false)
+                {
+                    // Array de sucesso
+                    $dados = [
+                        "tipo" => true,
+                        "code" => 200,
+                        "mensagem" => "Produto deletado com sucesso.",
+                        "objeto" => $obj
+                    ];
+                }
+                else
+                {
+                    // Msg
+                    $dados = ["mensagem" => "Ocorreu um erro ao deletar o produto."];
+                } // Error >> Ocorreu um erro ao deletar o produto.
+            }
+            else
+            {
+                // Msg
+                $dados = ["mensagem" => "Produto informado não existe."];
+            } // Error >> Produto informado não existe.
+        }
+        else
+        {
+            // Msg
+            $dados = ["mensagem" => "Usuário sem permissão."];
+        } // Error >> Usuário sem permissão
+
+        // Retorno
+        $this->api($dados);
+
     } // End >> fun::delete()
+
 
 } // End >> Class::Produto
