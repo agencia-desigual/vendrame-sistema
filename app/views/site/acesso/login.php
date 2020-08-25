@@ -7,20 +7,20 @@
                 <div class="col-md-5">
                     <div class="espaco-form centraliza-itens-sem-text">
                         <div>
-                            <form>
+                            <form id="formLogin">
                                 <div class="text-center">
                                     <img src="<?= BASE_URL; ?>assets/theme/site/img/logo-branca.png">
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="cpf">CPF</label>
-                                        <input type="tel" class="form-control maskCPF" id="cpf">
+                                        <input type="tel" name="usuario" class="form-control maskCPF" id="cpf" />
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="senha">Senha</label>
-                                        <input type="password" class="form-control" id="senha">
+                                        <input type="password" name="senha" class="form-control" id="senha" />
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">LOGIN</button>

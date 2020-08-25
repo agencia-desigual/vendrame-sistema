@@ -2,7 +2,7 @@
 
 // Nome do App
 
-define("SITE_NOME", "Ótica Vendrame - Catálogo");
+define("SITE_NOME", "Ótica Vendrame");
 
 define("NUM_PAG", 24);
 

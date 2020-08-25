@@ -1,26 +1,28 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Igor
- * Date: 26/03/2019
- * Time: 18:29
- */
 
+// NameSpace
 namespace Controller;
 
+// Importação
+use Helper\Apoio;
 use Sistema\Controller as CI_controller;
 
-
+// Classe
 class Site extends CI_controller
 {
+    // Objetos
+    private $objHelperApoio;
 
     // Método construtor
     function __construct()
     {
         // Carrega o contrutor da classe pai
         parent::__construct();
-    }
 
+        // Instancia os objetos
+        $this->objHelperApoio = new Apoio();
+
+    } // End >> fun::__construct()
 
 
     /**
@@ -31,62 +33,55 @@ class Site extends CI_controller
      */
     public function index()
     {
-
         // Variaveis
         $dados = null;
-        $view = "";
         $usuario = null;
-
-        $_SESSION["usuario"] = "Edilson";
+        $marcas = null;
 
         // Verificando se o usuario está logado
-        $usuario = (!empty($_SESSION["usuario"])) ? $_SESSION["usuario"] : null;
+        $usuario = $this->objHelperApoio->seguranca();
 
-        if (!empty($usuario))
-        {
-
-            // Busca as marcas
-            $marcas = null;
-
-            // View correta
-            $view = "site/index";
-
-            // As tags SEO e SMO
-            $seo = $this->getSEO();
-
-            // Dados da view
-            $dados = [
-                "seo" => $seo["seo"],
-                "smo" => $seo["smo"],
-                "usuario" => $usuario,
-                "marcas" => $marcas,
-                "js" => [
-                    "modulos" => ["Produtos"]
-                ]
-            ];
-
-        }
-        else
-        {
-            // View correta
-            $view = "site/acesso/login";
-
-            // As tags SEO e SMO
-            $seo = $this->getSEO();
-
-            // Dados da view
-            $dados = [
-                "seo" => $seo["seo"],
-                "smo" => $seo["smo"],
-                "js" => [
-                    "modulos" => ["Login"]
-                ]
-            ];
-        }
+        // Dados da view
+        $dados = [
+            "usuario" => $usuario,
+            "marcas" => $marcas,
+            "js" => [
+                "modulos" => ["Produtos"]
+            ]
+        ];
 
         // Carrega a view
-        $this->view($view,$dados);
-    }
+        $this->view("site/index", $dados);
+
+    } // End >> fun::index()
+
+
+    /**
+     * Método responsável por montar a página de login
+     * para um determinado usuário que não esteja com uma
+     * session ativa no sistema.
+     * -------------------------------------------------------
+     * @url login
+     */
+    public function login()
+    {
+        // Variaveis
+        $dados = null;
+
+        // Dados da view
+        $dados = [
+            "js" => [
+                "modulos" => ["Usuario"]
+            ]
+        ];
+
+        // Carrega a view
+        $this->view("site/acesso/login", $dados);
+
+    } // End >> fun::login()
+
+
+
 
 
 
@@ -105,6 +100,8 @@ class Site extends CI_controller
         $this->view("site/acesso/sair");
 
     }// End >> fun::sair()
+
+
 
 
 } // END::Class Site
