@@ -495,7 +495,7 @@ class Usuario extends Controller
         if($usuario->nivel == "admin")
         {
             // Verifica se não vai deletar ele mesmo
-            if($usuario->id_usuario == $id)
+            if($usuario->id_usuario != $id)
             {
                 // Busca o usuário a ser deletado
                 $objeto = $this->objModelUsuario

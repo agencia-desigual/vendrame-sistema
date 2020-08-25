@@ -118,6 +118,60 @@ $("#formInserirUsuario").on("submit", function(){
 
 
 /**
+ * Método responsável por deletar uma determinada
+ * categoria.Enviando a solicitação para a API
+ */
+$(".deletarUsuario").on("click", function () {
+
+    // Não atualiza a página
+    event.preventDefault();
+
+    // Recupera as informações
+    var id = $(this).data("id");
+
+    // Url e Token
+    var url = Global.config.urlApi + "usuario/delete/" + id;
+    var token = Global.session.get("token");
+
+    // Pergunta se realmente quer deletar
+    Swal.fire({
+        title: "Deletar usuário",
+        text: "Realmente deseja deletar esse usuário?",
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim!'
+    }).then((result) => {
+        if (result.value)
+        {
+            // Realiza a solicitação
+            Global.enviaApi("DELETE", url, null, token.token)
+                .then((data) => {
+
+                    // Avisa que deu certo
+                    Global.setSuccess(data.mensagem);
+
+                    // Remove da tabela
+                    $('#datatable-buttons')
+                        .DataTable()
+                        .row("#tb_" + id)
+                        .remove()
+                        .draw(false);
+
+
+                });
+        }
+    });
+
+
+    // Não atualiza mesmo
+    return false;
+});
+
+
+/**
  * Método responsável por realizar o login
  * --------------------------------------------------
  * @param user string

@@ -65,8 +65,6 @@
                                             <td class="text-center">
                                                 <button <?= ($usuario->id_usuario == $user->id_usuario) ? 'style="display:none;"' : ''?>
                                                         data-id="<?= $user->id_usuario; ?>"
-                                                        data-titulo="Deletar Usuário"
-                                                        data-texto="Caso esse administrador seja deletado o seu histórico será deletado também."
                                                         class="deletarUsuario btn btn-danger btn-icon btn-sm mr-2"
                                                         data-toggle="tooltip" data-original-title="Deletar">
                                                     <i class="fas fa-window-close"></i>
