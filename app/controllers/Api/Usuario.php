@@ -314,6 +314,7 @@ class Usuario extends Controller
                         "cpf" => $cpf,
                         "senha" => md5($post["senha"]),
                         "status" => (!empty($post["status"]) ? $post["status"] : true),
+                        "nivel" => (!empty($post["nivel"]) ? $post["nivel"] : "vendedor"),
                         "cadastro" => date("Y-m-d H:i:s")
                     ];
 

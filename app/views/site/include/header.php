@@ -17,5 +17,10 @@
     <!-- Autoload ===================================================== -->
     <?php $this->view("autoload/css"); ?>
 
+    <link rel="stylesheet" href="<?= BASE_URL; ?>assets/plugins/bootstrap/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="<?= BASE_URL; ?>assets/custom/css/estilo.css" />
+    <link rel="stylesheet" href="<?= BASE_URL; ?>assets/custom/css/responsivo.css" />
+
 </head>
 <body>

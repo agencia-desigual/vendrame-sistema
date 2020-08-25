@@ -8,7 +8,7 @@
     <meta content="Painel por gerenciar o sistema do <?= SITE_NOME ?>" name="description" />
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="<?= BASE_URL; ?>assets/theme/painel/images/favico.png">
+    <link rel="shortcut icon" href="<?= BASE_URL; ?>assets/custom/img/favico.png">
 
     <!-- Morris Chart CSS -->
     <link rel="stylesheet" href="<?= BASE_URL; ?>assets/theme/painel/plugins/morris/morris.css">
@@ -38,6 +38,7 @@
     <!-- Css Autoload -->
     <?php $this->view("autoload/css"); ?>
 
+    <link href="<?= BASE_URL; ?>assets/custom/css/estilo-painel.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -52,10 +53,10 @@
         <div class="topbar-left">
            <a href="<?= BASE_URL ?>painel" class="logo">
                 <span class="logo-light">
-                    <img src="<?= BASE_URL ?>assets/theme/painel/images/logo-branca-150px.png" alt="<?= SITE_NOME ?>" />
+                    <img src="<?= BASE_URL ?>assets/custom/img/logo-branca.png" style="width: 190px;" alt="<?= SITE_NOME ?>" />
                 </span>
                 <span class="logo-sm">
-                    <img src="<?= BASE_URL ?>assets/theme/painel/images/icone-branco-150px.png" alt="<?= SITE_NOME ?>" />
+                    <img src="<?= BASE_URL ?>assets/custom/img/favico.png" style="width: 100%;" alt="<?= SITE_NOME ?>" />
                 </span>
             </a>
         </div>
@@ -72,27 +73,6 @@
                     </a>
                 </li>
                 <!-- FIM TELA CHEIA -->
-
-
-                <li class="dropdown notification-list list-inline-item">
-                    <div class="dropdown notification-list nav-pro-img">
-                        <a class="dropdown-toggle nav-link arrow-none nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="<?= BASE_URL; ?>assets/custom/img/padrao/user.png" alt="user" class="rounded-circle">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                            <!-- item-->
-                            <!-- <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle"></i> Perfil</a> -->
-                            <a class="dropdown-item" href="<?= BASE_URL; ?>" target="_blank">
-                                <i class="fas fa-file-alt"></i> Ver Site
-                            </a>
-
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="<?= BASE_URL; ?>sair">
-                                <i class="mdi mdi-power text-danger"></i> Sair
-                            </a>
-                        </div>
-                    </div>
-                </li>
 
             </ul>
 
@@ -144,7 +124,7 @@
 
                     <!-- MARCAS -->
                     <li>
-                        <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-medal"></i><span> Marcas <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="ti-star"></i><span> Marcas <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
                             <li><a href="<?= BASE_URL; ?>painel/marca/adicionar">Adicionar</a></li>
                             <li><a href="<?= BASE_URL; ?>painel/marcas">Listar Todas</a></li>
@@ -166,7 +146,7 @@
 
                     <!-- PRODUTOS -->
                     <li>
-                        <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-medal"></i><span> Produtos <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-boxes"></i><span> Produtos <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
                             <li><a href="<?= BASE_URL; ?>painel/produto/adicionar">Adicionar</a></li>
                             <li><a href="<?= BASE_URL; ?>painel/produtos">Listar Todos</a></li>
@@ -177,7 +157,7 @@
 
                     <!-- SAIR -->
                     <li>
-                        <a href="<?= BASE_URL; ?>sair" class="waves-effect"><i class="ti-star"></i><span> Sair </span></a>
+                        <a href="<?= BASE_URL; ?>sair" class="waves-effect"><i class="fas fa-running"></i><span> Sair </span></a>
                     </li>
                     <!-- FIM >> SAIR -->
                 </ul>

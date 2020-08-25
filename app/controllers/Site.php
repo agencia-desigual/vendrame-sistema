@@ -7,6 +7,7 @@ namespace Controller;
 use Helper\Apoio;
 use Model\Categoria;
 use Model\Marca;
+use Model\Usuario;
 use Sistema\Controller as CI_controller;
 
 // Classe
@@ -145,12 +146,23 @@ class Site extends CI_controller
     } // End >> fun::login()
 
 
-
+    /**
+     * Método responsável por montar a página inicial do
+     * painel administrativo.
+     * -------------------------------------------------------
+     * @url painel
+     */
     public function dashboard()
     {
         // Variaveis
         $dados = null;
         $usuario = null;
+
+        // Objetos
+        $objModelCategoria = new Categoria();
+        $objModelProduto = new \Model\Produto();
+        $objModelMarca = new Marca();
+        $objModelUsuario = new Usuario();
 
         // Recupera o usuário
         $usuario = $this->objHelperApoio->seguranca();
@@ -158,7 +170,45 @@ class Site extends CI_controller
         // Verifica se é admin
         if($usuario->nivel == "admin")
         {
+            // Contadores
+            $numCategoria = $objModelCategoria
+                ->get()
+                ->rowCount();
 
+            $numProduto = $objModelProduto
+                ->get()
+                ->rowCount();
+
+            $numMarca = $objModelMarca
+                ->get()
+                ->rowCount();
+
+            $numUsuario = $objModelUsuario
+                ->get()
+                ->rowCount();
+
+            // Busca os ultimos produtos
+            $produtos = $objModelProduto
+                ->get(null, "id_produto DESC", 7)
+                ->fetchAll(\PDO::FETCH_OBJ);
+
+            // Busca as marcas
+            $marcas = $objModelMarca
+                ->get(null, "id_marca DESC", 7)
+                ->fetchAll(\PDO::FETCH_OBJ);
+
+            // Dados
+            $dados = [
+                "numCategoria" => $numCategoria,
+                "numProduto" => $numProduto,
+                "numMarca" => $numMarca,
+                "numUsuario" => $numUsuario,
+                "produtos" => $produtos,
+                "marcas" => $marcas,
+                "usuario" => $usuario,
+            ];
+
+            $this->view("painel/dashboard", $dados);
         }
         else
         {
@@ -187,6 +237,11 @@ class Site extends CI_controller
     }// End >> fun::sair()
 
 
+
+    public function error404()
+    {
+        echo "ERRO 404";
+    }
 
 
 } // END::Class Site
