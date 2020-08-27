@@ -170,59 +170,56 @@ class Apoio
     public function getCategorias()
     {
         // Varieveis
-        $categorias = null;
-        $cat = [];
+        $retorno = null;
 
+        // Busca as categorias
+        $retorno = $this->getCategoriaFilha(null);
+
+        // Retorna as categorias
+        return $retorno;
+
+    } // End >> fun::getCategorias()
+
+
+
+    private function getCategoriaFilha($idPai)
+    {
+        // Objetos
         $objModelCategoria = new Categoria();
 
-        // Busca todas as categorias PAI
-        $categorias = $objModelCategoria
-            ->get()
-            ->fetchAll(\PDO::FETCH_OBJ);
+        // Variaveis
+        $categorias = null;
+
+        // Verifica se informou o pai
+        if(!empty($idPai))
+        {
+            // Busca as categorias filhas da pai
+            $categorias = $objModelCategoria
+                ->get(["id_categoria_pai" => $idPai])
+                ->fetchAll(\PDO::FETCH_OBJ);
+        }
+        else
+        {
+            // Busca todas as categorias PAI
+            $categorias = $objModelCategoria
+                ->get(["id_categoria_pai" => "IS NULL"])
+                ->fetchAll(\PDO::FETCH_OBJ);
+        }
 
 
         // Verifica se encontrou
         if (!empty($categorias))
         {
-            // Busca todas as categorias PAI
-            $categoriasPAI = $objModelCategoria
-                ->get(["id_categoria_pai" => "IS NULL"])
-                ->fetchAll(\PDO::FETCH_OBJ);
-
-            // Percorre todas as categorias PAI
-            foreach ($categoriasPAI as $categoriaPAI)
+            // Percorre as categorias pai
+            foreach ($categorias as $cat)
             {
-
-                // Percorre todas as categorias
-                foreach ($categorias as $filhas)
-                {
-                    // Verificando se essa cateogoria PAI tem filhas
-                    if ($categoriaPAI->id_categoria == $filhas->id_categoria_pai)
-                    {
-
-                        // Adiciona as cateogrias na array
-                        $cat[] = $filhas;
-
-                        // Vincula as categorias filhas nas categorias PAI
-                        $categoriaPAI->filhas = $cat;
-
-                    }
-                }
-
-                // Limpa a array auxilia de categoria
-                unset($cat);
-
+                // Busca as categorias Filhas
+                $cat->filhas = $this->getCategoriaFilha($cat->id_categoria);
             }
         }
-        echo "<pre>";
-        print_r($categoriasPAI);
-        echo "</pre>";
-        exit;
 
-
-
-
+        // Retorna as categorias
+        return $categorias;
     }
-
 
 } // End >> Class::Apoio()

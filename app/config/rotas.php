@@ -115,3 +115,9 @@ $Rotas->on("GET","painel/usuario/alterar/{p}","Usuario::alterar");
 $Rotas->on("GET","painel/marcas","Marca::listar");
 $Rotas->on("GET","painel/marca/adicionar","Marca::adicionar");
 $Rotas->on("GET","painel/marca/alterar/{p}","Marca::alterar");
+
+
+// -- Categoria
+$Rotas->on("GET","painel/categorias","Categoria::listar");
+$Rotas->on("GET","painel/categoria/adicionar","Categoria::adicionar");
+$Rotas->on("GET","painel/categoria/alterar/{p}","Categoria::alterar");
