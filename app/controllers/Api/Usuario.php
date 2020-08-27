@@ -416,6 +416,13 @@ class Usuario extends Controller
                     unset($put["senha"]);
                 }
 
+                // Verifica se vai alterar o cpf
+                if(!empty($put["cpf"]))
+                {
+                    // Limpa o cpf
+                    $put["cpf"] = preg_replace("/[^0-9]/", "", $put["cpf"]);
+                }
+
                 // Verifica se vai alterar algo
                 if(!empty($put))
                 {

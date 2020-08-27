@@ -73,7 +73,12 @@ class Usuario extends Controller
     } // End >> fun::listar()
 
 
-
+    /**
+     * Método responsável por adicionar um novo usuário
+     * no sistema.
+     * ------------------------------------------------
+     * @url painel/usuario/adicionar
+     */
     public function adicionar()
     {
         // Variaveis
@@ -105,5 +110,46 @@ class Usuario extends Controller
 
     } // End >> fun::adicionar()
 
+
+    /**
+     * Método responsável por alterar as informações de
+     * um determinado usuário já cadastrado.
+     * -------------------------------------------------
+     * @param $id [Id do usuário]
+     * -------------------------------------------------
+     * @url painel/usuario/alterar/{Id do usuário}
+     */
+    public function alterar($id)
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $user = null;
+
+        // Busca o usuário logado
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Verifica se o usuário possui permissão
+        if($usuario->nivel == "admin")
+        {
+            // Busca o usuário a ser alterado
+            $user = $this->objModelUsuario
+                ->get(["id_usuario" => $id])
+                ->fetch(\PDO::FETCH_OBJ);
+
+            // Array de retorno
+            $dados = [
+                "usuario" => $usuario,
+                "user" => $user,
+                "js" => [
+                    "modulos" => ["Usuario"]
+                ]
+            ];
+
+            // View
+            $this->view("painel/usuario/alterar", $dados);
+        }
+
+    } // End >> fun::alterar()
 
 } // End >> Class::Usuario

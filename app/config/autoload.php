@@ -17,10 +17,10 @@ $pluginsAutoLoad = [
         "js" => ["sweetalert2.all"],
         "css" => null,
     ],
-    "owl-carousel" => [
-        "js" => ["owl.carousel.min"],
-        "css" => ["owl.carousel.min"]
-    ],
+//    "owl-carousel" => [
+//        "js" => ["owl.carousel.min"],
+//        "css" => ["owl.carousel.min"]
+//    ],
     "mascara" => [
         "js" => ["mascara"],
         "css" => null,

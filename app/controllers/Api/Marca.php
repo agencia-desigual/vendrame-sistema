@@ -207,7 +207,7 @@ class Marca extends Controller
                             if(!empty($arquivo))
                             {
                                 // Otimiza a imagem
-                                $objFile->compressImage($caminho . $arquivo, $caminho . $arquivo);
+                                // $objFile->compressImage($caminho . $arquivo, $caminho . $arquivo);
 
                                 // Array de inserção
                                 $salva = [
@@ -363,7 +363,7 @@ class Marca extends Controller
                             if(!empty($arquivo))
                             {
                                 // Otimiza a imagem
-                                $objFile->compressImage($caminho . $arquivo, $caminho . $arquivo);
+                                // $objFile->compressImage($caminho . $arquivo, $caminho . $arquivo);
 
                                 // Array de alteração
                                 $altera["logo"] = $arquivo;

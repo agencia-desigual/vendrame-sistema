@@ -17,7 +17,7 @@ $Rotas->onGroup("api-usuario","POST","login","login");
 $Rotas->onGroup("api-usuario","GET","get","getAll");
 $Rotas->onGroup("api-usuario","GET","get/{p}","get");
 $Rotas->onGroup("api-usuario","POST","insert","insert");
-$Rotas->onGroup("api-usuario","POST","update/{p}","update");
+$Rotas->onGroup("api-usuario","PUT","update/{p}","update");
 $Rotas->onGroup("api-usuario","DELETE","delete/{p}","delete");
 
 
@@ -34,8 +34,8 @@ $Rotas->onGroup("api-imagem","DELETE","delete/{p}","delete");
 $Rotas->group("api-marca","api/marca","Api\Marca");
 $Rotas->onGroup("api-marca","GET","get","getAll");
 $Rotas->onGroup("api-marca","GET","get/{p}","get");
-$Rotas->onGroup("api-marca","POST","insert/{p}","insert");
-$Rotas->onGroup("api-marca","PUT","update/{p}","update");
+$Rotas->onGroup("api-marca","POST","insert","insert");
+$Rotas->onGroup("api-marca","POST","update/{p}","update");
 $Rotas->onGroup("api-marca","DELETE","delete/{p}","delete");
 
 
@@ -110,3 +110,8 @@ $Rotas->on("GET","painel","Site::dashboard");
 $Rotas->on("GET","painel/usuarios","Usuario::listar");
 $Rotas->on("GET","painel/usuario/adicionar","Usuario::adicionar");
 $Rotas->on("GET","painel/usuario/alterar/{p}","Usuario::alterar");
+
+// -- Marca
+$Rotas->on("GET","painel/marcas","Marca::listar");
+$Rotas->on("GET","painel/marca/adicionar","Marca::adicionar");
+$Rotas->on("GET","painel/marca/alterar/{p}","Marca::alterar");

@@ -1,4 +1,4 @@
-<?php $this->view("painel/admin/include/header"); ?>
+<?php $this->view("painel/include/header"); ?>
 
     <!-- ============================================================== -->
     <!-- INICIO alterar usuario -->
@@ -11,12 +11,12 @@
                 <div class="page-title-box">
                     <div class="row align-items-center">
                         <div class="col-sm-6">
-                            <h4 class="page-title">Alterar Administrador</h4>
+                            <h4 class="page-title">Alterar Usuários</h4>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-right">
                                 <li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><?= SITE_NOME ?></a></li>
-                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>painel/administradores">Administrador</a></li>
+                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>painel/usuarios">Usuários</a></li>
                                 <li class="breadcrumb-item active">Alterar</li>
                             </ol>
                         </div>
@@ -29,27 +29,39 @@
                         <div class="card m-b-30">
                             <div class="card-body">
 
-                                <h4 class="mt-0 header-title">Alterar Administrador</h4>
-                                <p class="sub-title">Altere os dados do administrador.</p>
+                                <h4 class="mt-0 header-title">Alterar Usuário</h4>
+                                <p class="sub-title">Altere os dados do usuário.</p>
 
-                                <form id="formAlterarUsuario" data-id="<?= $admin->id_usuario ?>" data-alerta="swal">
+                                <form id="formAlterarUsuario" data-id="<?= $user->id_usuario ?>">
 
-                                    <!-- NOME, NIVEL E ID DO ADMIN -->
+                                    <!-- NOME E NIVEL -->
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <label>Nome Completo</label>
-                                                <input type="text" class="form-control" name="nome" value="<?= $admin->nome ?>" required/>
+                                                <input type="text" class="form-control" name="nome" value="<?= $user->nome; ?>" required />
                                             </div>
+                                        </div>
+                                    </div>
 
-
+                                    <div class="form-group">
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <label>Nível</label>
                                                 <select class="form-control" name="nivel" required>
                                                     <option selected disabled >Selecione</option>
-                                                    <option <?= ($admin->nivel == "admin") ? 'selected' : '' ?> value="admin">Admin</option>
-                                                    <option <?= ($admin->nivel == "representante") ? 'selected' : '' ?> value="representante">Representante</option>
-                                                    <option <?= ($admin->nivel == "anunciante") ? 'selected' : '' ?> value="anunciante">Anunciante</option>
+                                                    <option value="admin" <?= ($user->nivel == "admin") ? "selected" : ""; ?>>Admin</option>
+                                                    <option value="vendedor" <?= ($user->nivel == "vendedor") ? "selected" : ""; ?>>Vendedor</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <label>Status</label>
+                                                <select class="form-control" name="status">
+                                                    <option selected disabled >Selecione</option>
+                                                    <option value="1" <?= ($user->status == true) ? "selected" : ""; ?>>Ativo</option>
+                                                    <option value="0" <?= ($user->status == false) ? "selected" : ""; ?>>Inativo</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -59,32 +71,13 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>E-mail</label>
-                                                <input type="email" class="form-control" name="email" value="<?= $admin->email ?>" required/>
+                                                <label>CPF</label>
+                                                <input type="text" class="form-control maskCPF" value="<?= $user->cpf; ?>" name="cpf" required />
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <label>Status</label>
-                                                <select class="form-control" name="status">
-                                                    <option selected disabled >Selecione</option>
-                                                    <option <?= ($admin->status == 1) ? 'selected' : '' ?> value="1">Ativo</option>
-                                                    <option <?= ($admin->status == 0) ? 'selected' : '' ?> value="0">Inativo</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- SENHA E CONFIRMA SENHA -->
-                                    <div class="form-group">
-                                        <div class="row">
                                             <div class="col-md-6">
                                                 <label>Senha</label>
-                                                <input type="password" class="form-control" name="senha" value=""/>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label>Confirma Senha</label>
-                                                <input type="password" class="form-control" name="repete_senha" value=""/>
+                                                <input type="password" class="form-control" name="senha" />
                                             </div>
                                         </div>
                                     </div>
@@ -105,15 +98,4 @@
     <!-- FIM adicionar usuario -->
     <!-- ============================================================== -->
 
-<?php $this->view("painel/admin/include/footer"); ?>
-
-<script>
-
-    $(document).ready(function(){
-
-        // Basic
-        $('.dropify').dropify();
-
-    });
-
-</script>
+<?php $this->view("painel/include/footer"); ?>

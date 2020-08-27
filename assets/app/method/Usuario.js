@@ -171,6 +171,48 @@ $(".deletarUsuario").on("click", function () {
 });
 
 
+
+/**
+ * Método responsável por cadastrar um nova newsletter
+ * enviado seus dados para a API correspndente.
+ */
+$("#formAlterarUsuario").on("submit", function(){
+
+    // Não atualiza a página
+    event.preventDefault();
+
+    // Recupera os dados do formulário
+    var form = new FormData(this);
+    var id = $(this).data("id");
+    var token = Global.session.get("token");
+
+    // Bloqueia o formulário
+    $(this).addClass("bloqueiaForm");
+
+    // Recupera o url
+    var url = Global.config.urlApi + "usuario/update/"+id;
+
+    // Realiza a requisição
+    Global.enviaApi("PUT", url, form, token.token)
+        .then((data) => {
+
+            Global.setSuccess("Informações alteradas com sucesso.");
+
+            // Desbloqueia o formulário
+            $(this).removeClass("bloqueiaForm");
+
+        })
+        .catch((error) => {
+            // Desbloqueia o formulário
+            $(this).removeClass("bloqueiaForm");
+        });
+
+    // Não atualiza mesmo
+    return false;
+});
+
+
+
 /**
  * Método responsável por realizar o login
  * --------------------------------------------------
