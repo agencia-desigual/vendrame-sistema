@@ -4,5 +4,5 @@ $database = [
     'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'vendrame-sistema'
+	'database' => 'vendrame_sistema'
 ];
