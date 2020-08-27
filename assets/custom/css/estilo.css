@@ -305,10 +305,23 @@ body, html
     top: 0px;
     height: 100%;
     width: 100%;
-    left: -100%;
-    opacity: 0;
+    /*left: 100%;*/
+    opacity: 1;
     transition: all 0.5s;
 
+}
+
+.modal-filtro .input-group-text
+{
+    background-color: transparent;
+    border: 0px;
+    color: #fff;
+    padding-left: 10px;
+}
+
+.modal-filtro .input-group-text span
+{
+    margin-left: 10px;
 }
 
 .modal-filtro .footer

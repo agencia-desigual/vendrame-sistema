@@ -72,16 +72,6 @@ class Site extends CI_controller
      */
     public function produtos()
     {
-
-
-
-        $categorias = $this->objHelperApoio->getCategorias();
-
-        $this->debug($categorias);
-
-
-
-
         // Variaveis
         $dados = null;
         $usuario = null;
@@ -107,18 +97,16 @@ class Site extends CI_controller
             }
         }
 
-
-
         // Busca todas as categorias
-        $categoriasPAI = $this->objModelCategoria
-            ->get(["id_categoria_pai" => "IS NULL"])
-            ->fetchAll(\PDO::FETCH_OBJ);
+        $categorias = $this->objHelperApoio->getCategorias();
+
+        $this->debug($categorias);
 
         // Dados da view
         $dados = [
             "usuario" => $usuario,
             "marcas" => $marcas,
-            "categoriasPAI" => $categoriasPAI,
+            "categorias" => $categorias,
             "js" => [
                 "modulos" => ["Produto"]
             ]

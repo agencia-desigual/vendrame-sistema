@@ -7,6 +7,51 @@ import Global from "../global.js"
 * ===========================================================
 */
 
+// $(".categoria").on("click",function () {
+//
+//     // Pega a categoria
+//     var categoria = $(this).data('id');
+//     var conteudo = "";
+//
+//
+//     var token = Global.session.get('token');
+//     var url = Global.config.urlApi + 'categoria/get?where[id_categoria_pai]='+categoria+"limit=99999";
+//
+//     // Realiza a requisição
+//     Global.enviaApi("GET", url, null, token.token,"alertify")
+//         .then((data) => {
+//
+//             if (data.objeto.total > 0)
+//             {
+//
+//                 $.each(data.objeto.itens, function(index, item) {
+//                     conteudo += "                                   <div class=\"input-group mb-3\">\n" +
+//                         "                                        <div class=\"input-group-prepend\">\n" +
+//                         "                                            <div class=\"input-group-text\">\n" +
+//                         "                                                <input class=\"categoria\" data-id="+item.id_categoria+" name=\"categoria\" type=\"radio\">\n" +
+//                         "                                                <span>"+item.nome+"</span>\n" +
+//                         "                                            </div>\n" +
+//                         "                                        </div>\n" +
+//                         "                                    </div>"
+//                     console.log(item)
+//                 });
+//
+//                 $("#categoriaPAI").fadeOut(200);
+//                 $("#categoriaFILHAS").fadeIn(500);
+//                 $(".categoriasFilhas").html(conteudo);
+//             }
+//
+//
+//             // Redireciona o usuário
+//             // location.href = link;
+//         })
+//         .catch((data) => {
+//
+//             // Redireciona o usuário
+//             // location.href = link;
+//         });
+//
+// });
 
 
 /**

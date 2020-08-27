@@ -17,10 +17,31 @@
     <!-- FILTROS DE PRODUTOS -->
     <div class="filtros">
         <div class="container">
+
             <div class="row">
-                <div class="col-12">
+                <?php foreach ($categorias as $categoria) : ?>
+                    <div class="col-4">
+                        <?= $categoria->nome ?>
+
+                        <?php foreach ($categoria->filhas as $filhas) : ?>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    sada
+                                </div>
+                            </div>
+
+                        <?php endforeach; ?>
+
+
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-center">
                     <p>Foram encontrados 989 produtos no catálogo</p>
-                    <button onclick="AbreModalFiltro('abre')">FILTRAR</button>
+                    <button style="display: none" onclick="AbreModalFiltro('abre')">FILTRAR</button>
                 </div>
             </div>
         </div>
@@ -106,7 +127,7 @@
     <!-- FIM >> PRODUTOS -->
 
     <!-- MODAL FILTRO -->
-    <div class="modal-filtro animate__fadeInLeft">
+    <div style="display: none" class="modal-filtro animate__fadeInLeft">
 
         <div class="conteudo">
             <div class="container">
@@ -116,25 +137,21 @@
                             <img class="icone" src="<?= BASE_URL ?>assets/theme/site/img/icones/categorias.svg">
                             <h1>Categorias</h1>
 
-                            <div style="margin-top: 30px" class="accordion" id="accordionExample">
-                                <?php foreach ($categoriasPAI as $categoria) : ?>
-                                    <div class="card">
-
-                                        <div class="card-header" id="<?= $categoria->id_categoria ?>">
-                                            <h2 class="mb-0">
-                                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse<?= $categoria->id_categoria ?>" aria-expanded="true" aria-controls="collapse<?= $categoria->id_categoria ?>">
-                                                    <?= $categoria->nome ?>
-                                                </button>
-                                            </h2>
-                                        </div>
-
-                                        <div id="collapse<?= $categoria->id_categoria ?>" class="collapse" aria-labelledby="<?= $categoria->id_categoria ?>" data-parent="#accordionExample">
-                                            <div class="card-body">
-                                                FILHAS
+                            <div style="margin-top: 30px" class="accordion" id="categoriaPAI">
+                                <?php foreach ($categorias as $categoria) : ?>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input class="categoria" data-id="<?= $categoria->id_categoria ?>" name="categoria" type="radio">
+                                                <span><?= $categoria->nome ?></span>
                                             </div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
+                            </div>
+
+                            <div style="margin-top: 30px" class="accordion" id="categoriaFILHAS">
+                                <div class="categoriasFilhas"></div>
                             </div>
 
                             <div class="itens">
