@@ -180,8 +180,6 @@ class Apoio
 
     } // End >> fun::getCategorias()
 
-
-
     private function getCategoriaFilha($idPai)
     {
         // Objetos
@@ -221,5 +219,8 @@ class Apoio
         // Retorna as categorias
         return $categorias;
     }
+
+
+
 
 } // End >> Class::Apoio()
