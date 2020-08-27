@@ -9,6 +9,7 @@
 namespace Helper;
 
 // Inicia a classe
+use Model\Categoria;
 use Model\Empresa;
 use Model\Imagem;
 use Model\Marca;
@@ -157,6 +158,61 @@ class Apoio
         }
 
     } // End >> fun::getImagem()
+
+
+
+    /**
+     * Método responsável por buscas todas as categorias
+     * do catalogos e também busca suas filhas.
+     * --------------------------------------------------------------
+     * @return array|string
+     */
+    public function getCategorias()
+    {
+        // Varieveis
+        $categorias = null;
+
+        $objModelCategoria = new Categoria();
+
+        // Busca todas as categorias PAI
+        $categorias = $objModelCategoria
+            ->get()
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+
+        // Verifica se encontrou
+        if (!empty($categorias))
+        {
+            // Busca todas as categorias PAI
+            $categoriasPAI = $objModelCategoria
+                ->get(["id_categoria_pai" => "IS NULL"])
+                ->fetchAll(\PDO::FETCH_OBJ);
+
+            // Percorre todas as categorias
+            foreach ($categoriasPAI as $categoriaPAI)
+            {
+
+                foreach ($categorias as $categoria)
+                {
+                    if ($categoriaPAI->id_categoria == $categoria->id_categoria_pai)
+                    {
+                        $categoriaPAI->filhas = $categoria;
+                    }
+                }
+
+
+            }
+        }
+
+        echo "<pre>";
+        print_r($categoriasPAI);
+        echo "</pre>";
+        exit;
+
+
+
+
+    }
 
 
 } // End >> Class::Apoio()

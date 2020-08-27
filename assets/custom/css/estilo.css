@@ -371,3 +371,9 @@ body, html
 {
     display: block;
 }
+
+.modal-filtro .categoria-pai
+{
+    color: #e2d1d1;
+    text-decoration: none;
+}

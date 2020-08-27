@@ -72,6 +72,16 @@ class Site extends CI_controller
      */
     public function produtos()
     {
+
+
+
+        $categorias = $this->objHelperApoio->getCategorias();
+
+        $this->debug($categorias);
+
+
+
+
         // Variaveis
         $dados = null;
         $usuario = null;
@@ -110,7 +120,7 @@ class Site extends CI_controller
             "marcas" => $marcas,
             "categoriasPAI" => $categoriasPAI,
             "js" => [
-                "modulos" => ["Produtos"]
+                "modulos" => ["Produto"]
             ]
         ];
 

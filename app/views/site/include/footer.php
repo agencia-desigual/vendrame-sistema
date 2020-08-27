@@ -1,5 +1,5 @@
 <!-- JS -->
-<script src="<?= BASE_URL; ?>assets/plugins/jquery/js/jquery-3.4.1.min.js"></script>
+<script src="<?= BASE_URL; ?>assets/plugins/jquery/jquery-3.4.1.min.js"></script>
 
 <!-- Autoload JS ================================================== -->
 <?php $this->view("autoload/js"); ?>
