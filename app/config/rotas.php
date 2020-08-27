@@ -67,7 +67,7 @@ $Rotas->onGroup("api-ficha","DELETE","delete/{p}","delete");
 
 // Atributo
 $Rotas->group("api-atributo","api/atributo","Api\Atributo");
-$Rotas->onGroup("api-atributo","POST","insert/{p}","insert");
+$Rotas->onGroup("api-atributo","POST","insert","insert");
 $Rotas->onGroup("api-atributo","POST","update/{p}","update");
 $Rotas->onGroup("api-atributo","DELETE","delete/{p}","delete");
 
@@ -116,8 +116,12 @@ $Rotas->on("GET","painel/marcas","Marca::listar");
 $Rotas->on("GET","painel/marca/adicionar","Marca::adicionar");
 $Rotas->on("GET","painel/marca/alterar/{p}","Marca::alterar");
 
-
 // -- Categoria
 $Rotas->on("GET","painel/categorias","Categoria::listar");
 $Rotas->on("GET","painel/categoria/adicionar","Categoria::adicionar");
 $Rotas->on("GET","painel/categoria/alterar/{p}","Categoria::alterar");
+
+// -- Atributo
+$Rotas->on("GET","painel/atributos","Atributo::listar");
+$Rotas->on("GET","painel/atributo/adicionar","Atributo::adicionar");
+$Rotas->on("GET","painel/atributo/alterar/{p}","Atributo::alterar");

@@ -143,6 +143,15 @@
                     </li>
                     <!-- FIM >> CATEGORIAS -->
 
+                    <!-- ATRIBUTOS -->
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-gem"></i><span> Atributos <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="<?= BASE_URL; ?>painel/atributo/adicionar">Adicionar</a></li>
+                            <li><a href="<?= BASE_URL; ?>painel/atributos">Listar Todos</a></li>
+                        </ul>
+                    </li>
+                    <!-- FIM >> ATRIBUTOS -->
 
                     <!-- PRODUTOS -->
                     <li>
@@ -153,7 +162,6 @@
                         </ul>
                     </li>
                     <!-- FIM >> PRODUTOS -->
-
 
                     <!-- SAIR -->
                     <li>
