@@ -171,6 +171,7 @@ class Apoio
     {
         // Varieveis
         $categorias = null;
+        $cat = [];
 
         $objModelCategoria = new Categoria();
 
@@ -188,22 +189,31 @@ class Apoio
                 ->get(["id_categoria_pai" => "IS NULL"])
                 ->fetchAll(\PDO::FETCH_OBJ);
 
-            // Percorre todas as categorias
+            // Percorre todas as categorias PAI
             foreach ($categoriasPAI as $categoriaPAI)
             {
 
-                foreach ($categorias as $categoria)
+                // Percorre todas as categorias
+                foreach ($categorias as $filhas)
                 {
-                    if ($categoriaPAI->id_categoria == $categoria->id_categoria_pai)
+                    // Verificando se essa cateogoria PAI tem filhas
+                    if ($categoriaPAI->id_categoria == $filhas->id_categoria_pai)
                     {
-                        $categoriaPAI->filhas = $categoria;
+
+                        // Adiciona as cateogrias na array
+                        $cat[] = $filhas;
+
+                        // Vincula as categorias filhas nas categorias PAI
+                        $categoriaPAI->filhas = $cat;
+
                     }
                 }
 
+                // Limpa a array auxilia de categoria
+                unset($cat);
 
             }
         }
-
         echo "<pre>";
         print_r($categoriasPAI);
         echo "</pre>";
