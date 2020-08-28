@@ -47,7 +47,7 @@
                                             <td><?= $categoria->nome ?></td>
                                             <td>
                                                 <?php if(!empty($categoria->filhas)): ?>
-                                                    <?php $this->view("painel/include/util/produto", ["categorias" => $categoria->filhas]); ?>
+                                                    <?php $this->view("painel/include/util/categoria-lista", ["categorias" => $categoria->filhas]); ?>
                                                 <?php endif; ?>
                                             </td>
 

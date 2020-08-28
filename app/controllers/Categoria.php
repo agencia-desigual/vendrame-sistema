@@ -69,7 +69,10 @@ class Categoria extends Controller
             // Array de retorno
             $dados = [
                 "usuario" => $usuario,
-                "categorias" => $categorias
+                "categorias" => $categorias,
+                "js" => [
+                    "modulos" => ["Categoria"]
+                ]
             ];
 
             // View

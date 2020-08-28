@@ -12,6 +12,7 @@ namespace Controller\Api;
 // Importação
 use Helper\Apoio;
 use Model\Produto;
+use Model\View\CategoriaFilha;
 use Sistema\Controller;
 use Sistema\Helper\File;
 use Sistema\Helper\Input;
@@ -23,6 +24,8 @@ class Categoria extends Controller
     // Objeto
     private $objModelCategoria;
     private $objModelProduto;
+    private $objModelCategoriaFilha;
+    private $objModelViewCategoriaFilha;
 
     private $objHelperApoio;
     private $objSeguranca;
@@ -40,6 +43,8 @@ class Categoria extends Controller
         // Instancia os objeto
         $this->objModelProduto = new Produto();
         $this->objModelCategoria = new \Model\Categoria();
+        $this->objModelCategoriaFilha = new \Model\CategoriaFilha();
+        $this->objModelViewCategoriaFilha = new CategoriaFilha();
 
         $this->objHelperApoio = new Apoio();
         $this->objSeguranca = new Seguranca();
@@ -372,11 +377,14 @@ class Categoria extends Controller
             if($usuario->nivel == "admin")
             {
                 // Verifica se possui categorias vinculadas
-                if($this->objModelCategoria->get(["id_categoria_pai" => $id])->rowCount() == 0)
+                if($this->objModelViewCategoriaFilha->get(["id_pai" => $id])->rowCount() == 0)
                 {
                     // Verifica se possui produto nessa categoria
                     if($this->objModelProduto->get(["id_categoria" => $id])->rowCount() == 0)
                     {
+                        // Deleta as ligações
+                        $this->objModelCategoriaFilha->delete(["id_filha" => $id]);
+
                         // Deleta
                         if($this->objModelCategoria->delete(["id_categoria" => $id]) != false)
                         {
@@ -384,7 +392,7 @@ class Categoria extends Controller
                             $dados = [
                                 "tipo" => true,
                                 "code" => 200,
-                                "mensagem" => "Categorias deletada com sucesso.",
+                                "mensagem" => "Categoria deletada com sucesso.",
                                 "objeto" => $categoria
                             ];
                         }
