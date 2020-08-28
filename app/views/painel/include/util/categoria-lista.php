@@ -4,6 +4,6 @@
 
 <?php foreach ($categorias as $cat): ?>
     <?php if(!empty($cat->filhas)): ?>
-        <span class="badge badge-light">></span> <?php $this->view("painel/include/util/produto", ["categorias" => $cat->filhas]); ?>
+        <span class="badge badge-light">></span> <?php $this->view("painel/include/util/categoria-lista", ["categorias" => $cat->filhas]); ?>
     <?php endif; ?>
 <?php endforeach; ?>
