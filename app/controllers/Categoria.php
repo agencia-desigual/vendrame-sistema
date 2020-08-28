@@ -10,12 +10,14 @@ namespace Controller;
 
 
 use Helper\Apoio;
+use Model\View\CategoriaFilha;
 use Sistema\Controller;
 
 class Categoria extends Controller
 {
     // Objetos
     private $objModelCategoria;
+    private $objModelViewCategoriaFilha;
     private $objHelperApoio;
 
     // Método construtor
@@ -26,6 +28,8 @@ class Categoria extends Controller
 
         // Instanci os objetos
         $this->objModelCategoria = new \Model\Categoria();
+        $this->objModelViewCategoriaFilha = new CategoriaFilha();
+
         $this->objHelperApoio = new Apoio();
 
     } // End >> fun::__construct()
@@ -39,9 +43,38 @@ class Categoria extends Controller
      */
     public function listar()
     {
-       $a =  $this->objHelperApoio->getCategorias();
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $categorias = null;
 
-       $this->debug($a);
+        // Recupera o usuário logado
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Verifica se possui permissão
+        if($usuario->nivel == "admin")
+        {
+            // Busca todas as categorias cadastradas
+            $categorias = $this->objModelViewCategoriaFilha
+                ->get()
+                ->fetchAll(\PDO::FETCH_OBJ);
+
+            // Percorre todas as categorias
+            foreach ($categorias as $cat)
+            {
+                // Busca as filhas da categoria
+                $cat->filhas = $this->objHelperApoio->getCategoriaFilha($cat->id_categoria);
+            }
+
+            // Array de retorno
+            $dados = [
+                "usuario" => $usuario,
+                "categorias" => $categorias
+            ];
+
+            // View
+            $this->view("painel/categoria/listar", $dados);
+        }
 
     } // End >> fun::listar()
 

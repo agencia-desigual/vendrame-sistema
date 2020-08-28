@@ -38,10 +38,17 @@ CREATE TABLE historico(
 
 CREATE TABLE categoria(
   id_categoria INT NOT NULL AUTO_INCREMENT,
-  id_categoria_pai INT NULL DEFAULT NULL,
   nome VARCHAR(100) NOT NULL,
-  PRIMARY KEY (id_categoria),
-  FOREIGN KEY (id_categoria_pai) REFERENCES categoria(id_categoria)
+  PRIMARY KEY (id_categoria)
+);
+
+CREATE TABLE categoria_filha(
+  id_categoria_filha INT NOT NULL AUTO_INCREMENT,
+  id_pai INT NOT NULL,
+  id_filha INT NOT NULL,
+  PRIMARY KEY (id_categoria_filha),
+  FOREIGN KEY (id_pai) REFERENCES categoria(id_categoria),
+  FOREIGN KEY (id_filha) REFERENCES categoria(id_categoria)
 );
 
 

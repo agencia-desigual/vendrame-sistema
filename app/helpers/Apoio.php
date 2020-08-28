@@ -14,6 +14,7 @@ use Model\Empresa;
 use Model\Imagem;
 use Model\Marca;
 use Model\Produto;
+use Model\View\CategoriaFilha;
 
 class Apoio
 {
@@ -180,10 +181,19 @@ class Apoio
 
     } // End >> fun::getCategorias()
 
-    private function getCategoriaFilha($idPai)
+
+
+    /**
+     * Método responsável por buscar todas as categorias
+     * filhas de uma determinada categoria existente.
+     * -----------------------------------------------------------------
+     * @param $idPai [Id da categoria - Pode ser null]
+     * @return array|null
+     */
+    public function getCategoriaFilha($idPai = null)
     {
         // Objetos
-        $objModelCategoria = new Categoria();
+        $objModelCategoria = new CategoriaFilha();
 
         // Variaveis
         $categorias = null;
@@ -193,14 +203,14 @@ class Apoio
         {
             // Busca as categorias filhas da pai
             $categorias = $objModelCategoria
-                ->get(["id_categoria_pai" => $idPai])
+                ->get(["id_pai" => $idPai])
                 ->fetchAll(\PDO::FETCH_OBJ);
         }
         else
         {
             // Busca todas as categorias PAI
             $categorias = $objModelCategoria
-                ->get(["id_categoria_pai" => "IS NULL"])
+                ->get(["id_pai" => "IS NULL"])
                 ->fetchAll(\PDO::FETCH_OBJ);
         }
 
@@ -218,9 +228,7 @@ class Apoio
 
         // Retorna as categorias
         return $categorias;
-    }
-
-
+    } // End >> fun::getCategoriaFilha()
 
 
 } // End >> Class::Apoio()
