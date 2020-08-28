@@ -81,14 +81,59 @@ class Categoria extends Controller
 
     } // End >> fun::listar()
 
+
+
     public function adicionar()
     {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $categorias = null;
 
-    }
+        $aux = [];
+
+        // Recupera o logado
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Verifica se possui permissão
+        if($usuario->nivel == "admin")
+        {
+
+        }
+
+    } // End >> fun::adicionar()
 
     public function alterar($id)
     {
 
     }
+
+
+
+    /**
+     * Método responsável por buscas todas as categorias
+     * do catalogos e também busca suas filhas.
+     * --------------------------------------------------------------
+     * @return array|string
+     */
+    public function getCategorias()
+    {
+        // Varieveis
+        $retorno = null;
+
+        // Busca as categorias
+        $retorno = $this->getCategoriaFilha(null);
+
+        // Retorna as categorias
+        return $retorno;
+
+    } // End >> fun::getCategorias()
+
+
+
+
+
+
+
 
 } // End >> Class::Categoria
