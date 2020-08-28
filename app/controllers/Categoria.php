@@ -98,7 +98,16 @@ class Categoria extends Controller
         // Verifica se possui permissão
         if($usuario->nivel == "admin")
         {
+            $categorias  = $this->objModelCategoria
+                ->get()
+                ->fetchAll(\PDO::FETCH_OBJ);
 
+            foreach ($categorias as $cat)
+            {
+                $cat->pai = $this->getCategoriaPai($cat->id_categoria);
+            }
+
+            $this->debug($categorias);
         }
 
     } // End >> fun::adicionar()
@@ -110,28 +119,43 @@ class Categoria extends Controller
 
 
 
-    /**
-     * Método responsável por buscas todas as categorias
-     * do catalogos e também busca suas filhas.
-     * --------------------------------------------------------------
-     * @return array|string
-     */
-    public function getCategorias()
-    {
-        // Varieveis
-        $retorno = null;
 
-        // Busca as categorias
-        $retorno = $this->getCategoriaFilha(null);
+    /**
+     * Método responsável por buscar todas as categorias
+     * filhas de uma determinada categoria existente.
+     * -----------------------------------------------------------------
+     * @param $idPai [Id da categoria - Pode ser null]
+     * @return array|null
+     */
+    public function getCategoriaPai($idPai)
+    {
+        // Objetos
+        $objModelCategoria = new CategoriaFilha();
+
+        // Variaveis
+        $categorias = null;
+
+//
+//        $sql = "SELECT * FROM categoria cat
+//                    LEFT JOIN categoria_filha c1
+//                        ON cat.id_categoria = c1.id_pai
+//                    WHERE id_categoria = " . $idPai;
+//
+//        // Busca as categorias filhas da pai
+//        $categoria = $objModelCategoria
+//            ->query($sql)
+//            ->fetch(\PDO::FETCH_OBJ);
+//
+//        // Verifica se encontrou
+//        if (!empty($categoria))
+//        {
+//            // Busca as categorias Filhas
+//            $categoria->pai = $this->getCategoriaPai($categoria->id_filha);
+//        }
 
         // Retorna as categorias
-        return $retorno;
-
-    } // End >> fun::getCategorias()
-
-
-
-
+        return $categoria;
+    } // End >> fun::getCategoriaFilha()
 
 
 
