@@ -100,8 +100,6 @@ class Site extends CI_controller
         // Busca todas as categorias
         $categorias = $this->objHelperApoio->getCategorias();
 
-        $this->debug($categorias);
-
         // Dados da view
         $dados = [
             "usuario" => $usuario,
@@ -116,6 +114,44 @@ class Site extends CI_controller
         $this->view("site/produtos", $dados);
 
     } // End >> fun::produtos()
+
+
+
+    /**
+     * Método responsável por montar a página inicial do
+     * catalogo de produtos
+     * ------------------------------------------------------
+     * @url produtos
+     */
+    public function produtosFiltros($id)
+    {
+
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $marcas = null;
+        $categorias = null;
+
+        // Verificando se o usuario está logado
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Busca todas as categorias FILHAS
+        $categorias = $this->objHelperApoio->getCategoriaFilha($id);
+
+        // Dados da view
+        $dados = [
+            "usuario" => $usuario,
+            "marcas" => $marcas,
+            "categorias" => $categorias,
+            "js" => [
+                "modulos" => ["Produto"]
+            ]
+        ];
+
+        // Carrega a view
+        $this->view("site/produtos", $dados);
+
+    } // End >> fun::produtosFiltros()
 
 
 

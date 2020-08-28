@@ -1,6 +1,5 @@
 <?php $this->view("site/include/header"); ?>
 
-
     <!-- CABEÇALHO -->
     <div class="cabecalho">
         <div class="container">
@@ -27,7 +26,9 @@
 
                             <div class="row">
                                 <div class="col-12">
-                                    sada
+                                    <a href="<?= BASE_URL; ?>produtos/<?= $filhas->id_categoria ?>">
+                                        <?= $filhas->nome ?>
+                                    </a>
                                 </div>
                             </div>
 
