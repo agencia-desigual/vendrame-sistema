@@ -21,6 +21,10 @@ $pluginsAutoLoad = [
 //        "js" => ["owl.carousel.min"],
 //        "css" => ["owl.carousel.min"]
 //    ],
+    "selectize" => [
+        "js" => ["dist/js/standalone/selectize"],
+        "css" => ["dist/css/selectize"]
+    ],
     "mascara" => [
         "js" => ["mascara"],
         "css" => null,

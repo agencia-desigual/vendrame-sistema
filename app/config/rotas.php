@@ -48,6 +48,15 @@ $Rotas->onGroup("api-categoria","POST","update/{p}","update");
 $Rotas->onGroup("api-categoria","DELETE","delete/{p}","delete");
 
 
+// Tipos
+$Rotas->group("api-tipo","api/tipo","Api\Tipo");
+$Rotas->onGroup("api-tipo","GET","get","getAll");
+$Rotas->onGroup("api-tipo","GET","get/{p}","get");
+$Rotas->onGroup("api-tipo","POST","insert","insert");
+$Rotas->onGroup("api-tipo","POST","update/{p}","update");
+$Rotas->onGroup("api-tipo","DELETE","delete/{p}","delete");
+
+
 // Produto
 $Rotas->group("api-produto","api/produto","Api\Produto");
 $Rotas->onGroup("api-produto","GET","get","getAll");

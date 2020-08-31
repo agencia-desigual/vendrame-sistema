@@ -11,12 +11,12 @@
                 <div class="page-title-box">
                     <div class="row align-items-center">
                         <div class="col-sm-6">
-                            <h4 class="page-title">Inserir Marca</h4>
+                            <h4 class="page-title">Inserir Categoria</h4>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-right">
                                 <li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><?= SITE_NOME ?></a></li>
-                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>painel/marcas">Marcas</a></li>
+                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>painel/categorias">Categorias</a></li>
                                 <li class="breadcrumb-item active">Adicionar</li>
                             </ol>
                         </div>
@@ -29,33 +29,64 @@
                         <div class="card m-b-30">
                             <div class="card-body">
 
-                                <h4 class="mt-0 header-title">Cadastrar Marca</h4>
-                                <p class="sub-title">Cadastre uma nova marca.</p>
+                                <h4 class="mt-0 header-title">Cadastrar Categoria</h4>
+                                <p class="sub-title">Cadastre uma nova categoria no sistema.</p>
 
-                                <form id="formInserirMarca">
-
-                                    <!-- NOME E NIVEL -->
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Nome da marca</label>
-                                                <input type="text" class="form-control" name="nome" value="" required />
-                                            </div>
-                                        </div>
-                                    </div>
+                                <form id="formInserirCategoria">
 
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label>Logo</label>
-                                                <input type="file" name="arquivo" class="dropify" />
+                                                <label>Marca</label>
+                                                <select class="form-control selecionaMarca" required name="id_marca">
+                                                    <option selected disabled>Selecione a marca</option>
+                                                    <?php foreach ($marcas as $marca): ?>
+                                                        <option <?= (!empty($get["marca"]) && $get["marca"] == $marca->id_marca) ? "selected" : ""; ?> value="<?= $marca->id_marca; ?>">
+                                                            <?= $marca->nome; ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
 
+                                    <?php if(!empty($get["marca"])): ?>
+                                        <!-- NOME E NIVEL -->
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label>Nome da categoria</label>
+                                                    <input type="text" class="form-control" name="nome" value="" required />
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
 
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label>Categoria Pai</label>
+                                                    <select class="selectBusca" name="id_categoria_pai">
+                                                        <option selected value="">Selecione</option>
+                                                        <?php foreach ($categorias as $cat): ?>
+                                                            <option value="<?= $cat->id_categoria; ?>">
+                                                                <?php if($cat->id_marca == $get["marca"]): ?>
+                                                                    <?php if(!empty($cat->sub)): ?>
+                                                                        <?= $cat->sub; ?>
+                                                                    <?php else: ?>
+                                                                        <?= $cat->nome; ?>
+                                                                    <?php endif; ?>
+                                                                <?php endif; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
+                                    <?php endif; ?>
                                 </form>
 
                             </div>

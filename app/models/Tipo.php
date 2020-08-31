@@ -16,12 +16,12 @@
  *
  */
 
-namespace Model\View;
+namespace Model;
 
 use Sistema\Database;
 
 
-class CategoriaFilha extends Database
+class Tipo extends Database
 {
     private $conexao;
 
@@ -35,8 +35,8 @@ class CategoriaFilha extends Database
         $this->conexao = parent::getConexao();
 
         // Seta o nome da tablea
-        parent::setTable("view_categoria_filha");
+        parent::setTable("tipo");
 
     } // END >> Fun::__construct()
 
-} // END >> Class::CategoriaFilha
+} // END >> Class::Tipo

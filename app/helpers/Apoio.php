@@ -14,6 +14,7 @@ use Model\Empresa;
 use Model\Imagem;
 use Model\Marca;
 use Model\Produto;
+use Model\Tipo;
 use Model\View\CategoriaFilha;
 
 class Apoio
@@ -163,72 +164,235 @@ class Apoio
 
 
     /**
-     * Método responsável por buscas todas as categorias
-     * do catalogos e também busca suas filhas.
-     * --------------------------------------------------------------
-     * @return array|string
+     * Método responsável por buscas no banco de dados e retornas
+     * as categorias mãe e seus filhos
+     * -------------------------------------------------------------
+     * @return array
      */
     public function getCategorias()
     {
-        // Varieveis
-        $retorno = null;
+        // Instancia o objeto
+        $objModelCategoria = new Categoria();
 
-        // Busca as categorias
-        $retorno = $this->getCategoriaFilha(null);
+        // Busca as categorias pai
+        $categorias = $objModelCategoria
+            ->get(["id_categoria_pai" => "IS NULL"], "nome ASC")
+            ->fetchAll(\PDO::FETCH_OBJ);
 
-        // Retorna as categorias
-        return $retorno;
+        // Percorre as categorias encontradas
+        foreach ($categorias as $cat)
+        {
+            // Busca os filhos
+            $catFilho = $objModelCategoria
+                ->get(["id_categoria_pai" => $cat->id_categoria])
+                ->fetchAll(\PDO::FETCH_OBJ);
+
+            // Verifica se encontrou algo
+            if(!empty($catFilho))
+            {
+                // Percorre as categorias filho
+                foreach ($catFilho as $filho)
+                {
+                    // Salva a imagem
+                    $filho->img = $this->getImagem($filho->id_categoria, "categoria");
+                }
+
+                // Adiciona na categoria
+                $cat->filhos = $catFilho;
+            }
+
+            // Busca a imagem da categoria
+            $cat->img = $this->getImagem($cat->id_categoria, "categoria");
+        }
+
+        // retorna as categorias
+        return $categorias;
 
     } // End >> fun::getCategorias()
 
 
 
+
     /**
-     * Método responsável por buscar todas as categorias
-     * filhas de uma determinada categoria existente.
-     * -----------------------------------------------------------------
-     * @param $idPai [Id da categoria - Pode ser null]
-     * @return array|null
+     * Método responsável por buscas no banco de dados e retornas
+     * as categorias mãe e seus filhos para o painel admin
+     * -------------------------------------------------------------
+     * @return array
      */
-    public function getCategoriaFilha($idPai = null)
+    public function getCategoriasLista($id = null, $idMarca = null)
     {
-        // Objetos
-        $objModelCategoria = new CategoriaFilha();
+
+        // Instancia o objeto
+        $objModelCategoria = new Categoria();
 
         // Variaveis
+        $where = null;
         $categorias = null;
 
-        // Verifica se informou o pai
-        if(!empty($idPai))
+        // Verifica se informou id
+        if(!empty($id))
         {
-            // Busca as categorias filhas da pai
-            $categorias = $objModelCategoria
-                ->get(["id_pai" => $idPai])
-                ->fetchAll(\PDO::FETCH_OBJ);
-        }
-        else
-        {
-            // Busca todas as categorias PAI
-            $categorias = $objModelCategoria
-                ->get(["id_pai" => "IS NULL"])
-                ->fetchAll(\PDO::FETCH_OBJ);
+            // Add o where
+            $where["id_categoria"] = $id;
         }
 
-
-        // Verifica se encontrou
-        if (!empty($categorias))
+        // Verifica se informou id
+        if(!empty($idMarca))
         {
-            // Percorre as categorias pai
-            foreach ($categorias as $cat)
+            // Add o where
+            $where["id_marca"] = $idMarca;
+        }
+
+        // Buscando todas as CATEGORIAS
+        $categorias = $objModelCategoria
+            ->get($where)
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Percorre as CATEGORIAS
+        foreach ($categorias as $categoria)
+        {
+            // Verificando se possui categoria pai
+            if($categoria->id_categoria_pai != null)
             {
-                // Busca as categorias Filhas
-                $cat->filhas = $this->getCategoriaFilha($cat->id_categoria);
+                // Add ao objeto
+                $categoria->sub = $categoria->nome;
+                $categoria->sub = $this->getCategoriaPai($categoria);
             }
         }
 
-        // Retorna as categorias
+        // Retrona a lista de categorias
         return $categorias;
-    } // End >> fun::getCategoriaFilha()
 
+    } // End >> fun::getCategoriasLista()
+
+
+    /**
+     * Método responsável por buscas no banco de dados e retornas
+     * as tipos mãe e seus filhos para o painel admin
+     * -------------------------------------------------------------
+     * @return array
+     */
+    public function getTiposLista($id = null, $idMarca = null)
+    {
+        // Instancia o objeto
+        $objModelTipo = new Tipo();
+
+        // Variaveis
+        $where = null;
+        $tipos = null;
+
+        // Verifica se informou id
+        if(!empty($id))
+        {
+            // Add o where
+            $where["id_tipo"] = $id;
+        }
+
+        // Verifica se informou id
+        if(!empty($idMarca))
+        {
+            // Add o where
+            $where["id_marca"] = $idMarca;
+        }
+
+        // Buscando todas as CATEGORIAS
+        $tipos = $objModelTipo
+            ->get($where)
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Percorre as CATEGORIAS
+        foreach ($tipos as $tipo)
+        {
+            // Verificando se possui categoria pai
+            if($tipo->id_tipo_pai != null)
+            {
+                // Add ao objeto
+                $tipo->sub = $tipo->nome;
+                $tipo->sub = $this->getTipoPai($tipo);
+            }
+        }
+
+        // Retrona a lista de categorias
+        return $tipos;
+
+    } // End >> fun::getTiposLista()
+
+
+    /* ===========================================
+     *               MÉTODOS PRIVADOS
+     * ===========================================
+     */
+
+
+    /**
+     * Método recursivo para listar em ordem as ligações
+     * das categorias pais.
+     * ----------------------------------------------------
+     * @param int|null $obj
+     * @return string|null
+     */
+    private function getCategoriaPai($obj)
+    {
+        // Instancia o objeto
+        $objModelCategoria = new Categoria();
+        $retorno = null;
+
+        // Busca a categoria pai
+        $categoria = $objModelCategoria
+            ->get(["id_categoria" => $obj->id_categoria_pai])
+            ->fetch(\PDO::FETCH_OBJ);
+
+        // Monta o texto do sub
+        $retorno =  $categoria->nome . " > " . $obj->sub;
+
+        // Verifica se possui pai
+        if(!empty($categoria->id_categoria_pai))
+        {
+            // Monta o sub
+            $categoria->sub = $retorno;
+
+            // Busca o pai do pai
+            $retorno = $this->getCategoriaPai($categoria);
+        }
+
+        // Retorna o texto
+        return $retorno;
+    } // End >> fun::getCategoriaPai()
+
+
+    /**
+     * Método recursivo para listar em ordem as ligações
+     * das categorias pais.
+     * ----------------------------------------------------
+     * @param int|null $obj
+     * @return string|null
+     */
+    private function getTipoPai($obj)
+    {
+        // Instancia o objeto
+        $objModelTipo = new Tipo();
+        $retorno = null;
+
+        // Busca a categoria pai
+        $tipo = $objModelTipo
+            ->get(["id_tipo" => $obj->id_tipo_pai])
+            ->fetch(\PDO::FETCH_OBJ);
+
+        // Monta o texto do sub
+        $retorno =  $tipo->nome . " > " . $obj->sub;
+
+        // Verifica se possui pai
+        if(!empty($tipo->id_tipo_pai))
+        {
+            // Monta o sub
+            $tipo->sub = $retorno;
+
+            // Busca o pai do pai
+            $retorno = $this->getCategoriaPai($tipo);
+        }
+
+        // Retorna o texto
+        return $retorno;
+    } // End >> fun::getTipoPai()
 
 } // End >> Class::Apoio()

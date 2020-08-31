@@ -19,10 +19,10 @@ use Sistema\Helper\Input;
 use Sistema\Helper\Seguranca;
 
 // Classe
-class Categoria extends Controller
+class Tipo extends Controller
 {
     // Objeto
-    private $objModelCategoria;
+    private $objModelTipo;
     private $objModelProduto;
     private $objModelMarca;
 
@@ -41,7 +41,7 @@ class Categoria extends Controller
 
         // Instancia os objeto
         $this->objModelProduto = new Produto();
-        $this->objModelCategoria = new \Model\Categoria();
+        $this->objModelTipo = new \Model\Tipo();
         $this->objModelMarca = new \Model\Marca();
 
         $this->objHelperApoio = new Apoio();
@@ -72,7 +72,7 @@ class Categoria extends Controller
         $objeto = null;
 
         // Busca o Objeto com páginacao
-        $objeto = $this->objModelCategoria->get(["id_categoria" => $id]);
+        $objeto = $this->objModelTipo->get(["id_tipo" => $id]);
 
         // Fetch
         $total = $objeto->rowCount();
@@ -135,7 +135,7 @@ class Categoria extends Controller
         $inicio = ($pag * $limite) - $limite;
 
         // Busca o Objeto com páginacao
-        $objeto = $this->objModelCategoria->get($where, $ordem, ($inicio . "," . $limite));
+        $objeto = $this->objModelTipo->get($where, $ordem, ($inicio . "," . $limite));
 
         // Fetch - Total
         $total = $objeto->rowCount();
@@ -173,7 +173,6 @@ class Categoria extends Controller
         $dados = null;
         $usuario = null;
         $post = null;
-        $arquivo = null;
         $categoria = null;
 
         // Recupera o usuário
@@ -198,41 +197,35 @@ class Categoria extends Controller
                 if(!empty($marca))
                 {
                     // Verifica se informou o pai
-                    if(isset($post["id_categoria_pai"]) && $post["id_categoria_pai"] == 0)
+                    if(isset($post["id_tipo_pai"]) && $post["id_tipo_pai"] == 0)
                     {
                         // Remove
-                        unset($post["id_categoria_pai"]);
+                        unset($post["id_tipo_pai"]);
                     }
 
                     // Insere
-                    $categoria = $this->objModelCategoria->insert($post);
+                    $tipo = $this->objModelTipo->insert($post);
 
                     // Verifica se inseriu
-                    if($categoria != false)
+                    if($tipo != false)
                     {
                         // Busca a categoria inserida
-                        $categoria = $this->objModelCategoria
-                            ->get(["id_categoria" => $categoria])
+                        $tipo = $this->objModelTipo
+                            ->get(["id_tipo" => $tipo])
                             ->fetch(\PDO::FETCH_OBJ);
 
                         // Array de sucesso
                         $dados = [
                             "tipo" => true,
                             "code" => 200,
-                            "mensagem" => "Categoria adicionada com sucesso.",
+                            "mensagem" => "Tipo adicionado com sucesso.",
                             "objeto" => $categoria
                         ];
                     }
                     else
                     {
-                        if(!empty($arquivo))
-                        {
-                            // Deleta a imagem
-                            unlink("./storage/categoria/" . $arquivo);
-                        }
-
                         // Msg
-                        $dados = ["mensagem" => "Ocorreu um erro ao inserir a categoria."];
+                        $dados = ["mensagem" => "Ocorreu um erro ao inserir o tipo."];
 
                     } // Error >> Ocorreu um erro ao inserir a categoria.
                 }
@@ -279,8 +272,8 @@ class Categoria extends Controller
         $dados = null;
         $usuario = null;
         $post = null;
-        $categoria = null;
-        $categoriaAlterada = null;
+        $tipo = null;
+        $tipoAlterado = null;
 
         // Recupera o usuário
         $usuario = $this->usuario;
@@ -289,42 +282,42 @@ class Categoria extends Controller
         $post = $_POST;
 
         // Busca a categoria
-        $categoria = $this->objModelCategoria
-            ->get(["id_categoria" => $id])
+        $tipo = $this->objModelTipo
+            ->get(["id_tipo" => $id])
             ->fetch(\PDO::FETCH_OBJ);
 
         // Verifica se encontrou a categoria
-        if(!empty($categoria))
+        if(!empty($tipo))
         {
             // Verifica se o usuário possui permissão
             if($usuario->nivel == "admin")
             {
                 // Remove os dados inauteraveis
-                unset($post["id_categoria"]);
+                unset($post["id_tipo"]);
 
                 // Verifica se vai alterar o pai
-                if(isset($post["id_categoria_pai"]) && $post["id_categoria_pai"] == 0)
+                if(isset($post["id_tipo_pai"]) && $post["id_tipo_pai"] == 0)
                 {
                     // Deixa como null
-                    $post["id_categoria_pai"] = null;
+                    $post["id_tipo_pai"] = null;
                 }
 
                 // Altera os dados
-                if($this->objModelCategoria->update($post, ["id_categoria" => $id]) != false)
+                if($this->objModelTipo->update($post, ["id_tipo" => $id]) != false)
                 {
                     // Busca a categoria alterada
-                    $categoriaAlterada = $this->objModelCategoria
-                        ->get(["id_categoria" => $id])
+                    $tipoAlterado = $this->objModelTipo
+                        ->get(["id_tipo" => $id])
                         ->fetch(\PDO::FETCH_OBJ);
 
                     // Array de sucesso
                     $dados = [
                         "tipo" => true,
                         "code" => 200,
-                        "mensagem" => "Categoria alterada com sucesso.",
+                        "mensagem" => "Tipo alterado com sucesso.",
                         "objeto" => [
-                            "antes" => $categoria,
-                            "atual" => $categoriaAlterada
+                            "antes" => $tipo,
+                            "atual" => $tipoAlterado
                         ]
                     ];
 
@@ -332,7 +325,7 @@ class Categoria extends Controller
                 else
                 {
                     // Msg
-                    $dados = ["mensagem" => "Ocorreu um erro ao alterar a categoria."];
+                    $dados = ["mensagem" => "Ocorreu um erro ao alterar o tipo."];
 
                 } // Error >> Ocorreu um erro ao alterar a categoria.
             }
@@ -346,7 +339,7 @@ class Categoria extends Controller
         else
         {
             // Msg
-            $dados = ["mensagem" => "Categorias informada não foi encontrada."];
+            $dados = ["mensagem" => "Tipo informado não foi encontrado."];
 
         } // Error >> Categorias informada não foi encontrada.
 
@@ -379,37 +372,37 @@ class Categoria extends Controller
         $usuario = $this->usuario;
 
         // Busca a categoria
-        $categoria = $this->objModelCategoria
-            ->get(["id_categoria" => $id])
+        $tipo = $this->objModelTipo
+            ->get(["id_tipo" => $id])
             ->fetch(\PDO::FETCH_OBJ);
 
         // Verifica se encontrou a categoria
-        if(!empty($categoria))
+        if(!empty($tipo))
         {
             // Verifica se o usuário possui permissão
             if($usuario->nivel == "admin")
             {
                 // Verifica se possui categorias vinculadas
-                if($this->objModelCategoria->get(["id_categoria_pai" => $id])->rowCount() == 0)
+                if($this->objModelTipo->get(["id_tipo_pai" => $id])->rowCount() == 0)
                 {
                     // Verifica se possui produto nessa categoria
-                    if($this->objModelProduto->get(["id_categoria" => $id])->rowCount() == 0)
+                    if($this->objModelProduto->get(["id_tipo" => $id])->rowCount() == 0)
                     {
                         // Deleta
-                        if($this->objModelCategoria->delete(["id_categoria" => $id]) != false)
+                        if($this->objModelTipo->delete(["id_tipo" => $id]) != false)
                         {
                             // Array de retorno
                             $dados = [
                                 "tipo" => true,
                                 "code" => 200,
-                                "mensagem" => "Categoria deletada com sucesso.",
+                                "mensagem" => "Tipo deletado com sucesso.",
                                 "objeto" => $categoria
                             ];
                         }
                         else
                         {
                             // Msg
-                            $dados = ["mensagem" => "Ocorreu um erro ao deletar categoria."];
+                            $dados = ["mensagem" => "Ocorreu um erro ao deletar tipo."];
                         } // Error >> Ocorreu um erro ao deletar categoria.
                     }
                     else
@@ -422,7 +415,7 @@ class Categoria extends Controller
                 else
                 {
                     // Msg
-                    $dados = ["mensagem" => "A categoria possui outras categorias vinculadas."];
+                    $dados = ["mensagem" => "O tipo possui outros tipos vinculados."];
                 } // Error >> A categoria possui outras categorias vinculadas.
             }
             else
@@ -435,7 +428,7 @@ class Categoria extends Controller
         else
         {
             // Msg
-            $dados = ["mensagem" => "Categorias informada não foi encontrada."];
+            $dados = ["mensagem" => "Tipo informado não foi encontrado."];
 
         } // Error >> Categorias informada não foi encontrada.
 

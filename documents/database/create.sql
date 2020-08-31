@@ -36,22 +36,6 @@ CREATE TABLE historico(
 );
 
 
-CREATE TABLE categoria(
-  id_categoria INT NOT NULL AUTO_INCREMENT,
-  nome VARCHAR(100) NOT NULL,
-  PRIMARY KEY (id_categoria)
-);
-
-CREATE TABLE categoria_filha(
-  id_categoria_filha INT NOT NULL AUTO_INCREMENT,
-  id_pai INT NOT NULL,
-  id_filha INT NOT NULL,
-  PRIMARY KEY (id_categoria_filha),
-  FOREIGN KEY (id_pai) REFERENCES categoria(id_categoria),
-  FOREIGN KEY (id_filha) REFERENCES categoria(id_categoria)
-);
-
-
 CREATE TABLE marca(
   id_marca INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(150) NOT NULL,
@@ -60,9 +44,33 @@ CREATE TABLE marca(
   PRIMARY KEY (id_marca)
 );
 
+
+CREATE TABLE categoria(
+  id_categoria INT NOT NULL AUTO_INCREMENT,
+  id_categoria_pai INT NULL DEFAULT NULL,
+  id_marca INT NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  FOREIGN KEY (id_categoria_pai) REFERENCES categoria(id_categoria),
+  FOREIGN KEY (id_marca) REFERENCES marca(id_marca),
+  PRIMARY KEY (id_categoria)
+);
+
+
+CREATE TABLE tipo(
+  id_tipo INT NOT NULL AUTO_INCREMENT,
+  id_tipo_pai INT NULL DEFAULT NULL,
+  id_marca INT NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  FOREIGN KEY (id_tipo_pai) REFERENCES tipo(id_tipo),
+  FOREIGN KEY (id_marca) REFERENCES marca(id_marca),
+  PRIMARY KEY (id_tipo)
+);
+
+
 CREATE TABLE produto(
     id_produto INT NOT NULL AUTO_INCREMENT,
     id_categoria INT NOT NULL,
+    id_tipo INT NULL DEFAULT NULL,
     id_marca INT NULL DEFAULT NULL,
     id_usuario INT NULL DEFAULT NULL, -- Id do usuário que adicionou o produto
 
@@ -81,6 +89,7 @@ CREATE TABLE produto(
 
     PRIMARY KEY (id_produto),
     FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria),
+    FOREIGN KEY (id_tipo) REFERENCES tipo(id_tipo),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
     FOREIGN KEY (id_marca) REFERENCES marca(id_marca)
 );
@@ -97,7 +106,6 @@ CREATE TABLE imagem(
    PRIMARY KEY (id_imagem),
    FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
 );
-
 
 CREATE TABLE ficha_tecnica(
   id_ficha_tecnica INT NOT NULL AUTO_INCREMENT,

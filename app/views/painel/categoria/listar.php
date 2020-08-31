@@ -37,7 +37,9 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">NOME</th>
-                                        <th scope="col">FILHAS</th>
+                                        <th scope="col">SUB. CATEGORIAS</th>
+                                        <th scope="col">MARCA</th>
+                                        <th scope="col">PRODUTOS</th>
                                         <th class="text-center" scope="col">AÇÕES</th>
                                     </tr>
                                     </thead>
@@ -46,10 +48,15 @@
                                         <tr id="tb_<?= $categoria->id_categoria ?>">
                                             <td><?= $categoria->nome ?></td>
                                             <td>
-                                                <?php if(!empty($categoria->filhas)): ?>
-                                                    <?php $this->view("painel/include/util/categoria-lista", ["categorias" => $categoria->filhas]); ?>
+                                                <?php if(!empty($categoria->sub)): ?>
+                                                    <?= $categoria->sub; ?>
+                                                <?php else: ?>
+                                                    -
                                                 <?php endif; ?>
                                             </td>
+
+                                            <td><?= $categoria->marca->nome; ?></td>
+                                            <td><?= $categoria->produtos; ?></td>
 
                                             <td class="text-center">
                                                 <button data-id="<?= $categoria->id_categoria; ?>"

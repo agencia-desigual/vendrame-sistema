@@ -10,14 +10,15 @@ namespace Controller;
 
 
 use Helper\Apoio;
-use Model\View\CategoriaFilha;
 use Sistema\Controller;
 
 class Categoria extends Controller
 {
     // Objetos
     private $objModelCategoria;
-    private $objModelViewCategoriaFilha;
+    private $objModelMarca;
+    private $objModelProduto;
+
     private $objHelperApoio;
 
     // Método construtor
@@ -28,7 +29,8 @@ class Categoria extends Controller
 
         // Instanci os objetos
         $this->objModelCategoria = new \Model\Categoria();
-        $this->objModelViewCategoriaFilha = new CategoriaFilha();
+        $this->objModelMarca = new \Model\Marca();
+        $this->objModelProduto = new \Model\Produto();
 
         $this->objHelperApoio = new Apoio();
 
@@ -47,6 +49,7 @@ class Categoria extends Controller
         $dados = null;
         $usuario = null;
         $categorias = null;
+        $marca = [];
 
         // Recupera o usuário logado
         $usuario = $this->objHelperApoio->seguranca();
@@ -54,16 +57,31 @@ class Categoria extends Controller
         // Verifica se possui permissão
         if($usuario->nivel == "admin")
         {
-            // Busca todas as categorias cadastradas
-            $categorias = $this->objModelViewCategoriaFilha
-                ->get()
-                ->fetchAll(\PDO::FETCH_OBJ);
+            // Busca todas as categorias
+            $categorias = $this->objHelperApoio->getCategoriasLista();
 
-            // Percorre todas as categorias
+            // Percorre as categorias
             foreach ($categorias as $cat)
             {
-                // Busca as filhas da categoria
-                $cat->filhas = $this->objHelperApoio->getCategoriaFilha($cat->id_categoria);
+                // Verifica se não possui a marca no array
+                if(empty($marca[$cat->id_marca]))
+                {
+                    // Busca a marca
+                    $aux = $this->objModelMarca
+                        ->get(["id_marca" => $cat->id_marca])
+                        ->fetch(\PDO::FETCH_OBJ);
+
+                    // Add ao array
+                    $marca[$cat->id_marca] = $aux;
+                }
+
+                // Add a marca
+                $cat->marca = $marca[$cat->id_marca];
+
+                // Busca o numero de produtos com a categoria
+                $cat->produtos = $this->objModelProduto
+                    ->get(["id_categoria" => $cat->id_categoria])
+                    ->rowCount();
             }
 
             // Array de retorno
@@ -82,15 +100,18 @@ class Categoria extends Controller
     } // End >> fun::listar()
 
 
-
+    /**
+     * Método responsável por adicionar uma nova categoria
+     * no sistema, verificando se o usuário possui
+     * permissão.
+     * ---------------------------------------------
+     * @url painel/categoria/adicionar
+     */
     public function adicionar()
     {
         // Variaveis
         $dados = null;
         $usuario = null;
-        $categorias = null;
-
-        $aux = [];
 
         // Recupera o logado
         $usuario = $this->objHelperApoio->seguranca();
@@ -98,66 +119,95 @@ class Categoria extends Controller
         // Verifica se possui permissão
         if($usuario->nivel == "admin")
         {
-            $categorias  = $this->objModelCategoria
+            // Busca todas as categorias
+            $categorias = $this->objHelperApoio->getCategoriasLista();
+
+            // Busca as marcas
+            $marcas = $this->objModelMarca
                 ->get()
                 ->fetchAll(\PDO::FETCH_OBJ);
 
-            foreach ($categorias as $cat)
-            {
-                $cat->pai = $this->getCategoriaPai($cat->id_categoria);
-            }
+            // Array de retorno
+            $dados = [
+                "usuario" => $usuario,
+                "categorias" => $categorias,
+                "marcas" => $marcas,
+                "get" => $_GET,
+                "js" => [
+                    "modulos" => ["Categoria"],
+                    "pages" => ["Select"]
+                ]
+            ];
 
-            $this->debug($categorias);
+            // View
+            $this->view("painel/categoria/adicionar", $dados);
         }
 
     } // End >> fun::adicionar()
 
-    public function alterar($id)
-    {
-
-    }
-
-
-
 
     /**
-     * Método responsável por buscar todas as categorias
-     * filhas de uma determinada categoria existente.
-     * -----------------------------------------------------------------
-     * @param $idPai [Id da categoria - Pode ser null]
-     * @return array|null
+     * Método responsável por buscar as informações
+     * necessárias e montar a página de alteração de
+     * uma determinada categoria.
+     * ---------------------------------------------
+     * @param $id [Id da categoria]
+     * ---------------------------------------------
+     * @url painel/categoria/alterar/{ID}
      */
-    public function getCategoriaPai($idPai)
+    public function alterar($id)
     {
-        // Objetos
-        $objModelCategoria = new CategoriaFilha();
-
         // Variaveis
-        $categorias = null;
+        $dados = null;
+        $usuario = null;
+        $obj = null;
 
-//
-//        $sql = "SELECT * FROM categoria cat
-//                    LEFT JOIN categoria_filha c1
-//                        ON cat.id_categoria = c1.id_pai
-//                    WHERE id_categoria = " . $idPai;
-//
-//        // Busca as categorias filhas da pai
-//        $categoria = $objModelCategoria
-//            ->query($sql)
-//            ->fetch(\PDO::FETCH_OBJ);
-//
-//        // Verifica se encontrou
-//        if (!empty($categoria))
-//        {
-//            // Busca as categorias Filhas
-//            $categoria->pai = $this->getCategoriaPai($categoria->id_filha);
-//        }
+        // Busca o usuário logado
+        $usuario = $this->objHelperApoio->seguranca();
 
-        // Retorna as categorias
-        return $categoria;
-    } // End >> fun::getCategoriaFilha()
+        // Verifica se possui permissão
+        if($usuario->nivel == "admin")
+        {
+            // Busca a categoria a ser alterada
+            $categoria = $this->objModelCategoria
+                ->get(["id_categoria" => $id])
+                ->fetch(\PDO::FETCH_OBJ);
 
+            // Verifica se existe
+            if(!empty($categoria))
+            {
+                // Busca todas as categorias cadastradas
+                $categorias = $this->objHelperApoio->getCategoriasLista();
 
+                // Busca a marca
+                $marca = $this->objModelMarca
+                    ->get(["id_marca" => $categoria->id_marca])
+                    ->fetch(\PDO::FETCH_OBJ);
+
+                // Array de retorno
+                $dados = [
+                    "usuario" => $usuario,
+                    "categoria" => $categoria,
+                    "categorias" => $categorias,
+                    "marca" => $marca,
+                    "js" => [
+                        "modulos" => ["Categoria"],
+                        "pages" => ["Select"]
+                    ]
+                ];
+
+                // View
+                $this->view("painel/categoria/alterar", $dados);
+            }
+            else
+            {
+                // Manda para o inserir
+                $this->adicionar();
+
+            } // Categoria não existe
+        }
+
+    } // End >> fun::alterar()
 
 
 } // End >> Class::Categoria

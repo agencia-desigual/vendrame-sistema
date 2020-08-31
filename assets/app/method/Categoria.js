@@ -34,9 +34,10 @@ $("#formInserirCategoria").on("submit", function(){
             // Limpa o formulário
             Global.limparFormulario("#formInserirCategoria");
 
-            // Desbloqueia o formulário
-            $(this).removeClass("bloqueiaForm");
-
+            // Envia para o editar
+            setTimeout(() => {
+                location.href = Global.config.url + "painel/categoria/adicionar";
+            },800);
         })
         .catch((error) => {
             // Desbloqueia o formulário
@@ -124,7 +125,7 @@ $("#formAlterarCategoria").on("submit", function(){
     var url = Global.config.urlApi + "categoria/update/"+id;
 
     // Realiza a requisição
-    Global.enviaApi("PUT", url, form, token.token)
+    Global.enviaApi("POST", url, form, token.token)
         .then((data) => {
 
             // Avisa que deu certo
@@ -141,4 +142,20 @@ $("#formAlterarCategoria").on("submit", function(){
 
     // Não atualiza mesmo
     return false;
+});
+
+
+
+
+$(".selecionaMarca").on("change", function () {
+
+    // Marca selecionada
+    var marca = this.value;
+
+    // Url
+    var url = Global.config.url + "painel/categoria/adicionar?marca=" + marca;
+
+    // Redireciona
+    location.href = url;
+
 });

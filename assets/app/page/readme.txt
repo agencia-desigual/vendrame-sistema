@@ -1,1 +1,0 @@
-Aqui vai os arquivos especificos para que um determinado plugin funcione.
