@@ -17,6 +17,7 @@ class Site extends CI_controller
     private $objHelperApoio;
     private $objModelMarca;
     private $objModelCategoria;
+    private $objModelProduto;
 
 
     // Método construtor
@@ -29,6 +30,7 @@ class Site extends CI_controller
         $this->objHelperApoio = new Apoio();
         $this->objModelMarca = new Marca();
         $this->objModelCategoria = new Categoria();
+        $this->objModelProduto = new \Model\Produto();
 
     } // End >> fun::__construct()
 
@@ -97,14 +99,22 @@ class Site extends CI_controller
             }
         }
 
+        //$this->debug($marcas);
+
         // Busca todas as categorias
         $categorias = $this->objHelperApoio->getCategorias();
+
+        // Busca todos os produtos
+        $produtos = $this->objModelProduto
+            ->get()
+            ->fetchAll(\PDO::FETCH_OBJ);
 
         // Dados da view
         $dados = [
             "usuario" => $usuario,
             "marcas" => $marcas,
             "categorias" => $categorias,
+            "produtos" => $produtos,
             "js" => [
                 "modulos" => ["Produto"]
             ]
@@ -137,6 +147,22 @@ class Site extends CI_controller
 
         // Busca todas as categorias FILHAS
         $categorias = $this->objHelperApoio->getCategoriaFilha($id);
+
+        // Busca todas as marcas
+        $marcas = $this->objModelMarca
+            ->get()
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Verificando se encontrou
+        if (!empty($marcas))
+        {
+            // Busca a logo da marca
+            foreach ($marcas as $marca)
+            {
+                // Vincula a logo
+                $marca->logo = $this->objHelperApoio->getImagem($marca->id_marca,"marca");
+            }
+        }
 
         // Dados da view
         $dados = [

@@ -35,7 +35,7 @@
                                 <div style="position: relative">
                                     <div class="resultado"></div>
                                 </div>
-                                <small id="emailHelp" class="form-text text-muted"><a style="color: #204f93; text-decoration: none" href="#">Ver todos os produtos</a></small>
+                                <small id="emailHelp" class="form-text text-muted"><a style="color: #204f93; text-decoration: none" href="<?= BASE_URL ?>produtos">Ver todos os produtos</a></small>
                             </div>
                         </form>
                         <!-- FIM >> FORMULARIO -->

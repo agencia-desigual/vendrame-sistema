@@ -47,6 +47,7 @@ class Categoria extends Controller
         $dados = null;
         $usuario = null;
         $categorias = null;
+        $aa = [];
 
         // Recupera o usuário logado
         $usuario = $this->objHelperApoio->seguranca();

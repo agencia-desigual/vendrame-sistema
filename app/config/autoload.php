@@ -32,6 +32,10 @@ $pluginsAutoLoad = [
     "animate" => [
         "js" => null,
         "css" => ["css/animate.min"],
+    ],
+    "owl-carousel" => [
+        "js" => ["owl.carousel.min"],
+        "css" => ["owl.carousel.min","owl.theme.default.min"],
     ]
 ];
 
