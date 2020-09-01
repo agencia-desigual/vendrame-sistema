@@ -388,7 +388,7 @@ class Apoio
             $tipo->sub = $retorno;
 
             // Busca o pai do pai
-            $retorno = $this->getCategoriaPai($tipo);
+            $retorno = $this->getTipoPai($tipo);
         }
 
         // Retorna o texto

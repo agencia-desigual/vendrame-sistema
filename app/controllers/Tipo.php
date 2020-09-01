@@ -77,11 +77,6 @@ class Tipo extends Controller
 
                 // Add a marca
                 $tip->marca = $marca[$tip->id_marca];
-
-                // Busca o numero de produtos com a categoria
-                $tip->produtos = $this->objModelProduto
-                    ->get(["id_tipo" => $tip->id_tipo])
-                    ->rowCount();
             }
 
             // Array de retorno

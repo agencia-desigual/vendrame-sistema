@@ -131,6 +131,11 @@ $Rotas->on("GET","painel/categorias","Categoria::listar");
 $Rotas->on("GET","painel/categoria/adicionar","Categoria::adicionar");
 $Rotas->on("GET","painel/categoria/alterar/{p}","Categoria::alterar");
 
+// -- Tipo
+$Rotas->on("GET","painel/tipos","Tipo::listar");
+$Rotas->on("GET","painel/tipo/adicionar","Tipo::adicionar");
+$Rotas->on("GET","painel/tipo/alterar/{p}","Tipo::alterar");
+
 // -- Atributo
 $Rotas->on("GET","painel/atributos","Atributo::listar");
 $Rotas->on("GET","painel/atributo/adicionar","Atributo::adicionar");

@@ -143,6 +143,16 @@
                     </li>
                     <!-- FIM >> CATEGORIAS -->
 
+                    <!-- TIPOS -->
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-medal"></i><span> Tipos <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="<?= BASE_URL; ?>painel/tipo/adicionar">Adicionar</a></li>
+                            <li><a href="<?= BASE_URL; ?>painel/tipos">Listar Todas</a></li>
+                        </ul>
+                    </li>
+                    <!-- FIM >> TIPOS -->
+
                     <!-- ATRIBUTOS -->
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-gem"></i><span> Atributos <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
