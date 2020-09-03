@@ -89,7 +89,7 @@ class Produto extends Controller
                 "usuario" => $usuario,
                 "produtos" => $produtos,
                 "js" => [
-                    "modulos" => ["Produtos"]
+                    "modulos" => ["Produto"]
                 ]
             ];
 
@@ -157,5 +157,63 @@ class Produto extends Controller
         }
 
     } // End >> fun::adicionar()
+
+
+    public function alterar($id, $pag = "produto")
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $produto = null;
+
+        // Recupera o usuário
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Verifica se é admin
+        if($usuario->nivel == "admin")
+        {
+            // Busca o produto
+            $produto = $this->objModelProduto
+                ->get(["id_produto" => $id])
+                ->fetch(\PDO::FETCH_OBJ);
+
+            // Verifica se o produto existe
+            if(!empty($produto))
+            {
+                // Busca todas as categorias
+                $categorias = $this->objHelperApoio->getCategoriasLista(null, $produto->id_marca);
+
+                // Busca todas os tipos
+                $tipos = $this->objHelperApoio->getTiposLista(null, $produto->id_marca);
+
+                // Busca a marca
+                $produto->marca = $this->objModelMarca
+                    ->get(["id_marca" => $produto->id_marca])
+                    ->fetch(\PDO::FETCH_OBJ);
+
+                // Array de retorno
+                $dados = [
+                    "usuario" => $usuario,
+                    "tipos" => $tipos,
+                    "categorias" => $categorias,
+                    "produto" => $produto,
+                    "pag" => $pag,
+                    "js" => [
+                        "modulos" => ["Produto"],
+                        "pages" => ["Select"]
+                    ]
+                ];
+
+                // View
+                $this->view("painel/produto/alterar", $dados);
+            }
+            else
+            {
+                // Como não possui o produto manda para adicionar
+                $this->adicionar();
+            } // Produto não encontrado
+        }
+
+    } // End >> fun::alterar()
 
 } // End >> Class::Produto

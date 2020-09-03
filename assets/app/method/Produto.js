@@ -31,14 +31,10 @@ $("#formInserirProduto").on("submit", function(){
             // Avisa que deu certo
             Global.setSuccess(data.mensagem);
 
-            // Limpa o form
-            $(".dropify-clear").trigger("click");
-
-            // Limpa o formulário
-            Global.limparFormulario("#formInserirProduto");
-
-            // Desbloqueia o formulário
-            $(this).removeClass("bloqueiaForm");
+            // Atualiza a página
+            setTimeout(() => {
+                location.href = Global.config.url + "painel/produto/adicionar";
+            }, 1000);
 
         })
         .catch((error) => {
@@ -71,7 +67,7 @@ $(".deletarProduto").on("click", function () {
     // Pergunta se realmente quer deletar
     Swal.fire({
         title: "Deletar Produto",
-        text: "Realmente deseja deletar esse marca?",
+        text: "Realmente deseja deletar esse produto?",
         type: 'warning',
         showCancelButton: true,
         cancelButtonText: 'Cancelar',

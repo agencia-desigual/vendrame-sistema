@@ -32,7 +32,7 @@
                                 <h4 class="mt-0 header-title">Cadastrar Produto</h4>
                                 <p class="sub-title">Cadastre um novo produto no sistema.</p>
 
-                                <form id="formInserirTipo">
+                                <form id="formInserirProduto">
 
                                     <div class="row">
                                         <div class="col-md-12">

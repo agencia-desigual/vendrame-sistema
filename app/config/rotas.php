@@ -145,4 +145,5 @@ $Rotas->on("GET","painel/atributo/alterar/{p}","Atributo::alterar");
 // -- PRODUTO
 $Rotas->on("GET","painel/produtos","Produto::listar");
 $Rotas->on("GET","painel/produto/adicionar","Produto::adicionar");
+$Rotas->on("GET","painel/produto/alterar/{p}/{p}","Produto::alterar");
 $Rotas->on("GET","painel/produto/alterar/{p}","Produto::alterar");
