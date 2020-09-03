@@ -184,6 +184,78 @@
                                         </div>
                                     </div>
 
+                                    <!-- ATRIBUTOS -->
+                                    <div class="tab-pane p-3 <?= ($pag == 'atributo') ? 'active' : ''; ?>" id="tab-atributo" role="tabpanel">
+                                        <h4 class="mt-0 header-title">Atributos</h4>
+                                        <p class="sub-title">Adicionar atributos ao produto</p>
+
+                                        <div class="mb-0">
+                                            <form id="formInserirAtributoProduto" data-id="<?= $produto->id_produto; ?>">
+
+                                                <!-- IMAGEM -->
+                                                <div class="form-group" style="text-align: left;">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label>Selecione o atributo</label>
+                                                            <select class="selectBusca" name="id_atributo">
+                                                                <?php foreach ($atributos as $atr): ?>
+                                                                    <option value="<?= $atr->id_atributo ?>"><?= $atr->nome; ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- STATUS -->
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+
+                                            <div style="margin-top: 50px; margin-bottom: 50px" >
+                                                <hr>
+                                            </div>
+
+                                            <?php if (!empty($produto->atributos)) : ?>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="text-center">IMAGEM</th>
+                                                            <th class="text-center" scope="col">NOME</th>
+                                                            <th class="text-center" scope="col">AÇÕES</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php foreach ($produto->atributos as $atributo) :?>
+                                                            <tr id="tb_atr_<?= $atributo->id_atributo_produto; ?>">
+                                                                <td class="text-center">
+                                                                    <img width="50px" src="<?= BASE_STORAGE . "atributo/" . $atributo->atributo->imagem; ?>">
+                                                                </td>
+
+                                                                <td class="text-center">
+                                                                    <?= $atributo->atributo->nome; ?>
+                                                                </td>
+
+                                                                <td class="text-center">
+                                                                    <button data-id="<?= $atributo->id_atributo_produto; ?>"
+                                                                            class="deletarAtributoProduto btn btn-danger btn-icon btn-sm mr-2">
+                                                                        <i class="fas fa-window-close"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
 
                                     <!-- GALERIA -->
                                     <div class="tab-pane p-3 <?= ($pag == 'galeria') ? 'active' : ''; ?>" id="tab-galeria" role="tabpanel">
@@ -237,7 +309,7 @@
                                                 <?php foreach ($produto->galeria as $galeria) :?>
                                                     <tr id="tb_img_<?= $galeria->id_imagem; ?>">
                                                         <td class="text-center">
-                                                            <img width="50px" src="<?= $galeria->thumb; ?>">
+                                                            <img width="50px" src="<?= BASE_STORAGE . "produto/" . $galeria->id_produto . "/" . $galeria->imagem; ?>">
                                                         </td>
 
                                                         <td class="text-center">
@@ -273,7 +345,6 @@
                                         <?php endif; ?>
                                         </p>
                                     </div>
-
 
                                     <!-- FICHA TÉCNICA -->
                                     <div class="tab-pane p-3 <?= ($pag == 'ficha') ? 'active' : ''; ?>" id="tab-ficha" role="tabpanel">

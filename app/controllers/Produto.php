@@ -11,6 +11,9 @@ namespace Controller;
 
 // Importações
 use Helper\Apoio;
+use Model\AtributoProduto;
+use Model\FichaTecnica;
+use Model\Imagem;
 use Sistema\Controller;
 
 // Classe
@@ -21,6 +24,11 @@ class Produto extends Controller
     private $objModelMarca;
     private $objModelCategoria;
     private $objModelTipo;
+    private $objModelFichaTecnica;
+    private $objModelImagem;
+    private $objModelAtributoProduto;
+    private $objModelAtributo;
+
     private $objHelperApoio;
 
 
@@ -35,6 +43,10 @@ class Produto extends Controller
         $this->objModelMarca = new \Model\Marca();
         $this->objModelTipo = new \Model\Tipo();
         $this->objModelCategoria = new \Model\Categoria();
+        $this->objModelFichaTecnica = new FichaTecnica();
+        $this->objModelImagem = new Imagem();
+        $this->objModelAtributo = new \Model\Atributo();
+        $this->objModelAtributoProduto = new AtributoProduto();
 
         $this->objHelperApoio = new Apoio();
 
@@ -180,6 +192,8 @@ class Produto extends Controller
             // Verifica se o produto existe
             if(!empty($produto))
             {
+                $ids = "";
+
                 // Busca todas as categorias
                 $categorias = $this->objHelperApoio->getCategoriasLista(null, $produto->id_marca);
 
@@ -191,6 +205,49 @@ class Produto extends Controller
                     ->get(["id_marca" => $produto->id_marca])
                     ->fetch(\PDO::FETCH_OBJ);
 
+                // Busca as fichas
+                $produto->ficha = $this->objModelFichaTecnica
+                    ->get(["id_produto" => $produto->id_produto])
+                    ->fetchAll(\PDO::FETCH_OBJ);
+
+                // Busca as imagens
+                $produto->galeria = $this->objModelImagem
+                    ->get(["id_produto" => $produto->id_produto])
+                    ->fetchAll(\PDO::FETCH_OBJ);
+
+                $produto->atributos = $this->objModelAtributoProduto
+                    ->get(["id_produto" => $produto->id_produto])
+                    ->fetchAll(\PDO::FETCH_OBJ);
+
+                if(!empty($produto->atributos))
+                {
+                    foreach ($produto->atributos as $atr)
+                    {
+                        $ids .= $atr->id_atributo . ",";
+
+                        $atr->atributo = $this->objModelAtributo
+                            ->get(["id_atributo" => $atr->id_atributo])
+                            ->fetch(\PDO::FETCH_OBJ);
+                    }
+
+                    $ids = substr($ids, 0, -1);
+                }
+
+
+                if(!empty($ids))
+                {
+                    $atributos = $this->objModelAtributo
+                        ->get(["id_atributo" => "NOT IN({$ids})"])
+                        ->fetchAll(\PDO::FETCH_OBJ);
+                }
+                else
+                {
+                    $atributos = $this->objModelAtributo
+                        ->get()
+                        ->fetchAll(\PDO::FETCH_OBJ);
+                }
+
+
                 // Array de retorno
                 $dados = [
                     "usuario" => $usuario,
@@ -198,8 +255,9 @@ class Produto extends Controller
                     "categorias" => $categorias,
                     "produto" => $produto,
                     "pag" => $pag,
+                    "atributos" => $atributos,
                     "js" => [
-                        "modulos" => ["Produto"],
+                        "modulos" => ["Produto","FichaTecnica"],
                         "pages" => ["Select"]
                     ]
                 ];

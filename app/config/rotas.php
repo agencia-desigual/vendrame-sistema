@@ -80,8 +80,8 @@ $Rotas->onGroup("api-atributo","POST","insert","insert");
 $Rotas->onGroup("api-atributo","POST","update/{p}","update");
 $Rotas->onGroup("api-atributo","DELETE","delete/{p}","delete");
 
-$Rotas->onGroup("api-atributo","POST","produto/{p}/{p}","vinculaProduto");
 $Rotas->onGroup("api-atributo","DELETE","produto/{p}","desvinculaProduto");
+$Rotas->onGroup("api-atributo","POST","produto/{p}/{p}","vinculaProduto");
 
 
 /**

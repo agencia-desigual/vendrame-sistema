@@ -217,10 +217,10 @@ class Imagem extends Controller
                                 $objThumb1 = new Thumb();
 
                                 // Adiciona as informações
-                                $objThumb1->setNome($arquivo);
+                                $objThumb1->setNome("thumb_" . $arquivo);
                                 $objThumb1->setStorage($caminho);
-                                $objThumb1->setTamanho("800","800");
-                                $objThumb1->setFile($caminho . "thumb_" . $arquivo);
+                                $objThumb1->setTamanho("1000","1000");
+                                $objThumb1->setFile($caminho . $arquivo);
 
                                 // Salva a thumb
                                 $arquivoAux = $objThumb1->save();
