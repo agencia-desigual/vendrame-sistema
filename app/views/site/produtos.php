@@ -33,14 +33,16 @@
                             <?php foreach ($categorias as $categoria) : ?>
 
                                 <!-- CATEGORIA NIVEL 1 -->
-                                <li><a href="#" title="<?= $categoria->nome ?>"><?= $categoria->nome ?></a>
+                                <li>
+
+                                    <a href="<?= BASE_URL ?>produtos/<?= $categoria->id_categoria ?>" title="<?= $categoria->nome ?>"><?= $categoria->nome ?></a>
 
                                     <!-- CATEGORIA NIVEL 2 -->
-                                    <?php if (!empty($categoria->filhas)) : ?>
+                                    <?php if (!empty($categoria->filhos)) : ?>
 
                                         <ul class="children">
 
-                                            <?php foreach ($categoria->filhas as $cat) : ?>
+                                            <?php foreach ($categoria->filhos as $cat) : ?>
 
                                                 <li><a href="<?= BASE_URL; ?>produtos/<?= $cat->id_categoria ?>" title="<?= $cat->nome ?>"><?= $cat->nome ?></a></li>
 
@@ -53,13 +55,13 @@
                                 </li>
 
                             <?php endforeach; ?>
-                            <li><a href="#" title="kids">Todas categorias</a></li>
+                            <li><a href="<?= BASE_URL ?>produtos" title="kids">Todas categorias</a></li>
                         </ul>
                     </aside>
                 <?php endif; ?>
 
                 <aside class="widget widget_link">
-                    <h3 class="widget-title">By Brand</h3>
+                    <h3 class="widget-title">OUTRAS MARCAS</h3>
                     <ul>
                         <li><a href="#" title="Aeccaft">Aeccaft</a><span class="count">(15)</span></li>
                         <li><a href="#" title="Artek">Artek</a><span class="count">(09)</span></li>
@@ -68,6 +70,7 @@
                         <li><a href="#" title="Desu">Desu</a><span class="count">(16)</span></li>
                     </ul>
                 </aside>
+
             </div>
             <!-- FIM >> FILTROS -->
 
@@ -78,352 +81,44 @@
                 <div class="wrap-breadcrumb">
                     <div class="ordering">
                         <div class="float-left">
-                            <p class="result-count">Mostrando 999 produtos</p>
+                            <p class="result-count">Mostrando <?= $qtdeProdutos ?> produtos</p>
                         </div>
                         <div class="float-right"></div>
                     </div>
                 </div>
                 <!-- FIM >> QUANTIDADE -->
 
+                <!-- PRODUTOS -->
                 <div class="products ver2 grid_full grid_sidebar hover-shadow furniture">
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
+                    <?php foreach ($produtos as $produto) : ?>
+                        <div class="item-inner">
+                            <div class="product">
+                                <div class="product-images">
+                                    <a href="#" title="product-images">
+                                        <div class="thumb-produto" style="background-image: url('<?= $produto->imagem ?>')">
+
+                                        </div>
+                                        <img style="display: none" class="primary_image" src="<?= $produto->imagem ?>" alt=""/>
+                                    </a>
+                                </div>
+                                <a href="#"><p class="product-title"><?= mb_strimwidth($produto->nome, 0, 35, "...");  ?></p></a>
+                                <p class="product-price">R$ <?= number_format($produto->valorVenda, 2, ",", ".") ?></p>
+                                <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
+
+                                <div class="social box">
+                                    <h3>Share this :</h3>
+                                    <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
+                                    <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
+                                    <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
+                                    <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
+                                    <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
                                 </div>
                             </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
+                            <!-- End product -->
                         </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
-                    <div class="item-inner">
-                        <div class="product">
-                            <div class="product-images">
-                                <a href="#" title="product-images">
-                                    <img class="primary_image" src="assets/images/products/featured/1.jpg" alt=""/>
-                                </a>
-                                <div class="action">
-                                    <a class="wish" href="#" title="Wishlist" ><i class="icon icon-heart"></i></a>
-                                    <a class="zoom" href="#" title="Quick view" ><i class="icon icon-magnifier-add "></i></a>
-                                    <a class="add-cart" href="#" title="Add to cart" ><i class="icon-bag"></i></a>
-                                </div>
-                            </div>
-                            <a href="#" title="Bouble Fabric Blazer"><p class="product-title">Bouble Fabric Blazer</p></a>
-                            <p class="product-price-old">$700.00</p>
-                            <p class="product-price">$69.90</p>
-                            <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
-
-                            <div class="social box">
-                                <h3>Share this :</h3>
-                                <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
-                            </div>
-                        </div>
-                        <!-- End product -->
-                    </div>
+                    <?php endforeach; ?>
                 </div>
-                <!-- End product-content products  -->
+                <!-- FIM >> PRODUTOS -->
 
                 <!-- PAGINAÇÃO -->
                 <div class="pagination-container">
