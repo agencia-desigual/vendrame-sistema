@@ -198,7 +198,13 @@ body, html
                PAGINA - PRODUTOS
 ==================================================
 */
-
+.thumb-produto
+{
+    min-height: 150px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 .cabecalho
 {
     margin-top: 30px;

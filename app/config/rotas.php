@@ -96,7 +96,7 @@ $Rotas->on("GET","","Site::index");
 
 // -- Rotas sem grupo --- INDEX
 $Rotas->on("GET","produtos","Site::produtos");
-$Rotas->on("GET","produtos/{p}","Site::produtosFiltros");
+$Rotas->on("GET","produtos/{p}","Site::produtos");
 
 // -- Rotas sem grupo --- LOGIN
 $Rotas->on("GET","login","Site::login");

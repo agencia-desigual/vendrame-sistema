@@ -16701,9 +16701,10 @@ nav.pagination .next:hover i, nav.pagination .prev:hover i {
 }
 
 .products.ver2 .product p.product-title, .products.ver2 .product .product-price-old, .products.ver2 .product .product-price {
-  margin-top: -80px;
+  /*margin-top: -80px;*/
   position: relative;
   z-index: 2;
+  height: 60px;
 }
 
 .products.ver2 .product .product-price-old, .products.ver2 .product .product-price {
@@ -16743,7 +16744,7 @@ nav.pagination .next:hover i, nav.pagination .prev:hover i {
   font-family: "Roboto";
   font-size: 16px;
   color: #000;
-  line-height: 34px;
+  line-height: 25px;
   font-weight: 400;
 }
 
@@ -23540,7 +23541,7 @@ nav.megamenu-v2 ul.main-menu li:last-child {
 }
 
 .furniture .product .product-title {
-  padding: 0 20px;
+  padding: 0px;
 }
 
 .furniture .product .product-price-old {

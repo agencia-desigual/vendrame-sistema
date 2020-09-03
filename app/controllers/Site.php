@@ -72,13 +72,14 @@ class Site extends CI_controller
      * ------------------------------------------------------
      * @url produtos
      */
-    public function produtos()
+    public function produtos($id = null)
     {
         // Variaveis
         $dados = null;
         $usuario = null;
         $marcas = null;
         $categorias = null;
+        $where = null;
 
         // Verificando se o usuario está logado
         $usuario = $this->objHelperApoio->seguranca();
@@ -99,15 +100,59 @@ class Site extends CI_controller
             }
         }
 
-        //$this->debug($marcas);
-
         // Busca todas as categorias
-        $categorias = $this->objHelperApoio->getCategorias();
+        $categorias = $this->objHelperApoio->getCategorias($id);
+
+        // Verifica se tem filtro de categoria
+        if (!empty($id))
+        {
+            // Variaveis
+            $ids = "";
+
+            // Percorre todas as categorias
+            foreach ($categorias as $categoria)
+            {
+                // Concatena todas as categorias PAI
+                $ids .= $categoria->id_categoria.',';
+
+                // Verifica se tem FILHOS
+                if (!empty($categoria->filhos))
+                {
+                    // Percorre todas as categorias FILHOS
+                    foreach ($categoria->filhos as $filho)
+                    {
+                        // Concatena todos as categorias FILHOS
+                        $ids .= $filho->id_categoria.',';
+                    }
+                }
+            }
+
+            // Removendo o ultimo caractere que sempre vai ser a ","
+            $ids = substr($ids, 0, -1);
+
+            // Monta a query WHERE
+            $where = ["id_categoria" => "IN({$ids})"];
+        }
 
         // Busca todos os produtos
         $produtos = $this->objModelProduto
-            ->get()
+            ->get($where)
             ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Verifica se tem produto
+        if (!empty($produtos))
+        {
+            foreach ($produtos as $produto)
+            {
+                $produto->imagem = $this->objHelperApoio
+                    ->getImagem($produto->id_produto, "produto");
+
+                if (is_array($produto->imagem))
+                {
+                    $produto->imagem = BASE_STORAGE.'produto/'.$produto->id_produto.'/'.$produto->imagem[0]->imagem;
+                }
+            }
+        }
 
         // Dados da view
         $dados = [
@@ -115,6 +160,7 @@ class Site extends CI_controller
             "marcas" => $marcas,
             "categorias" => $categorias,
             "produtos" => $produtos,
+            "qtdeProdutos" => count($produtos),
             "js" => [
                 "modulos" => ["Produto"]
             ]
@@ -124,60 +170,6 @@ class Site extends CI_controller
         $this->view("site/produtos", $dados);
 
     } // End >> fun::produtos()
-
-
-
-    /**
-     * Método responsável por montar a página inicial do
-     * catalogo de produtos
-     * ------------------------------------------------------
-     * @url produtos
-     */
-    public function produtosFiltros($id)
-    {
-
-        // Variaveis
-        $dados = null;
-        $usuario = null;
-        $marcas = null;
-        $categorias = null;
-
-        // Verificando se o usuario está logado
-        $usuario = $this->objHelperApoio->seguranca();
-
-        // Busca todas as categorias FILHAS
-        $categorias = $this->objHelperApoio->getCategoriaFilha($id);
-
-        // Busca todas as marcas
-        $marcas = $this->objModelMarca
-            ->get()
-            ->fetchAll(\PDO::FETCH_OBJ);
-
-        // Verificando se encontrou
-        if (!empty($marcas))
-        {
-            // Busca a logo da marca
-            foreach ($marcas as $marca)
-            {
-                // Vincula a logo
-                $marca->logo = $this->objHelperApoio->getImagem($marca->id_marca,"marca");
-            }
-        }
-
-        // Dados da view
-        $dados = [
-            "usuario" => $usuario,
-            "marcas" => $marcas,
-            "categorias" => $categorias,
-            "js" => [
-                "modulos" => ["Produto"]
-            ]
-        ];
-
-        // Carrega a view
-        $this->view("site/produtos", $dados);
-
-    } // End >> fun::produtosFiltros()
 
 
 

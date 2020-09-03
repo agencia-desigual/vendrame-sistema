@@ -122,7 +122,7 @@ class Apoio
 
             // Busca as imagens do produto
             $imagens = $objModelImagem
-                ->get(["id_produto" => $id])
+                ->get(["id_produto" => $id],"principal DESC")
                 ->fetchAll(\PDO::FETCH_OBJ);
 
             // Verifica se não encontrou
@@ -169,14 +169,21 @@ class Apoio
      * -------------------------------------------------------------
      * @return array
      */
-    public function getCategorias()
+    public function getCategorias($id = null)
     {
         // Instancia o objeto
         $objModelCategoria = new Categoria();
 
+        $where = ["id_categoria_pai" => "IS NULL"];
+
+        if (!empty($id))
+        {
+            $where = ["id_categoria" => $id];
+        }
+
         // Busca as categorias pai
         $categorias = $objModelCategoria
-            ->get(["id_categoria_pai" => "IS NULL"], "nome ASC")
+            ->get($where, "nome ASC")
             ->fetchAll(\PDO::FETCH_OBJ);
 
         // Percorre as categorias encontradas
