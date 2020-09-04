@@ -449,6 +449,125 @@ class Produto extends Controller
 
 
 
+    public function reajuste()
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $post = null;
+        $where = null;
+        $altera = null;
 
+        // Recupera o usuário logado
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Verifica se o usuário possui permissão
+        if(!empty($usuario))
+        {
+            // Recupera os dados post
+            $post = $_POST;
+
+            // Verifica se informou a marca
+            if(!empty($post["id_marca"]))
+            {
+                // Where
+                $where["id_marca"] = $post["id_marca"];
+            }
+
+            // Verifica se informou a marca
+            if(!empty($post["id_categoria"]))
+            {
+                // Where
+                $where["id_categoria"] = $post["id_categoria"];
+            }
+
+            // Verifica se informou a marca
+            if(!empty($post["id_tipo"]))
+            {
+                // Where
+                $where["id_tipo"] = $post["id_tipo"];
+            }
+
+            // Verifica o que vai alterar
+            if(!empty($post["valorPago"]))
+            {
+                // Limpa o array
+                $post["valorPago"] = str_replace(".","", $post["valorPago"]);
+                $post["valorPago"] = str_replace(",",".", $post["valorPago"]);
+
+                // Array de alteração
+                $altera = ["valorPago" => $post["valorPago"]];
+            }
+            elseif(!empty($post["lucro"]))
+            {
+                // Limpa o array
+                $post["lucro"] = str_replace(".","", $post["lucro"]);
+                $post["lucro"] = str_replace(",",".", $post["lucro"]);
+
+                // Array de alteração
+                $altera = ["lucro" => $post["lucro"]];
+            }
+            elseif(!empty($post["desconto"]))
+            {
+                // Limpa o array
+                $post["desconto"] = str_replace(".","", $post["desconto"]);
+                $post["desconto"] = str_replace(",",".", $post["desconto"]);
+
+                // Array de alteração
+                $altera = ["desconto" => $post["desconto"]];
+            }
+
+            // Verifica se está alterando alguma coisa
+            if(!empty($altera))
+            {
+                // Altera e verifica
+                if($this->objModelProduto->update($altera, $where) != false)
+                {
+                    // Verifica se alterou
+                    if($this->objModelProduto->update(["valorVenda =" => "(((lucro / 100) * valorPago) + valorPago)"], $where) != false)
+                    {
+                        // Recupera o numero de produtos alterados
+                        $numProdutos = $this->objModelProduto
+                            ->get($where)
+                            ->rowCount();
+
+                        // Retorno
+                        $dados = [
+                            "tipo" => true,
+                            "code" => 200,
+                            "mensagem" => "Produtos reajustados com sucesso.",
+                            "objeto" => [
+                                "total" => $numProdutos
+                            ]
+                        ];
+                    }
+                    else
+                    {
+                        // Msg
+                        $dados = ["mensagem" => "Ocorreu um erro ao alterar produto."];
+                    } // Error >> Ocorreu um erro ao alterar produto
+                }
+                else
+                {
+                    // Msg
+                    $dados = ["mensagem" => "Ocorreu um erro ao reajustar dados."];
+                } // Error >> Ocorreu um erro ao reajustar dados.
+            }
+            else
+            {
+                // Msg
+                $dados = ["mensagem" => "Nada está sendo alterado."];
+            } // Error >> Nada está sendo alterado.
+        }
+        else
+        {
+            // Msg
+            $dados = ["mensagem" => "Usuário sem permissão"];
+        } // Error >> Usuário sem permissão.
+
+        // Retorno
+        $this->api($dados);
+
+    } // End >> fun::reajuste()
 
 } // End >> Class::Produto
