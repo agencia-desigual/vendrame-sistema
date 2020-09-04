@@ -570,4 +570,90 @@ class Produto extends Controller
 
     } // End >> fun::reajuste()
 
+
+
+
+    /**
+     * Método responsável por dar desconto
+     * em um determinado produto
+     * --------------------------------------------------
+     * @url api/produto/desconto
+     * @method POST
+     */
+    public function desconto()
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $salva = null;
+        $post = null;
+
+        // Recupera os dados do usuário
+        $usuario = $this->objSeguranca->security();
+
+        // Recupera os dados post
+        $post = $_POST;
+
+        // Verifica se o usuário possui permissão
+        if($usuario->nivel == "admin" || $usuario->nivel == "vendedor")
+        {
+            // Verifica se informou os dados obrigatórios
+            if(!empty($post["id_usuario"]) && !empty($post["id_produto"]))
+            {
+                // Busca o produto
+                $produto = $this->objModelProduto
+                    ->get(["id_produto" => $post["id_produto"]])
+                    ->fetch(\PDO::FETCH_OBJ);
+
+                // Verifica se o produto existe
+                if(!empty($produto))
+                {
+
+                    // Verificando se existe desconto
+                    if(!empty($produto->desconto))
+                    {
+                        // Aplica o desconto
+                        $produto->valorVenda = $produto->valorVenda - (($produto->desconto / 100) * $produto->valorVenda);
+                        $produto->valorVenda = number_format($produto->valorVenda, 2, ',', '.');
+
+                        // Retorno
+                        $dados = [
+                            "tipo" => true,
+                            "code" => 200,
+                            "mensagem" => "Desconto adicionado com sucesso",
+                            "objeto" => $produto
+                        ];
+                    }
+                    else
+                    {
+                        // Msg
+                        $dados = ["mensagem" => "Sem desconto no momento."];
+
+                    } // Error >> Sem desconto.
+
+                }
+                else
+                {
+                    // Msg
+                    $dados = ["mensagem" => "Produto não foi encontrado."];
+
+                } // Error >> Produto não foi encontrado.
+            }
+            else
+            {
+                // Msg
+                $dados = ["mensagem" => "Campos obrigatórios não foram preenchidos."];
+            } // Error >> Campos obrigatórios não foram preenchidos.
+        }
+        else
+        {
+            // Msg
+            $dados = ["mensagem" => "Usuário sem permissão."];
+        } // Error >> Usuário sem permissão.
+
+        // Retorno
+        $this->api($dados);
+
+    } // End >> fun::desconto()
+
 } // End >> Class::Produto
