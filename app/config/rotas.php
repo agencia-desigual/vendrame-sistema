@@ -65,6 +65,7 @@ $Rotas->onGroup("api-produto","POST","insert","insert");
 $Rotas->onGroup("api-produto","POST","update/{p}","update");
 $Rotas->onGroup("api-produto","DELETE","delete/{p}","delete");
 $Rotas->onGroup("api-produto","POST","pesquisa/{p}","pesquisa");
+$Rotas->onGroup("api-produto","POST","desconto","desconto");
 
 
 // Ficha Técnica

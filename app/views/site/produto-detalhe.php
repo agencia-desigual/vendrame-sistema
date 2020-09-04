@@ -75,8 +75,8 @@
                                 </div>
 
                                 <div class="wrap-price">
-                                    <!-- <p class="price-old">$700.00</p> -->
-                                    <p class="price">
+                                     <p class="price-old" style="display: none" >R$ <?= number_format($produto->valorVenda, 2, ',', '.'); ?></p>
+                                    <p class="price validarDesconto" id="valorProduto" data-id-produto = "<?= $produto->id_produto ?>" data-id-usuario = "<?= $usuario->id_usuario ?>" >
                                         R$ <?= number_format($produto->valorVenda, 2, ',', '.'); ?>
                                     </p>
                                 </div>

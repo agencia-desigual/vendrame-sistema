@@ -443,12 +443,16 @@ class Site extends CI_controller
                 }
             }
 
-            //$this->debug($atributos);
+//            $this->debug($usuario);
 
             $dados = [
+                "usuario" => $usuario,
                 "produto" => $produto,
                 "fichaTecnica" => $fichaTecnica,
-                "atributos" => $atributos
+                "atributos" => $atributos,
+                "js" => [
+                    "modulos" => ["Produto"]
+                ]
             ];
 
             $this->view("site/produto-detalhe", $dados);

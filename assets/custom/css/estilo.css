@@ -35,7 +35,7 @@ body, html
 .bloqueiaBody::after,
 .bloqueiaForm::after
 {
-    content: url("../img/loader-50.gif");
+    content:  url("../img/loader-50.gif");
     background-size: 20px 20px;
     position: absolute;
     top: 0px; left: 0px;

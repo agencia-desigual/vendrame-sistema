@@ -459,3 +459,61 @@ $(".deletarAtributoProduto").on("click", function () {
     // Não atualiza
     return false;
 });
+
+
+/*
+* ===========================================================
+* MÉTODOS PARA OP SITE ======================================
+* ===========================================================
+*/
+
+/**
+ * Método responsável por enviar os dados do
+ * formulário para a API, para que os dados sejam
+ * validados e devidamente inseridos no banco.
+ */
+$(".validarDesconto").on("click", function () {
+
+    // Não atualiza
+    event.preventDefault();
+
+    // bloqueia a tela
+    $(".body").addClass("bloqueiaBody");
+
+    // Recupera os dados
+    var idUsuario = $(this).data("id-usuario");
+    var idProduto = $(this).data("id-produto");
+
+    var form = new FormData();
+
+    form.set("id_usuario", idUsuario);
+    form.set("id_produto", idProduto);
+
+    // Url e token
+    var url = Global.config.urlApi + "produto/desconto";
+    var token = Global.session.get("token");
+
+    // Realiza a solicitação
+    Global.enviaApi("POST", url, form, token.token, "alertify")
+        .then((data) => {
+
+            // Redireciona para a página do produto
+            setTimeout(() => {
+
+                // Desbloqueia a tela
+                $(".body").removeClass("bloqueiaBody");
+
+                // Pega o valor com desconto
+                $(".price-old").css("display","inline-block");
+                $("#valorProduto").html("R$ " + data.objeto.valorVenda);
+
+            }, 3000);
+
+        })
+        .catch((data) => {
+            $(".body").removeClass("bloqueiaBody");
+        });
+
+    // Não atualiza
+    return false;
+});
