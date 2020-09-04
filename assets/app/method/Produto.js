@@ -461,7 +461,7 @@ $(".deletarAtributoProduto").on("click", function () {
 });
 
 
-<<<<<<< HEAD
+
 /**
  * Reajustar o valor pago, lucro ou desconto máximo
  * de todos os produtos, usando filtro.
@@ -487,8 +487,7 @@ $("#formReajusteProduto").on("submit", function () {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Sim!'
     }).then((result) => {
-        if (result.value)
-        {
+        if (result.value) {
             // Bloqueia
             $(this).addClass("bloqueiaForm");
 
@@ -508,7 +507,8 @@ $("#formReajusteProduto").on("submit", function () {
                 });
         }
     });
-=======
+});
+
 /*
 * ===========================================================
 * MÉTODOS PARA OP SITE ======================================
@@ -597,8 +597,7 @@ $("#pesquisaProduto").on("submit", function () {
         // Bloqueia o formulário
         $(".body").removeClass("bloqueiaBody");
 
-    },2000)
->>>>>>> ba3c41b0ebbd4a4863aae19fa2c44cce1ca93c54
+    },2000);
 
     // Não atualiza
     return false;
