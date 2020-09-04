@@ -31,14 +31,10 @@ $("#formInserirProduto").on("submit", function(){
             // Avisa que deu certo
             Global.setSuccess(data.mensagem);
 
-            // Limpa o form
-            $(".dropify-clear").trigger("click");
-
-            // Limpa o formulário
-            Global.limparFormulario("#formInserirProduto");
-
-            // Desbloqueia o formulário
-            $(this).removeClass("bloqueiaForm");
+            // Atualiza a página
+            setTimeout(() => {
+                location.href = Global.config.url + "painel/produto/adicionar";
+            }, 1000);
 
         })
         .catch((error) => {
@@ -71,7 +67,7 @@ $(".deletarProduto").on("click", function () {
     // Pergunta se realmente quer deletar
     Swal.fire({
         title: "Deletar Produto",
-        text: "Realmente deseja deletar esse marca?",
+        text: "Realmente deseja deletar esse produto?",
         type: 'warning',
         showCancelButton: true,
         cancelButtonText: 'Cancelar',
@@ -149,6 +145,17 @@ $("#formAlterarProduto").on("submit", function(){
     return false;
 });
 
+
+/*
+* ===========================================================
+* MÉTODOS SECUNDARIOS =======================================
+* ===========================================================
+*/
+
+/**
+ * Método responsável por realizar o calculo do
+ * valor em que o produto deve ser vendido.
+ */
 $(".selecionaMarca").on("change", function () {
 
     // Marca selecionada
@@ -190,4 +197,265 @@ $("#lucro").keyup(function () {
     console.log(valorLucro);
 
     $("#valorVenda").html(Global.formatMoney(valorLucro, 2,"R$",".",","));
+});
+
+
+
+/*
+* ===========================================================
+* IMAGEM DO PRODUTO =========================================
+* ===========================================================
+*/
+
+
+/**
+ * Método responsável por enviar os dados do
+ * formulário para a API, para que os dados sejam
+ * validados e devidamente inseridos no banco.
+ */
+$("#formInserirImagemProduto").on("submit", function () {
+
+    // Não atualiza a página
+    event.preventDefault();
+
+    // Recupera os dados do formulário
+    var form = new FormData(this);
+    var id = $(this).data("id");
+
+    // Bloqueia o formulário
+    $(this).addClass("bloqueiaForm");
+
+    // Url e token
+    var url = Global.config.urlApi + "imagem/insert/" + id;
+    var token = Global.session.get("token");
+
+    // Realiza a requisição
+    Global.enviaApi("POST", url, form, token.token)
+        .then((data) => {
+
+            // Avisa que deu certo
+            Global.setSuccess(data.mensagem);
+
+            // Redireciona para a página do produto
+            setTimeout(() => {
+                location.href = Global.config.url + "painel/produto/alterar/" + id + "/galeria";
+            }, 500);
+        })
+        .catch((error) => {
+            // Desbloqueia o formulário
+            $(this).removeClass("bloqueiaForm");
+        });
+
+    // Não atualiza mesmo
+    return false;
+
+});
+
+
+
+/**
+ * Método responsável por deletar uma determinada
+ * categoria.Enviando a solicitação para a API
+ */
+$(".deletarImagemProduto").on("click", function () {
+
+    // Não atualiza a página
+    event.preventDefault();
+
+    // Recupera as informações
+    var id = $(this).data("id");
+
+    // Url e Token
+    var url = Global.config.urlApi + "imagem/delete/" + id;
+    var token = Global.session.get("token");
+
+    // Pergunta se realmente quer deletar
+    Swal.fire({
+        title: 'Deletar Imagem',
+        text: 'Deseja realmente deletar essa imagem?',
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, delete!'
+    }).then((result) => {
+        if (result.value)
+        {
+            // Realiza a solicitação
+            Global.enviaApi("DELETE", url, null, token.token)
+                .then((data) => {
+
+                    // Avisa que deu certo
+                    Global.setSuccess(data.mensagem);
+
+                    // Remove da tabela
+                    $('#datatable')
+                        .DataTable()
+                        .row("#tb_img_" + id)
+                        .remove()
+                        .draw(false);
+
+
+                });
+        }
+    });
+
+
+    // Não atualiza mesmo
+    return false;
+});
+
+
+
+/**
+ * Método responsável por enviar os dados do
+ * formulário para a API, para que os dados sejam
+ * validados e devidamente inseridos no banco.
+ */
+$(".imagemPrincipal").on("click", function () {
+
+    // Não atualiza
+    event.preventDefault();
+
+    // Recupera os dados
+    var id = $(this).data("id");
+    var idProduto = $(this).data("produto");
+
+    // Url e token
+    var url = Global.config.urlApi + "imagem/principal/" + id;
+    var token = Global.session.get("token");
+
+    // Pergunta se realmente quer deletar
+    Swal.fire({
+        title: 'Alterar Princial',
+        text: 'Deseja tornar essa imagem a principal?',
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim!'
+    }).then((result) => {
+        if (result.value)
+        {
+            // Realiza a solicitação
+            Global.enviaApi("PUT", url, null, token.token)
+                .then((data) => {
+
+                    // Avisa que deu certo
+                    Global.setSuccess(data.mensagem);
+
+                    // Redireciona para a página do produto
+                    setTimeout(() => {
+                        location.href = Global.config.url + "painel/produto/alterar/" + idProduto + "/galeria";
+                    }, 500);
+
+                });
+        }
+    });
+
+    // Não atualiza
+    return false;
+});
+
+
+/*
+* ===========================================================
+* ATRIBUTO DO PRODUTO =======================================
+* ===========================================================
+*/
+
+$("#formInserirAtributoProduto").on("submit", function () {
+
+    // Não atualiza
+    event.preventDefault();
+
+    // Ids
+    var id = $(this).data("id");
+    var form = new FormData(this);
+
+    var idAtr = form.get("id_atributo");
+
+
+    // Url e token
+    var url = Global.config.urlApi + "atributo/produto/" + id + "/" + idAtr;
+    var token = Global.session.get("token");
+
+    // Bloqueia o formulário
+    $(this).addClass("bloqueiaForm");
+
+    // Realiza a solicitação
+    Global.enviaApi("POST", url, null, token.token)
+        .then((data) => {
+
+            // Avisa que deu certo
+            Global.setSuccess(data.mensagem);
+
+            // Redireciona para a página do produto
+            setTimeout(() => {
+                location.href = Global.config.url + "painel/produto/alterar/" + id + "/atributo";
+            }, 500);
+
+        })
+        .catch((data) => {
+
+            // Bloqueia o formulário
+            $(this).removeClass("bloqueiaForm");
+
+        });
+
+    // Não atualiza
+    return false;
+});
+
+
+/**
+ * Método responsável por enviar os dados do
+ * formulário para a API, para que os dados sejam
+ * validados e devidamente inseridos no banco.
+ */
+$(".deletarAtributoProduto").on("click", function () {
+
+    // Não atualiza
+    event.preventDefault();
+
+    // Recupera os dados
+    var id = $(this).data("id");
+
+    // Url e token
+    var url = Global.config.urlApi + "atributo/produto/" + id;
+    var token = Global.session.get("token");
+
+    // Pergunta se realmente quer deletar
+    Swal.fire({
+        title: 'Deletar Atributo',
+        text: 'Deseja deletar esse atributo do produto?',
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim!'
+    }).then((result) => {
+        if (result.value)
+        {
+            // Realiza a solicitação
+            Global.enviaApi("DELETE", url, null, token.token)
+                .then((data) => {
+
+                    // Avisa que deu certo
+                    Global.setSuccess(data.mensagem);
+
+                    // Redireciona para a página do produto
+                    setTimeout(() => {
+                        location.href = Global.config.url + "painel/produto/alterar/" + id + "/atributo";
+                    }, 500);
+
+                });
+        }
+    });
+
+    // Não atualiza
+    return false;
 });

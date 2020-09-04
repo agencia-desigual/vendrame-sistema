@@ -156,7 +156,7 @@ class Produto extends Controller
                         $post["lucro"] = str_replace(",",".", $post["lucro"]);
 
                         // Calcula o valor de venda
-                        $post["valorVenda"] = (($post["lucro"] * 100 ) / $post["valorPago"]) + $post["valorPago"];
+                        $post["valorVenda"] = (($post["lucro"] / 100 ) * $post["valorPago"]) + $post["valorPago"];
 
                         // Verifica se tem desconto
                         if(!empty($post["desconto"]))
@@ -307,7 +307,7 @@ class Produto extends Controller
                 }
 
                 // Reculcula o valor de venda
-                $post["valorVenda"] = (($lucro * 100 ) / $valorPago) + $valorPago;
+                $post["valorVenda"] = (($post["lucro"] / 100 ) * $post["valorPago"]) + $post["valorPago"];
 
                 // Altera as informações
                 if($this->objModelProduto->update($post, ["id_produto" => $id]) != false)

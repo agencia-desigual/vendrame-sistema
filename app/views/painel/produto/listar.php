@@ -54,7 +54,7 @@
                                             <td><?= $prod->marca->nome; ?></td>
                                             <td>R$<?= number_format($prod->valorPago, 2, ",","."); ?></td>
                                             <td>R$<?= number_format($prod->valorVenda, 2, ",","."); ?></td>
-                                            <td><?= number_format($prod->valorVenda, 2, ".",""); ?>%</td>
+                                            <td><?= number_format($prod->lucro, 2, ".",""); ?>%</td>
 
                                             <td>
                                                 <?php if($prod->status == true): ?>
