@@ -24,52 +24,61 @@
             <!-- FILTROS -->
             <div id="secondary" class="widget-area col-xs-12 col-md-3">
 
-                <?php if (!empty($categorias)) : ?>
-
+                <?php if (!empty($marcas)) : ?>
                     <aside class="widget widget_product_categories">
-                        <h3 class="widget-title">CATEGORIAS</h3>
+                        <h3 class="widget-title">Marcas</h3>
 
                         <ul class="product-categories">
-                            <?php foreach ($categorias as $categoria) : ?>
+                            <?php foreach ($marcas as $marca) : ?>
 
-                                <!-- CATEGORIA NIVEL 1 -->
+                                <!-- MARCAS -->
                                 <li>
-
-                                    <a href="<?= BASE_URL ?>produtos/<?= $categoria->id_categoria ?>" title="<?= $categoria->nome ?>"><?= $categoria->nome ?></a>
-
-                                    <!-- CATEGORIA NIVEL 2 -->
-                                    <?php if (!empty($categoria->filhos)) : ?>
-
-                                        <ul class="children">
-
-                                            <?php foreach ($categoria->filhos as $cat) : ?>
-
-                                                <li><a href="<?= BASE_URL; ?>produtos/<?= $cat->id_categoria ?>" title="<?= $cat->nome ?>"><?= $cat->nome ?></a></li>
-
-                                            <?php endforeach; ?>
-
-                                        </ul>
-
-                                    <?php endif; ?>
-
+                                    <a href="<?= BASE_URL ?>produtos?c=true&marca=<?= $marca->id_marca ?>" title="<?= $marca->nome ?>"><?= $marca->nome ?></a>
                                 </li>
+                                <!-- FIM >> MARCAS -->
 
                             <?php endforeach; ?>
-                            <li><a href="<?= BASE_URL ?>produtos" title="kids">Todas categorias</a></li>
                         </ul>
+
                     </aside>
                 <?php endif; ?>
 
-                <aside class="widget widget_link">
-                    <h3 class="widget-title">OUTRAS MARCAS</h3>
-                    <ul>
-                        <li><a href="#" title="Aeccaft">Aeccaft</a><span class="count">(15)</span></li>
-                        <li><a href="#" title="Artek">Artek</a><span class="count">(09)</span></li>
-                        <li><a href="#" title="Bower">Bower</a><span class="count">(12)</span></li>
-                        <li><a href="#" title="Culinarium">Culinarium</a><span class="count">(16)</span></li>
-                        <li><a href="#" title="Desu">Desu</a><span class="count">(16)</span></li>
-                    </ul>
-                </aside>
+                <?php if (!empty($_GET['marca'])) : ?>
+                    <?php if (!empty($categorias)) : ?>
+                        <aside class="widget widget_product_categories">
+                            <h3 class="widget-title">CATEGORIAS</h3>
+
+                            <ul class="product-categories">
+                                <?php foreach ($categorias as $categoria) : ?>
+
+                                    <!-- CATEGORIA NIVEL 1 -->
+                                    <li>
+
+                                        <a href="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['marca'] . $filtro['order'] ?>&categoria=<?= $categoria->id_categoria; ?>" title="<?= $categoria->nome ?>"><?= $categoria->nome ?></a>
+
+                                        <!-- CATEGORIA NIVEL 2 -->
+                                        <?php if (!empty($categoria->filhos)) : ?>
+
+                                            <ul class="children">
+
+                                                <?php foreach ($categoria->filhos as $cat) : ?>
+
+                                                    <li><a href="<?= BASE_URL; ?>produtos?c=true<?= $filtro['busca'] . $filtro['marca'] . $filtro['order'] ?>&categoria=<?= $cat->id_categoria; ?>" title="<?= $cat->nome ?>"><?= $cat->nome ?></a></li>
+
+                                                <?php endforeach; ?>
+
+                                            </ul>
+
+                                        <?php endif; ?>
+
+                                    </li>
+
+                                <?php endforeach; ?>
+                                <li><a href="<?= BASE_URL ?>produtos" title="kids">Todas categorias</a></li>
+                            </ul>
+                        </aside>
+                    <?php endif; ?>
+                <?php endif; ?>
 
             </div>
             <!-- FIM >> FILTROS -->
@@ -83,7 +92,14 @@
                         <div class="float-left">
                             <p class="result-count">Mostrando <?= $qtdeProdutos ?> produtos</p>
                         </div>
-                        <div class="float-right"></div>
+                        <div class="float-right">
+                            <select onchange="location.href = this.value">
+                                <option <?= ($filtro["order"] == "&order=menor-preco") ? "selected" : ""; ?> value="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['marca'] ?>&order=menor-preco">Menor Preço</option>
+                                <option <?= ($filtro["order"] == "&order=maior-preco") ? "selected" : ""; ?> value="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['marca'] ?>&order=maior-preco">Maior Preço</option>
+                                <option <?= ($filtro["order"] == "&order=recente") ? "selected" : ""; ?> value="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['marca'] ?>&order=recente">Os mais recentes</option>
+                                <option <?= ($filtro["order"] == "&order=antigo") ? "selected" : ""; ?> value="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['marca'] ?>&order=antigo">Os mais antigos</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <!-- FIM >> QUANTIDADE -->
@@ -91,46 +107,38 @@
                 <!-- PRODUTOS -->
                 <div class="products ver2 grid_full grid_sidebar hover-shadow furniture">
                     <?php foreach ($produtos as $produto) : ?>
-                        <div class="item-inner">
-                            <div class="product">
-                                <div class="product-images">
-                                    <a href="#" title="product-images">
-                                        <div class="thumb-produto" style="background-image: url('<?= $produto->imagem ?>')">
+                        <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>">
+                            <div class="item-inner">
+                                <div class="product">
 
-                                        </div>
-                                        <img style="display: none" class="primary_image" src="<?= $produto->imagem ?>" alt=""/>
+                                    <!-- THUMB -->
+                                    <div class="product-images">
+                                        <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>" title="">
+                                            <div class="thumb-produto" style="background-image: url('<?= $produto->imagem ?>')"></div>
+                                        </a>
+                                    </div>
+                                    <!-- FIM >> THUMB -->
+
+                                    <!-- NOME -->
+                                    <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>">
+                                        <p class="product-title"><?= mb_strimwidth($produto->nome, 0, 35, "...");  ?></p>
                                     </a>
-                                </div>
-                                <a href="#"><p class="product-title"><?= mb_strimwidth($produto->nome, 0, 35, "...");  ?></p></a>
-                                <p class="product-price">R$ <?= number_format($produto->valorVenda, 2, ",", ".") ?></p>
-                                <p class="description">Dramatically transition excellent information rather than mission-critical results. Competently communicate fully tested core competencies through holistic resources. Professionally maintain high-payoff best practices whereas user-centric alignments. Intrinsicly engage future-proof best practices whereas economically sound resources. Holisticly maximize multidisciplinary synergy before magnetice-tailers.</p>
+                                    <!-- FIM >> NOME -->
 
-                                <div class="social box">
-                                    <h3>Share this :</h3>
-                                    <a class="twitter" href="#" title="social"><i class="fa fa-twitter-square"></i></a>
-                                    <a class="dribbble" href="#" title="social"><i class="fa fa-dribbble"></i></a>
-                                    <a class="skype" href="#" title="social"><i class="fa fa-skype"></i></a>
-                                    <a class="pinterest" href="#" title="social"><i class="fa fa-pinterest"></i></a>
-                                    <a class="facebook" href="#" title="social"><i class="fa fa-facebook-square"></i></a>
+                                    <!-- PREÇO -->
+                                    <p class="product-price">
+                                        R$ <?= number_format($produto->valorVenda, 2, ",", ".") ?>
+                                    </p>
+                                    <!-- FIM >> PREÇO -->
+
                                 </div>
                             </div>
-                            <!-- End product -->
-                        </div>
+                        </a>
                     <?php endforeach; ?>
                 </div>
                 <!-- FIM >> PRODUTOS -->
 
-                <!-- PAGINAÇÃO -->
-                <div class="pagination-container">
-                    <nav class="pagination align-right">
-                        <a class="prev page-numbers" href="#"><i class="fa fa-angle-left"></i></a>
-                        <span class="page-numbers current">1</span>
-                        <a class="page-numbers" href="#">2</a>
-                        <a class="page-numbers" href="#">3</a>
-                        <a class="next page-numbers" href="#"><i class="fa fa-angle-right"></i></a>
-                    </nav>
-                </div>
-                <!-- FIM >> PAGINAÇÃO -->
+                <?php $this->view("site/include/paginacao", $paginacao); ?>
 
             </div>
             <!-- FIM >> PRODUTOS -->

@@ -131,6 +131,13 @@ class Apoio
                 // Imagem padrão
                 $imagens = BASE_URL . 'assets/theme/site/img/padrao/produto.png';
             }
+            else
+            {
+                foreach ($imagens as $imagem)
+                {
+                    $imagem->imagem = BASE_STORAGE . 'produto/'. $produto->id_produto . '/' . $imagem->imagem;
+                }
+            }
 
             // Retorna
             return $imagens;
@@ -169,16 +176,21 @@ class Apoio
      * -------------------------------------------------------------
      * @return array
      */
-    public function getCategorias($id = null)
+    public function getCategorias($idMarca = null, $idCat = null)
     {
         // Instancia o objeto
         $objModelCategoria = new Categoria();
 
         $where = ["id_categoria_pai" => "IS NULL"];
 
-        if (!empty($id))
+        if (!empty($idMarca))
         {
-            $where = ["id_categoria" => $id];
+            $where = ["id_marca" => $idMarca, "id_categoria_pai" => "IS NULL"];
+        }
+
+        if (!empty($idCat))
+        {
+            $where = ["id_categoria" => $idCat];
         }
 
         // Busca as categorias pai
