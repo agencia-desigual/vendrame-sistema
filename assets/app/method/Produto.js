@@ -461,6 +461,7 @@ $(".deletarAtributoProduto").on("click", function () {
 });
 
 
+<<<<<<< HEAD
 /**
  * Reajustar o valor pago, lucro ou desconto máximo
  * de todos os produtos, usando filtro.
@@ -507,6 +508,97 @@ $("#formReajusteProduto").on("submit", function () {
                 });
         }
     });
+=======
+/*
+* ===========================================================
+* MÉTODOS PARA OP SITE ======================================
+* ===========================================================
+*/
+
+/**
+ * Método responsável por enviar os dados do
+ * formulário para a API, para que os dados sejam
+ * validados e devidamente inseridos no banco.
+ */
+$(".validarDesconto").on("click", function () {
+
+    // Não atualiza
+    event.preventDefault();
+
+    // bloqueia a tela
+    $(".body").addClass("bloqueiaBody");
+
+    // Recupera os dados
+    var idUsuario = $(this).data("id-usuario");
+    var idProduto = $(this).data("id-produto");
+
+    var form = new FormData();
+
+    form.set("id_usuario", idUsuario);
+    form.set("id_produto", idProduto);
+
+    // Url e token
+    var url = Global.config.urlApi + "produto/desconto";
+    var token = Global.session.get("token");
+
+    // Realiza a solicitação
+    Global.enviaApi("POST", url, form, token.token, "alertify")
+        .then((data) => {
+
+            // Redireciona para a página do produto
+            setTimeout(() => {
+
+                // Desbloqueia a tela
+                $(".body").removeClass("bloqueiaBody");
+
+                // Pega o valor com desconto
+                $(".price-old").css("display","inline-block");
+                $("#valorProduto").html("R$ " + data.objeto.valorVenda);
+
+            }, 3000);
+
+        })
+        .catch((data) => {
+            $(".body").removeClass("bloqueiaBody");
+        });
+
+    // Não atualiza
+    return false;
+});
+
+
+
+/**
+ * Método responsável por enviar os dados do
+ * formulário para a API, para que os dados sejam
+ * validados e devidamente requisitados no banco.
+ */
+$("#pesquisaProduto").on("submit", function () {
+
+    // Não atualiza
+    event.preventDefault();
+
+    // Bloqueia o formulário
+    $(".body").addClass("bloqueiaBody");
+
+    // Ids
+    var form = new FormData(this);
+    var busca = form.get("busca");
+
+    // Url e token
+    var url = Global.config.url + "produtos?c=true&busca=" + busca  ;
+
+    // Realiza a solicitação
+    setTimeout(function () {
+
+        // Redireciona
+        location.href = url;
+
+        // Bloqueia o formulário
+        $(".body").removeClass("bloqueiaBody");
+
+    },2000)
+>>>>>>> ba3c41b0ebbd4a4863aae19fa2c44cce1ca93c54
 
     // Não atualiza
     return false;

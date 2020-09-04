@@ -131,6 +131,13 @@ class Apoio
                 // Imagem padrão
                 $imagens = BASE_URL . 'assets/theme/site/img/padrao/produto.png';
             }
+            else
+            {
+                foreach ($imagens as $imagem)
+                {
+                    $imagem->imagem = BASE_STORAGE . 'produto/'. $produto->id_produto . '/' . $imagem->imagem;
+                }
+            }
 
             // Retorna
             return $imagens;
@@ -169,16 +176,21 @@ class Apoio
      * -------------------------------------------------------------
      * @return array
      */
-    public function getCategorias($id = null)
+    public function getCategorias($idMarca = null, $idCat = null)
     {
         // Instancia o objeto
         $objModelCategoria = new Categoria();
 
         $where = ["id_categoria_pai" => "IS NULL"];
 
-        if (!empty($id))
+        if (!empty($idMarca))
         {
-            $where = ["id_categoria" => $id];
+            $where = ["id_marca" => $idMarca, "id_categoria_pai" => "IS NULL"];
+        }
+
+        if (!empty($idCat))
+        {
+            $where = ["id_categoria" => $idCat];
         }
 
         // Busca as categorias pai
@@ -214,6 +226,58 @@ class Apoio
 
         // retorna as categorias
         return $categorias;
+
+    } // End >> fun::getCategorias()
+
+
+
+    /**
+     * Método responsável por buscas no banco de dados e retornas
+     * as categorias mãe e seus filhos
+     * -------------------------------------------------------------
+     * @return array
+     */
+    public function getTipos($idTip = null, $idMarca = null)
+    {
+        // Instancia o objeto
+        $objModelTipo = new Tipo();
+
+        $where = ["id_tipo_pai" => "IS NULL"];
+
+        if (!empty($idMarca))
+        {
+            $where = ["id_marca" => $idMarca, "id_tipo_pai" => "IS NULL"];
+        }
+
+        if (!empty($idTip))
+        {
+            $where = ["id_tipo" => $idTip];
+        }
+
+        // Busca as categorias pai
+        $tipos = $objModelTipo
+            ->get($where, "nome ASC")
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Percorre as categorias encontradas
+        foreach ($tipos as $tipo)
+        {
+            // Busca os filhos
+            $tipoFilho = $objModelTipo
+                ->get(["id_tipo_pai" => $tipo->id_tipo])
+                ->fetchAll(\PDO::FETCH_OBJ);
+
+            // Verifica se encontrou algo
+            if(!empty($tipoFilho))
+            {
+                // Adiciona na categoria
+                $tipo->filhos = $tipoFilho;
+            }
+
+        }
+
+        // retorna as categorias
+        return $tipos;
 
     } // End >> fun::getCategorias()
 

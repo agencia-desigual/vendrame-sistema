@@ -23,4 +23,4 @@
     <link rel="stylesheet" href="<?= BASE_URL; ?>assets/custom/css/responsivo.css" />
 
 </head>
-<body>
+<body class="body">
