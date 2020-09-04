@@ -173,6 +173,28 @@
                     </li>
                     <!-- FIM >> PRODUTOS -->
 
+
+                    <!-- PRODUTOS -->
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>
+                                Reajustes
+                                <span class="float-right menu-arrow">
+                                    <i class="mdi mdi-chevron-right"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="<?= BASE_URL; ?>painel/reajuste/valor-pago">Alterar Valor Pago</a></li>
+                            <li><a href="<?= BASE_URL; ?>painel/reajuste/lucro">Alterar Lucro (%)</a></li>
+                            <li><a href="<?= BASE_URL; ?>painel/reajuste/desconto">Alterar Desconto (%)</a></li>
+                        </ul>
+                    </li>
+                    <!-- FIM >> PRODUTOS -->
+
+
+
                     <!-- SAIR -->
                     <li>
                         <a href="<?= BASE_URL; ?>sair" class="waves-effect"><i class="fas fa-running"></i><span> Sair </span></a>

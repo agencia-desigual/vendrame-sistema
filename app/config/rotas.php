@@ -65,6 +65,7 @@ $Rotas->onGroup("api-produto","POST","insert","insert");
 $Rotas->onGroup("api-produto","POST","update/{p}","update");
 $Rotas->onGroup("api-produto","DELETE","delete/{p}","delete");
 $Rotas->onGroup("api-produto","POST","pesquisa/{p}","pesquisa");
+$Rotas->onGroup("api-produto","POST","reajuste","reajuste");
 
 
 // Ficha Técnica
@@ -147,3 +148,4 @@ $Rotas->on("GET","painel/produtos","Produto::listar");
 $Rotas->on("GET","painel/produto/adicionar","Produto::adicionar");
 $Rotas->on("GET","painel/produto/alterar/{p}/{p}","Produto::alterar");
 $Rotas->on("GET","painel/produto/alterar/{p}","Produto::alterar");
+$Rotas->on("GET","painel/reajuste/{p}","Produto::reajuste");

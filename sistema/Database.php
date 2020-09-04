@@ -270,29 +270,59 @@ class Database extends Conexao
                 // Dados a ser alterados
                 foreach ($altera as $item => $valor)
                 {
+
                     // Verifica se não é o primeiro
                     $sql .= ($aux != null) ? ", " : "";
 
-                    // Verifica se o valor é nullo
-                    if(strtoupper($valor) == "NULL" || $valor == NULL || $valor == "")
+                    // Pego o ultimo algarismo do item
+                    $tipo = substr($item, -1);
+                    $tipo1 = substr($valor, 0, 1);
+
+                    // Verifica se é IS NULL ou NOT NULL
+                    if (strtoupper($valor) == "IS NULL" || strtoupper($valor) == "IS NOT NULL")
                     {
-                        // Cria o sql
-                        $sql .= "{$item} = NULL";
+                        // Adiciona a query sem o verificador
+                        $sql .= "{$item} {$valor}";
                     }
                     else
                     {
-                        // Cria o sql
-                        $sql .= "{$item} = :A{$cont}";
+                        // Verifica se é um verificador
+                        if(($tipo == "=" || $tipo == ">" || $tipo == "<" || $tipo == "!") && $tipo1 != "(")
+                        {
+                            // Adiciona a query sem o verificador
+                            $sql .= "{$item} :A{$cont}";
 
-                        // itens do bin
-                        $aux[":A" . $cont] = $valor;
-                        $cont++;
+                            // itens do bin
+                            $aux[":A" . $cont] = $valor;
+                            $cont++;
+                        }
+                        else
+                        {
+                            // Pega apenas os 3 primeiros caracteres do valro
+                            $tipo = substr($valor, 0, 3);
+
+                            // Verifica se é igual a IN(
+                            if ($tipo == "IN(" || $tipo1 == "(")
+                            {
+                                // Adiciona a query sem o verificador
+                                $sql .= "{$item} {$valor}";
+                            }
+                            else
+                            {
+                                // Adiciona a query com o verificador =
+                                $sql .= "{$item} = :A{$cont}";
+
+                                // itens do bin
+                                $aux[":A" . $cont] = $valor;
+                                $cont++;
+                            }
+                        }
                     }
                 }
 
 
                 // Verifica se é array
-                if(is_array($where))
+                if (is_array($where))
                 {
                     $sql .= " WHERE ";
 
@@ -305,7 +335,7 @@ class Database extends Conexao
                         // Pega apenas os 3 primeiros digitos do item
                         $tipo = substr($item, 0, 3);
 
-                        if($tipo != "OR ")
+                        if ($tipo != "OR ")
                         {
                             // Add o AND a query
                             $sql .= ($whereAux != null) ? " AND " : "";
@@ -318,9 +348,10 @@ class Database extends Conexao
 
                         // Pego o ultimo algarismo do item
                         $tipo = substr($item, -1);
+                        $tipo1 = substr($valor, 0, 1);
 
                         // Verifica se é IS NULL ou NOT NULL
-                        if(strtoupper($valor) == "IS NULL" || strtoupper($valor) == "IS NOT NULL")
+                        if (strtoupper($valor) == "IS NULL" || strtoupper($valor) == "IS NOT NULL")
                         {
                             // Adiciona a query sem o verificador
                             $sql .= "{$item} {$valor}";
@@ -328,17 +359,18 @@ class Database extends Conexao
                         else
                         {
                             // Verifica se é um verificador
-                            if ($tipo == "=" || $tipo == ">" || $tipo == "<" || $tipo == "!")
+                            if (($tipo == "=" || $tipo == ">" || $tipo == "<" || $tipo == "!") && $tipo1 != "(")
                             {
                                 // Adiciona a query sem o verificador
                                 $sql .= "{$item} :B{$cont}";
                             }
-                            else {
+                            else
+                            {
                                 // Pega apenas os 3 primeiros caracteres do valro
                                 $tipo = substr($valor, 0, 3);
 
                                 // Verifica se é igual a IN(
-                                if ($tipo == "IN(")
+                                if ($tipo == "IN(" || $tipo1 == "(")
                                 {
                                     // Adiciona a query sem o verificador
                                     $sql .= "{$item} {$valor}";
@@ -362,26 +394,30 @@ class Database extends Conexao
                 }
                 else
                 {
+
                     // Verifica se é nullo
-                    if($where != null)
+                    if(!empty($where))
                     {
                         // avisa que deu erro
                         return false;
                     }
-                }
+                } // Sem Where
 
 
                 // Executa a alteração
-                try
-                {
+                try {
+
                     // Prepara o SQL
                     $query = $this->db->prepare($sql);
 
-                    // Informa os campos - Tratamento sql injection
-                    foreach ($aux as $item => $value)
+                    // Verifica se possui itens
+                    if(!empty($aux))
                     {
-                        // Add o campo
-                        $query->bindValue($item,$value);
+                        // Informa os campos - Tratamento sql injection
+                        foreach ($aux as $item => $value) {
+                            // Add o campo
+                            $query->bindValue($item, $value);
+                        }
                     }
 
                     // Execulta o sql
@@ -391,16 +427,17 @@ class Database extends Conexao
                 {
                     parent::getError($e);
                 }
+
             }
             else
             {
                 return false;
-            }
+            } // verifica se é um array
         }
         else
         {
             return false;
-        }
+        } // Verifica se está alterando algo
 
     } // END >> Fun::update()
 

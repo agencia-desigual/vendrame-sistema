@@ -459,3 +459,55 @@ $(".deletarAtributoProduto").on("click", function () {
     // Não atualiza
     return false;
 });
+
+
+/**
+ * Reajustar o valor pago, lucro ou desconto máximo
+ * de todos os produtos, usando filtro.
+ */
+$("#formReajusteProduto").on("submit", function () {
+
+    // Não atualiza a página
+    event.preventDefault();
+
+    // Recupera os dados
+    var form = new FormData(this);
+    var url = Global.config.urlApi + "produto/reajuste";
+    var token = Global.session.get("token").token;
+
+    // Pergunta se realmente quer deletar
+    Swal.fire({
+        title: 'Alterar Produtos',
+        text: 'Deseja realmente alterar as informações dos produtos?',
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim!'
+    }).then((result) => {
+        if (result.value)
+        {
+            // Bloqueia
+            $(this).addClass("bloqueiaForm");
+
+            // Faz a solicitação
+            Global.enviaApi("POST", url, form, token)
+                .then((data) => {
+
+                    // Informa que deu certo
+                    Global.setSuccess("Foram alterados um total de " + data.objeto.total + " produtos");
+
+                    // Remove o bloqueio
+                    $(this).removeClass("bloqueiaForm");
+                })
+                .catch((data) => {
+                    // Remove o bloqueio
+                    $(this).removeClass("bloqueiaForm");
+                });
+        }
+    });
+
+    // Não atualiza
+    return false;
+});

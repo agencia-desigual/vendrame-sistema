@@ -155,6 +155,14 @@
                                             </div>
                                         </div>
 
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Descrição do produto</label>
+                                                    <textarea id="textarea" name="descricao" class="form-control summernote" maxlength="200" rows="3" placeholder="Descrição da categoria aqui."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
                                     <?php endif; ?>
@@ -182,6 +190,29 @@
         // Basic
         $('.dropify').dropify();
 
+        $('.summernote').summernote({
+            height: 300,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true,                 // set focus to editable area after initializing summernote
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['view', ['fullscreen'/*, 'codeview' */]],   // remove codeview button
+            ],
+            callbacks: {
+                onPaste: function (e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+                    e.preventDefault();
+                    document.execCommand('insertText', false, bufferText);
+                }
+            }
+
+        });
     });
 
 </script>

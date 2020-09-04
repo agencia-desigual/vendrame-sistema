@@ -171,6 +171,17 @@ class Produto extends Controller
     } // End >> fun::adicionar()
 
 
+    /**
+     * Método responsável por montar a página de alteração de
+     * produto, informando todas os dados do produto a ser
+     * alterado.
+     * -------------------------------------------------------
+     * @param $id
+     * @param string $pag
+     * -------------------------------------------------------
+     * @url painel/produto/alterar/{ID}/{PAGINA}
+     * @method GET
+     */
     public function alterar($id, $pag = "produto")
     {
         // Variaveis
@@ -273,5 +284,62 @@ class Produto extends Controller
         }
 
     } // End >> fun::alterar()
+
+
+    /**
+     * Método responsável por exibir a página de
+     * reajuste de valor pago, lucro ou desconto
+     * ---------------------------------------------
+     * @url painel/reajuste/{tipo}
+     * @method GET
+     */
+    public function reajuste($tipo)
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $marcas = null;
+        $categorias = null;
+        $tipos = null;
+
+        // Recupera o usuário logado
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Verifica se possui permissão
+        if($usuario->nivel == "admin")
+        {
+            // Busca todas as marcas
+            $marcas = $this->objModelMarca
+                ->get()
+                ->fetchAll(\PDO::FETCH_OBJ);
+
+            // Verifica se informou a marca
+            if(!empty($_GET["id_marca"]))
+            {
+                // Busca as categorias
+                $categorias = $this->objHelperApoio->getCategoriasLista(null, $_GET["id_marca"]);
+
+                // Busca os tipos
+                $tipos = $this->objHelperApoio->getTiposLista(null, $_GET["id_marca"]);
+            }
+
+            // Retorno
+            $dados = [
+                "usuario" => $usuario,
+                "tipos" => $tipos,
+                "categorias" => $categorias,
+                "marcas" => $marcas,
+                "get" => $_GET,
+                "js" => [
+                    "modulos" => ["Produto"],
+                    "pages" => ["Select"]
+                ]
+            ];
+
+            // view
+            $this->view("painel/reajuste/" . $tipo, $dados);
+        }
+
+    } // End >> fun::valorPago()
 
 } // End >> Class::Produto
