@@ -64,7 +64,7 @@ class Site extends CI_controller
             "usuario" => $usuario,
             "marcas" => $marcas,
             "js" => [
-                "modulos" => ["Produtos"]
+                "modulos" => ["Produto"]
             ]
         ];
 
@@ -90,6 +90,7 @@ class Site extends CI_controller
         $categorias = null;
         $where = null;
         $categoriasMarca = null;
+        $tipo = null;
 
         // Verificando se o usuario está logado
         $usuario = $this->objHelperApoio->seguranca();
@@ -104,6 +105,7 @@ class Site extends CI_controller
             "busca" => "",
             "marca" => "",
             "categoria" => "",
+            "tipo" => "",
             "order" => ""
         ];
 
@@ -164,25 +166,18 @@ class Site extends CI_controller
             {
                 // Busca todas as categorias da marca
                 $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
+
+                // Busca todos os tipos da marca
+                $tipo = $this->objHelperApoio->getTipos();
             }
             else
             {
                 // Busca todas as categorias da marca
                 $categoriasMarca = $this->objHelperApoio->getCategorias("",$_GET['categoria']);
+
+                // Busca todos os tipos da marca
+                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
             }
-        }
-
-        // Verifica se fez uma busca por texto
-        if(!empty($_GET["busca"]))
-        {
-            // Add a query
-            $sql .= " AND nome LIKE '%{$_GET["busca"]}%'";
-
-            // Add na url
-            $url .= "&busca=" . $_GET["busca"];
-
-            // Item para formação de novas urls
-            $filtro["busca"] = "&b=" . $_GET['busca'];
         }
 
         // Verifica se fez uma busca por marca
@@ -203,16 +198,66 @@ class Site extends CI_controller
             {
                 // Busca todas as categorias da marca
                 $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
+
+                // Busca todos os tipos da marca
+                $tipo = $this->objHelperApoio->getTipos();
             }
             else
             {
                 // Busca todas as categorias da marca
                 $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca']);
+
+                // Busca todos os tipos da marca
+                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
             }
 
         }
 
+        // Verifica se fez uma busca por marca
+        if(!empty($_GET["tipo"]))
+        {
+            // Add a query
+            $sql .= " AND id_tipo = {$_GET["tipo"]}";
 
+            // Add na url
+            $url .= "&tipo=" . $_GET["tipo"];
+
+            // Item para formação de novas urls
+            $filtro["tipo"] = "&tipo=" . $_GET['tipo'];
+
+
+            // Verifica se tem categoria na url
+            if (!empty($_GET['categoria']))
+            {
+                // Busca todas as categorias da marca
+                $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
+
+                // Busca todos os tipos da marca
+                $tipo = $this->objHelperApoio->getTipos();
+            }
+            else
+            {
+                // Busca todas as categorias da marca
+                $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca']);
+
+                // Busca todos os tipos da marca
+                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
+            }
+
+        }
+
+        // Verifica se fez uma busca por texto
+        if(!empty($_GET["busca"]))
+        {
+            // Add a query
+            $sql .= " AND nome LIKE '%{$_GET["busca"]}%'";
+
+            // Add na url
+            $url .= "&busca=" . $_GET["busca"];
+
+            // Item para formação de novas urls
+            $filtro["busca"] = "&busca=" . $_GET['busca'];
+        }
 
         // ==============================================================
         // PAGINAÇÃO ====================================================
@@ -347,10 +392,12 @@ class Site extends CI_controller
         $totalPaginas = $total / $limite;
         $totalPaginas = ceil($totalPaginas);
 
+
         // Dados da view
         $dados = [
             "usuario" => $usuario,
             "filtro" => $filtro,
+            "tipos" => $tipo,
             "marcas" => $marcas,
             "categorias" => $categoriasMarca,
             "produtos" => $produtos,

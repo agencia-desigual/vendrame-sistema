@@ -517,3 +517,40 @@ $(".validarDesconto").on("click", function () {
     // Não atualiza
     return false;
 });
+
+
+
+/**
+ * Método responsável por enviar os dados do
+ * formulário para a API, para que os dados sejam
+ * validados e devidamente requisitados no banco.
+ */
+$("#pesquisaProduto").on("submit", function () {
+
+    // Não atualiza
+    event.preventDefault();
+
+    // Bloqueia o formulário
+    $(".body").addClass("bloqueiaBody");
+
+    // Ids
+    var form = new FormData(this);
+    var busca = form.get("busca");
+
+    // Url e token
+    var url = Global.config.url + "produtos?c=true&busca=" + busca  ;
+
+    // Realiza a solicitação
+    setTimeout(function () {
+
+        // Redireciona
+        location.href = url;
+
+        // Bloqueia o formulário
+        $(".body").removeClass("bloqueiaBody");
+
+    },2000)
+
+    // Não atualiza
+    return false;
+});

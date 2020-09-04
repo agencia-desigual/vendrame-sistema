@@ -24,25 +24,26 @@
             <!-- FILTROS -->
             <div id="secondary" class="widget-area col-xs-12 col-md-3">
 
+                <!-- MARCAS -->
                 <?php if (!empty($marcas)) : ?>
                     <aside class="widget widget_product_categories">
                         <h3 class="widget-title">Marcas</h3>
-
                         <ul class="product-categories">
                             <?php foreach ($marcas as $marca) : ?>
 
                                 <!-- MARCAS -->
                                 <li>
-                                    <a href="<?= BASE_URL ?>produtos?c=true&marca=<?= $marca->id_marca ?>" title="<?= $marca->nome ?>"><?= $marca->nome ?></a>
+                                    <a href="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['order'] . $filtro['tipo'] ?>&marca=<?= $marca->id_marca ?>" title="<?= $marca->nome ?>"><?= $marca->nome ?></a>
                                 </li>
                                 <!-- FIM >> MARCAS -->
 
                             <?php endforeach; ?>
                         </ul>
-
                     </aside>
                 <?php endif; ?>
+                <!-- FIM >> MARCAS -->
 
+                <!-- CATEGORIAS -->
                 <?php if (!empty($_GET['marca'])) : ?>
                     <?php if (!empty($categorias)) : ?>
                         <aside class="widget widget_product_categories">
@@ -54,7 +55,7 @@
                                     <!-- CATEGORIA NIVEL 1 -->
                                     <li>
 
-                                        <a href="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['marca'] . $filtro['order'] ?>&categoria=<?= $categoria->id_categoria; ?>" title="<?= $categoria->nome ?>"><?= $categoria->nome ?></a>
+                                        <a href="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['marca'] . $filtro['order'] . $filtro['tipo'] ?>&categoria=<?= $categoria->id_categoria; ?>" title="<?= $categoria->nome ?>"><?= $categoria->nome ?></a>
 
                                         <!-- CATEGORIA NIVEL 2 -->
                                         <?php if (!empty($categoria->filhos)) : ?>
@@ -63,7 +64,7 @@
 
                                                 <?php foreach ($categoria->filhos as $cat) : ?>
 
-                                                    <li><a href="<?= BASE_URL; ?>produtos?c=true<?= $filtro['busca'] . $filtro['marca'] . $filtro['order'] ?>&categoria=<?= $cat->id_categoria; ?>" title="<?= $cat->nome ?>"><?= $cat->nome ?></a></li>
+                                                    <li><a href="<?= BASE_URL; ?>produtos?c=true<?= $filtro['busca'] . $filtro['marca'] . $filtro['order'] . $filtro['tipo'] ?>&categoria=<?= $cat->id_categoria; ?>" title="<?= $cat->nome ?>"><?= $cat->nome ?></a></li>
 
                                                 <?php endforeach; ?>
 
@@ -79,6 +80,43 @@
                         </aside>
                     <?php endif; ?>
                 <?php endif; ?>
+                <!-- FIM >> CATEGORIAS -->
+
+                <!-- TIPOS -->
+                <?php if (!empty($_GET['marca'])) : ?>
+                    <?php if (!empty($tipos)) : ?>
+                        <aside class="widget widget_product_categories">
+                            <h3 class="widget-title">TIPOS</h3>
+
+                            <ul class="product-categories">
+                                <?php foreach ($tipos as $tipo) : ?>
+
+                                    <!-- CATEGORIA NIVEL 1 -->
+                                    <li>
+
+                                        <a href="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['marca'] . $filtro['order'] . $filtro['categoria'] ?>&tipo=<?= $tipo->id_tipo; ?>" title="<?= $tipo->nome ?>"><?= $tipo->nome ?></a>
+
+                                        <?php if (!empty($tipo->filhos)) : ?>
+                                            <!-- CATEGORIA NIVEL 2 -->
+                                            <ul class="children">
+
+                                                <?php foreach ($tipo->filhos as $tip) : ?>
+
+                                                    <li><a href="<?= BASE_URL; ?>produtos?c=true<?= $filtro['busca'] . $filtro['marca'] . $filtro['order'] . $filtro['categoria'] ?>&tipo=<?= $tip->id_tipo; ?>" title="<?= $tip->nome ?>"><?= $tip->nome ?></a></li>
+
+                                                <?php endforeach; ?>
+
+                                            </ul>
+                                        <?php endif; ?>
+
+                                    </li>
+
+                                <?php endforeach; ?>
+                            </ul>
+                        </aside>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <!-- FIM >> TIPOS -->
 
             </div>
             <!-- FIM >> FILTROS -->
