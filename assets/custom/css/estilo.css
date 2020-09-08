@@ -417,3 +417,24 @@ body, html
     color: #204f93;
     text-decoration: none;
 }
+
+.selecionados
+{
+    margin-bottom: 35px;
+}
+
+.selecionados span>p
+{
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+}
+
+.selecionados span
+{
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    display: flex;
+    margin-bottom: 10px;
+    background-color: #052C5C;
+}

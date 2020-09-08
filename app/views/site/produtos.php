@@ -8,7 +8,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
+                    <a href="<?= BASE_URL ?>">
+                        <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
+                    </a>
                 </div>
             </div>
         </div>
@@ -23,6 +25,46 @@
 
             <!-- FILTROS -->
             <div id="secondary" class="widget-area col-xs-12 col-md-3">
+
+                <?php if (!empty($filtroNome)) : ?>
+
+                <aside class="widget widget_product_categories">
+                    <h3 class="widget-title">FILTRO</h3>
+
+                    <div class="selecionados">
+
+                        <?php if (!empty($filtroNome['busca'])) : ?>
+                            <span class="badge-primary">
+                                <?= $filtroNome['busca'] ?>
+                                <p>x</p>
+                            </span>
+                        <?php endif; ?>
+
+                        <?php if (!empty($filtroNome['marca'])) : ?>
+                            <span onclick="removeFiltro('marca','<?= BASE_URL . "produtos?c=true" . $filtro['busca'] . $filtro['categoria'] . $filtro['order']  . $filtro['tipo'];  ?>')" class="badge-primary">
+                                <?= "Marca: ". $filtroNome['marca'] ?>
+                                <p>x</p>
+                            </span>
+                        <?php endif; ?>
+
+                        <?php if (!empty($filtroNome['categoria'])) : ?>
+                            <span onclick="removeFiltro('categoria','<?= BASE_URL . "produtos?c=true" . $filtro['busca'] . $filtro['tipo'] . $filtro['order']  . $filtro['marca'];  ?>')" class="badge-primary">
+                                <?= "Categoria: ". $filtroNome['categoria'] ?>
+                                <p>x</p>
+                            </span>
+                        <?php endif; ?>
+
+                        <?php if (!empty($filtroNome['tipo'])) : ?>
+                            <span onclick="removeFiltro('tipo','<?= BASE_URL . "produtos?c=true" . $filtro['busca'] . $filtro['categoria'] . $filtro['order']  . $filtro['marca'];  ?>')" class="badge-primary">
+                                <?= "Tipo: ". $filtroNome['tipo'] ?>
+                                <p>x</p>
+                            </span>
+                        <?php endif; ?>
+
+                    </div>
+
+                </aside>
+                <?php endif; ?>
 
                 <!-- MARCAS -->
                 <?php if (!empty($marcas)) : ?>
@@ -186,7 +228,6 @@
 
     </div>
 
-
 <?php $this->view("site/include/footer") ?>
 <script type="text/javascript">
 
@@ -231,6 +272,15 @@
             $(".modal-filtro").css("left","-100%");
             $(".modal-filtro").css("opacity","0");
         }
+    }
+
+    function removeFiltro(tipo,url)
+    {
+
+        $('.body').addClass("bloqueiaBody");
+        setTimeout(function () {
+            location.href = url;
+        },500)
     }
 
 </script>

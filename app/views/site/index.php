@@ -11,7 +11,9 @@
                         <form id="pesquisaProduto">
                             <div class="form-group">
                                 <div class="text-center mb-4">
-                                    <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
+                                    <a href="<?= BASE_URL ?>">
+                                        <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
+                                    </a>
                                 </div>
                                 <div class="busca">
                                     <input type="text" name="busca" class="form-control input-busca" id="pesquisa" aria-describedby="busca" placeholder="Encontre os produtos">
@@ -42,15 +44,15 @@
 
                         <!-- MARCAS -->
                         <div class="row mt-5 animate__animated animate__fadeInUp">
-                            <div class="col-md-4 col-6 centraliza-itens">
-                                <img width="100%" src="<?= BASE_STORAGE ?>marca/ax.png">
-                            </div>
-                            <div class="col-md-4 col-6 centraliza-itens">
-                                <img width="100%" src="<?= BASE_STORAGE ?>marca/rayban.png">
-                            </div>
-                            <div class="col-md-4 col-6 centraliza-itens">
-                                <img width="100%" src="<?= BASE_STORAGE ?>marca/guess.png">
-                            </div>
+
+                            <?php foreach ($marcas as $marca) : ?>
+                                <div class="col-md-4 col-6 centraliza-itens">
+                                    <a href="<?= BASE_URL; ?>produtos?c=true&marca=<?= $marca->id_marca ?>">
+                                        <img width="100%" src="<?= $marca->logo ?>">
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+
                         </div>
                         <!-- FIM >> MARCAS -->
 

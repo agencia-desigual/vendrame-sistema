@@ -12,7 +12,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
+                    <a href="<?= BASE_URL ?>">
+                        <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
+                    </a>
                 </div>
             </div>
         </div>

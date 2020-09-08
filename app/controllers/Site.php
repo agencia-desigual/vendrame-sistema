@@ -59,6 +59,19 @@ class Site extends CI_controller
         // Verificando se o usuario está logado
         $usuario = $this->objHelperApoio->seguranca();
 
+        // Busca todas as marcas
+        $marcas = $this->objModelMarca
+            ->get("","id_marca DESC", "0,3")
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        if (!empty($marcas))
+        {
+            foreach ($marcas as $marca)
+            {
+                $marca->logo = $this->objHelperApoio->getImagem($marca->id_marca,"marca");
+            }
+        }
+
         // Dados da view
         $dados = [
             "usuario" => $usuario,
@@ -91,6 +104,7 @@ class Site extends CI_controller
         $where = null;
         $categoriasMarca = null;
         $tipo = null;
+        $filtroNome = null;
 
         // Verificando se o usuario está logado
         $usuario = $this->objHelperApoio->seguranca();
@@ -392,6 +406,69 @@ class Site extends CI_controller
         $totalPaginas = $total / $limite;
         $totalPaginas = ceil($totalPaginas);
 
+        // Veirificando os filtros
+        if (!empty($filtro))
+        {
+            if (!empty($filtro['marca']))
+            {
+                $idMarca = explode("=",$filtro['marca']);
+                $idMarca = $idMarca['1'];
+
+                // Busca o nome da marca
+                $nomeMarca = $this->objModelMarca
+                    ->get(['id_marca' => $idMarca])
+                    ->fetch(\PDO::FETCH_OBJ);
+
+                // Vincula o nome
+                $filtroNome["marca"] = $nomeMarca->nome;
+
+            }
+
+            if (!empty($filtro['categoria']))
+            {
+                $idCategoria = explode("=",$filtro['categoria']);
+                $idCategoria = $idCategoria['1'];
+
+                // Busca o nome da marca
+                $nomeCategoria = $this->objHelperApoio->getCategoriasLista($idCategoria,'');
+
+                // Vincula o nome
+                if (!empty($nomeCategoria->sub))
+                {
+                    $filtroNome["categoria"] = $nomeCategoria[0]->sub;
+
+                }
+                else
+                {
+                    $filtroNome["categoria"] = $nomeCategoria[0]->nome;
+
+                }
+
+            }
+
+            if (!empty($filtro['tipo']))
+            {
+                $idTipo = explode("=",$filtro['tipo']);
+                $idTipo = $idTipo['1'];
+
+                // Busca o nome da marca
+                $nomeTipo = $this->objHelperApoio->getTiposLista($idTipo,"");
+
+                // Vincula o nome
+                if (!empty($nomeCategoria->sub))
+                {
+                    $filtroNome["tipo"] = $nomeTipo[0]->sub;
+
+                }
+                else
+                {
+                    $filtroNome["tipo"] = $nomeTipo[0]->nome;
+
+                }
+
+            }
+        }
+
 
         // Dados da view
         $dados = [
@@ -402,6 +479,7 @@ class Site extends CI_controller
             "categorias" => $categoriasMarca,
             "produtos" => $produtos,
             "qtdeProdutos" => count($produtos),
+            "filtroNome" => $filtroNome,
             "paginacao" => [
                 "url" => $urlPaginacao,
                 "pag" => $pag,
