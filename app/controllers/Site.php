@@ -86,6 +86,31 @@ class Site extends CI_controller
 
     } // End >> fun::index()
 
+    private function getIdsCategorias($categoria)
+    {
+        // Concatena todas as categorias PAI
+        $ids = (!empty($categoria->ids) ? $categoria->ids : null);
+        $ids .= $categoria->id_categoria.',';
+
+        $categoria->filhos = $this->objModelCategoria
+            ->get(['id_categoria_pai' => $categoria->id_categoria])
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Verifica se tem FILHOS
+        if (!empty($categoria->filhos))
+        {
+            // Percorre todas as categorias FILHOS
+            foreach ($categoria->filhos as $filho)
+            {
+               // Concatena todos as categorias FILHOS
+               $filho->ids = $ids;
+
+               // Pegando os IDS
+               $ids =  $this->getIdsCategorias($filho);
+            }
+        }
+         return $ids;
+    }
 
 
     /**
@@ -140,27 +165,7 @@ class Site extends CI_controller
             // Verifica se encontrou algo
             if(!empty($categoria))
             {
-                // Busca todos os filhos
-                $categoria = $this->objHelperApoio->getCategorias(null, $_GET["categoria"]);
-
-                $ids = "";
-
-                foreach ($categoria as $cat)
-                {
-                    // Concatena todas as categorias PAI
-                    $ids .= $cat->id_categoria.',';
-
-                    // Verifica se tem FILHOS
-                    if (!empty($cat->filhos))
-                    {
-                        // Percorre todas as categorias FILHOS
-                        foreach ($cat->filhos as $filho)
-                        {
-                            // Concatena todos as categorias FILHOS
-                            $ids .= $filho->id_categoria.',';
-                        }
-                    }
-                }
+               $ids = $this->getIdsCategorias($categoria);
 
                 // Removendo o ultimo caractere que sempre vai ser a ","
                 $ids = substr($ids, 0, -1);
@@ -172,7 +177,8 @@ class Site extends CI_controller
                 $url .= "&categoria=" . $_GET["categoria"];
 
                 // Item para formação de novas urls
-                $filtro["categoria"] = "&cat=" . $_GET['categoria'];
+                $filtro["categoria"] = "&categoria=" . $_GET['categoria'];
+
             }
 
             // Verifica se tem marca na url
@@ -182,7 +188,7 @@ class Site extends CI_controller
                 $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
 
                 // Busca todos os tipos da marca
-                $tipo = $this->objHelperApoio->getTipos();
+                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
             }
             else
             {
@@ -214,7 +220,7 @@ class Site extends CI_controller
                 $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
 
                 // Busca todos os tipos da marca
-                $tipo = $this->objHelperApoio->getTipos();
+                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
             }
             else
             {
@@ -247,7 +253,7 @@ class Site extends CI_controller
                 $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
 
                 // Busca todos os tipos da marca
-                $tipo = $this->objHelperApoio->getTipos();
+                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
             }
             else
             {
@@ -433,7 +439,7 @@ class Site extends CI_controller
                 $nomeCategoria = $this->objHelperApoio->getCategoriasLista($idCategoria,'');
 
                 // Vincula o nome
-                if (!empty($nomeCategoria->sub))
+                if (!empty($nomeCategoria[0]->sub))
                 {
                     $filtroNome["categoria"] = $nomeCategoria[0]->sub;
 
@@ -455,7 +461,7 @@ class Site extends CI_controller
                 $nomeTipo = $this->objHelperApoio->getTiposLista($idTipo,"");
 
                 // Vincula o nome
-                if (!empty($nomeCategoria->sub))
+                if (!empty($nomeTipo[0]->sub))
                 {
                     $filtroNome["tipo"] = $nomeTipo[0]->sub;
 
