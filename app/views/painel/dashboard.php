@@ -26,12 +26,12 @@
                 <!-- CONTADORES -->
                 <div class="row">
 
-                    <!-- CLIENTES -->
+                    <!-- USUARIOS -->
                     <div class="col-sm-6 col-xl-3">
                         <div class="card">
                             <div class="card-heading p-4">
                                 <div class="mini-stat-icon float-right">
-                                    <i class="fas fa-user bg-primary  text-white"></i>
+                                    <i class="fas fa-user-shield bg-primary  text-white"></i>
                                 </div>
                                 <div>
                                     <h5 class="font-16">Usuários</h5>
@@ -40,9 +40,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- FIM >> CLIENTES -->
+                    <!-- FIM >> USUARIOS -->
 
-                    <!-- EMPRESAS -->
+                    <!-- PRODUTOS -->
                     <div class="col-sm-6 col-xl-3">
                         <div class="card">
                             <div class="card-heading p-4">
@@ -56,14 +56,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- FIM >> EMPRESAS -->
+                    <!-- FIM >> PRODUTOS -->
 
-                    <!-- PRODUTOS -->
+                    <!-- MARCAS -->
                     <div class="col-sm-6 col-xl-3">
                         <div class="card">
                             <div class="card-heading p-4">
                                 <div class="mini-stat-icon float-right">
-                                    <i class="fas fa-building bg-success text-white"></i>
+                                    <i class="ti-star bg-success text-white"></i>
                                 </div>
                                 <div>
                                     <h5 class="font-16">Marcas</h5>
@@ -72,14 +72,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- FIM >> PRODUTOS -->
+                    <!-- FIM >> MARCAS -->
 
-                    <!-- LUCRO -->
+                    <!-- CATEGORIAS -->
                     <div class="col-sm-6 col-xl-3">
                         <div class="card">
                             <div class="card-heading p-4">
                                 <div class="mini-stat-icon float-right">
-                                    <i class="far fa-money-bill-alt bg-danger text-white"></i>
+                                    <i class="fas fa-medal bg-danger text-white"></i>
                                 </div>
                                 <div>
                                     <h5 class="font-16">Categorias</h5>
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- FIM >> LUCRO -->
+                    <!-- FIM >> CATEGORIAS -->
 
                 </div>
                 <!-- FIM >> CONTADORES -->
