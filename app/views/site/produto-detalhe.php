@@ -25,9 +25,9 @@
     <div class="wrappage">
 
         <div class="main-content">
-            <div class="row">
-                <div class="container">
+            <div class="container">
 
+                <div class="row">
                     <!-- PRODUTO -->
                     <div class="product-details-content">
 
@@ -77,7 +77,7 @@
                                 </div>
 
                                 <div class="wrap-price">
-                                     <p class="price-old" style="display: none" >R$ <?= number_format($produto->valorVenda, 2, ',', '.'); ?></p>
+                                    <p class="price-old" style="display: none" >R$ <?= number_format($produto->valorVenda, 2, ',', '.'); ?></p>
                                     <p class="price validarDesconto" id="valorProduto" data-id-produto = "<?= $produto->id_produto ?>" data-id-usuario = "<?= $usuario->id_usuario ?>" >
                                         R$ <?= number_format($produto->valorVenda, 2, ',', '.'); ?>
                                     </p>
@@ -86,6 +86,32 @@
                             </div>
                             <!-- FIM >> DETALHES -->
 
+                            <div class="options">
+                                <?php if ($atributos) : ?>
+                                    <hr>
+
+                                    <?php foreach ($atributos as $atributo) : ?>
+                                        <div>
+                                            <span>
+                                                <img style="display: inline; max-width: 45px;" src="<?= $atributo->detalhes->imagem ?>">
+                                                <p style="display: inline; margin-left: 15px"><?= $atributo->detalhes->nome ?></p>
+                                            </span>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+
+                        </div>
+                        <!-- FIM >> DETALHES -->
+
+                    </div>
+                    <!-- FIM >> PRODUTO -->
+                </div>
+
+
+                <div class="row">
+                    <div class="product-details-content">
+                        <div class="col-md-12">
                             <!-- DESCRIÇÃO E ATRIBUTOS -->
                             <div class="options">
 
@@ -93,50 +119,39 @@
                                 <p><?= $produto->descricao ?></p>
                                 <!-- FIM >> DESCRIÇÃO -->
 
-                                <hr>
-
-                                <?php if ($atributos) : ?>
-                                    <?php foreach ($atributos as $atributo) : ?>
-                                        <div>
-                                            <span>
-                                                <img style="display: inline" src="<?= $atributo->detalhes->imagem ?>">
-                                                <p style="display: inline; margin-left: 15px"><?= $atributo->detalhes->nome ?></p>
-                                            </span>
-                                        </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-
                             </div>
                             <!-- FIM >> DESCRIÇÃO E ATRIBUTOS -->
-
                         </div>
-                        <!-- FIM >> DETALHES -->
-
                     </div>
-                    <!-- FIM >> PRODUTO -->
+                </div>
 
-                    <!-- FICHA TECNICA -->
-                    <?php if (!empty($fichaTecnica)) : ?>
-                        <div class="hoz-tab-container space-padding-tb-30">
-                            <ul class="tabs">
-                                <li class="item" rel="description">Ficha técnica</li>
-                            </ul>
-                            <div class="tab-container">
-                                <div id="description" class="tab-content">
-                                    <div class="text">
+                <!-- FICHA TECNICA -->
+                <?php if (!empty($fichaTecnica)) : ?>
+                    <div class="hoz-tab-container space-padding-tb-30">
+                        <ul class="tabs">
+                            <li class="item" rel="description" style="display: none;">Ficha técnica</li>
+                        </ul>
+                        <div class="tab-container">
+                            <div id="description" class="tab-content">
+                                <div class="text">
 
+                                    <table class="table table-striped">
+                                        <tbody>
                                         <?php foreach ($fichaTecnica as $ficha) : ?>
-                                            <h3><?= $ficha->campo ?></h3>
-                                            <p><?= $ficha->descricao ?></p>
+                                            <tr>
+                                                <td style="font: 400 18px/30px 'Roboto';"><?= $ficha->campo ?></td>
+                                                <td style="font: 400 18px/30px 'Roboto';"><?= $ficha->descricao ?></td>
+                                            </tr>
                                         <?php endforeach; ?>
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?>
-                    <!-- FIM >> FICHA TECNICA -->
+                    </div>
+                <?php endif; ?>
+                <!-- FIM >> FICHA TECNICA -->
 
-                </div>
             </div>
         </div>
 

@@ -23,6 +23,7 @@ class Site extends CI_controller
     private $objModelFichaTecnica;
     private $objModelAtributo;
     private $objModelAtributoProduto;
+    private $objModelTipo;
 
 
     // Método construtor
@@ -39,6 +40,7 @@ class Site extends CI_controller
         $this->objModelFichaTecnica = new FichaTecnica();
         $this->objModelAtributo = new \Model\Atributo();
         $this->objModelAtributoProduto = new AtributoProduto();
+        $this->objModelTipo = new \Model\Tipo();
 
     } // End >> fun::__construct()
 
@@ -112,6 +114,32 @@ class Site extends CI_controller
          return $ids;
     }
 
+    private function getIdsTipos($tipo)
+    {
+        // Concatena todas as categorias PAI
+        $ids = (!empty($tipo->ids) ? $tipo->ids : null);
+        $ids .= $tipo->id_tipo.',';
+
+        $tipo->filhos = $this->objModelTipo
+            ->get(['id_tipo_pai' => $tipo->id_tipo])
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Verifica se tem FILHOS
+        if (!empty($tipo->filhos))
+        {
+            // Percorre todas as categorias FILHOS
+            foreach ($tipo->filhos as $filho)
+            {
+                // Concatena todos as categorias FILHOS
+                $filho->ids = $ids;
+
+                // Pegando os IDS
+                $ids =  $this->getIdsTipos($filho);
+            }
+        }
+        return $ids;
+    }
+
 
     /**
      * Método responsável por montar a página inicial do
@@ -181,23 +209,13 @@ class Site extends CI_controller
 
             }
 
-            // Verifica se tem marca na url
-            if (!empty($_GET['marca']))
-            {
-                // Busca todas as categorias da marca
-                $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
 
-                // Busca todos os tipos da marca
-                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
-            }
-            else
-            {
-                // Busca todas as categorias da marca
-                $categoriasMarca = $this->objHelperApoio->getCategorias("",$_GET['categoria']);
+            // Busca todas as categorias da marca
+            $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
 
-                // Busca todos os tipos da marca
-                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
-            }
+            // Busca todos os tipos da marca
+            $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
+
         }
 
         // Verifica se fez uma busca por marca
@@ -236,34 +254,32 @@ class Site extends CI_controller
         // Verifica se fez uma busca por marca
         if(!empty($_GET["tipo"]))
         {
-            // Add a query
-            $sql .= " AND id_tipo = {$_GET["tipo"]}";
+            // Busca a categoria
+            $tipo = $this->objModelTipo
+                ->get(["id_tipo" => $_GET["tipo"]])
+                ->fetch(\PDO::FETCH_OBJ);
 
-            // Add na url
-            $url .= "&tipo=" . $_GET["tipo"];
-
-            // Item para formação de novas urls
-            $filtro["tipo"] = "&tipo=" . $_GET['tipo'];
-
-
-            // Verifica se tem categoria na url
-            if (!empty($_GET['categoria']))
+            // Verifica se encontrou algo
+            if(!empty($tipo))
             {
-                // Busca todas as categorias da marca
-                $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
+                $ids = $this->getIdsTipos($tipo);
 
-                // Busca todos os tipos da marca
-                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
-            }
-            else
-            {
-                // Busca todas as categorias da marca
-                $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca']);
+                // Removendo o ultimo caractere que sempre vai ser a ","
+                $ids = substr($ids, 0, -1);
 
-                // Busca todos os tipos da marca
-                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
+                // Monta a sql
+                $sql .= " AND id_tipo IN({$ids})";
+
+                // Add na url
+                $url .= "&tipo=" . $_GET["tipo"];
+
+                // Item para formação de novas urls
+                $filtro["tipo"] = "&tipo=" . $_GET['tipo'];
+
             }
 
+            // Busca todos os tipos da marca
+            $tipo = $this->objHelperApoio->getTipos($_GET['tipo'],$_GET['marca']);
         }
 
         // Verifica se fez uma busca por texto

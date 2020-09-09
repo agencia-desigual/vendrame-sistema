@@ -117,7 +117,7 @@
                                     </li>
 
                                 <?php endforeach; ?>
-                                <li><a href="<?= BASE_URL ?>produtos" title="kids">Todas categorias</a></li>
+                                <li><a href="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['tipo'] . $filtro['order']  . $filtro['marca'];  ?>" title="kids">Todas categorias</a></li>
                             </ul>
                         </aside>
                     <?php endif; ?>
@@ -154,6 +154,7 @@
                                     </li>
 
                                 <?php endforeach; ?>
+                                <li><a href="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['order']  . $filtro['marca'];  ?>" title="kids">Todos os tipos</a></li>
                             </ul>
                         </aside>
                     <?php endif; ?>
@@ -189,7 +190,7 @@
                     <?php foreach ($produtos as $produto) : ?>
                         <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>">
                             <div class="item-inner">
-                                <div class="product">
+                                <div class="product" style="box-shadow: 0px 5px 10px -2px #ccc;">
 
                                     <!-- THUMB -->
                                     <div class="product-images">
@@ -201,12 +202,14 @@
 
                                     <!-- NOME -->
                                     <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>">
-                                        <p class="product-title"><?= mb_strimwidth($produto->nome, 0, 35, "...");  ?></p>
+                                        <p class="product-title" style="padding-top: 10px;">
+                                            <?= mb_strimwidth($produto->nome, 0, 35, "...");  ?>
+                                        </p>
                                     </a>
                                     <!-- FIM >> NOME -->
 
                                     <!-- PREÇO -->
-                                    <p class="product-price">
+                                    <p class="product-price" style="height: auto; margin-bottom: 0px; padding-bottom: 0px;">
                                         R$ <?= number_format($produto->valorVenda, 2, ",", ".") ?>
                                     </p>
                                     <!-- FIM >> PREÇO -->
