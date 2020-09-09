@@ -200,7 +200,8 @@ body, html
 */
 .thumb-produto
 {
-    min-height: 150px;
+    /*min-height: 150px;*/
+    min-height: 100px;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
