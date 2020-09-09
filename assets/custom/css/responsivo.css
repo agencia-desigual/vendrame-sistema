@@ -1,6 +1,6 @@
-@media only screen and (max-width: 767px)
+@media only screen and (max-width: 770px)
 {
-
+    .products.grid_full.grid_sidebar .item-inner{width: 50% !important;}
 }
 
 @media only screen and (max-width: 600px)
@@ -8,6 +8,12 @@
     .card-produto .thumb
     {
         min-height: 150px;
+    }
+}
+
+@media (max-width: 467px) {
+    .products.grid_full .item-inner, .products.grid_full.grid_sidebar .item-inner {
+        width: 100% !important;
     }
 }
 
