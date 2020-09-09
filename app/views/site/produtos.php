@@ -190,7 +190,7 @@
                     <?php foreach ($produtos as $produto) : ?>
                         <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>">
                             <div class="item-inner">
-                                <div class="product" style="box-shadow: 0px 5px 10px -2px #ccc;">
+                                <div class="product" style="box-shadow: 0px 5px 10px -2px #ccc; padding: 15px; margin: 5px;">
 
                                     <!-- THUMB -->
                                     <div class="product-images">
@@ -203,13 +203,13 @@
                                     <!-- NOME -->
                                     <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>">
                                         <p class="product-title" style="padding-top: 10px;">
-                                            <?= mb_strimwidth($produto->nome, 0, 35, "...");  ?>
+                                            <?= mb_strimwidth($produto->nome, 0, 45, "...");  ?>
                                         </p>
                                     </a>
                                     <!-- FIM >> NOME -->
 
                                     <!-- PREÇO -->
-                                    <p class="product-price" style="height: auto; margin-bottom: 0px; padding-bottom: 0px;">
+                                    <p class="product-price" style="height: auto; margin-bottom: 0px; padding-bottom: 0px; padding-top: 13px;">
                                         R$ <?= number_format($produto->valorVenda, 2, ",", ".") ?>
                                     </p>
                                     <!-- FIM >> PREÇO -->

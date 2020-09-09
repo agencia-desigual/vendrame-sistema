@@ -33,7 +33,7 @@ $("#formInserirProduto").on("submit", function(){
 
             // Atualiza a página
             setTimeout(() => {
-                location.href = Global.config.url + "painel/produto/adicionar";
+                location.href = Global.config.url + "painel/produto/alterar/" + data.objeto.id_produto;
             }, 1000);
 
         })
