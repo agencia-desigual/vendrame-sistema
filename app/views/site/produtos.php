@@ -203,7 +203,7 @@
                                     <!-- NOME -->
                                     <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>">
                                         <p class="product-title" style="padding-top: 10px;">
-                                            <?= mb_strimwidth($produto->nome, 0, 45, "...");  ?>
+                                            <?= mb_strimwidth($produto->nome, 0, 38, "...");  ?>
                                         </p>
                                     </a>
                                     <!-- FIM >> NOME -->

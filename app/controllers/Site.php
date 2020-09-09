@@ -298,9 +298,6 @@ class Site extends CI_controller
         // ==============================================================
         // PAGINAÇÃO ====================================================
 
-        // Url
-        $urlPaginacao = $url . "&";
-
         // Recupera os dados get
         $get = $_GET;
 
@@ -369,6 +366,9 @@ class Site extends CI_controller
             // Sql - Ordena pelos mais recentes
             $sql .= " ORDER BY valorVenda ASC";
         }
+
+        // Url
+        $urlPaginacao = $url . "&";
 
         // Informações sobre paginação ---------------------------
         $pag = (isset($get["pag"])) ? $get["pag"] : 1;

@@ -4,7 +4,7 @@
 
 define("SITE_NOME", "Ótica Vendrame");
 
-define("NUM_PAG", 8);
+define("NUM_PAG", 12);
 
 
 /**
