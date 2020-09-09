@@ -293,6 +293,9 @@ class Site extends CI_controller
 
             // Item para formação de novas urls
             $filtro["busca"] = "&busca=" . $_GET['busca'];
+
+            // Vincula o nome
+            $filtroNome["busca"] = $_GET['busca'];
         }
 
         // ==============================================================

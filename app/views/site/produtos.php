@@ -34,14 +34,14 @@
                     <div class="selecionados">
 
                         <?php if (!empty($filtroNome['busca'])) : ?>
-                            <span class="badge-primary">
+                            <span class="badge-primary"  onclick="removeFiltro('busca','<?= BASE_URL . "produtos?c=true" . $filtro['categoria'] . $filtro['tipo'] . $filtro['order']  . $filtro['marca']; ?>')">
                                 <?= $filtroNome['busca'] ?>
                                 <p>x</p>
                             </span>
                         <?php endif; ?>
 
                         <?php if (!empty($filtroNome['marca'])) : ?>
-                            <span onclick="removeFiltro('marca','<?= BASE_URL . "produtos?c=true" . $filtro['busca'] . $filtro['categoria'] . $filtro['order']  . $filtro['tipo'];  ?>')" class="badge-primary">
+                            <span onclick="removeFiltro('marca','<?= BASE_URL . "produtos?c=true" . $filtro['busca'] . $filtro['order'];  ?>')" class="badge-primary">
                                 <?= "Marca: ". $filtroNome['marca'] ?>
                                 <p>x</p>
                             </span>
