@@ -3,7 +3,9 @@
 // Dados importantes
 var Dados = {
     "url": "http://localhost/git/vendrame-sistema/",
+    // "url": "http://sistema.oticavendrame.com.br/",
     "urlApi": "http://localhost/git/vendrame-sistema/api/"
+    // "urlApi": "http://sistema.oticavendrame.com.br/api/"
 }
 
 

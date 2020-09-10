@@ -68,8 +68,8 @@
 
                 <!-- TELA CHEIA -->
                 <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
-                    <a class="nav-link waves-effect" href="#" id="btn-fullscreen">
-                        <i class="mdi mdi-arrow-expand-all noti-icon"></i>
+                    <a class="nav-link waves-effect" href="<?= BASE_URL ?>">
+                        Ver catálogo
                     </a>
                 </li>
                 <!-- FIM TELA CHEIA -->
