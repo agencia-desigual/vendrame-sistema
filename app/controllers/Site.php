@@ -63,7 +63,7 @@ class Site extends CI_controller
 
         // Busca todas as marcas
         $marcas = $this->objModelMarca
-            ->get("","id_marca DESC", "0,3")
+            ->get("","id_marca DESC")
             ->fetchAll(\PDO::FETCH_OBJ);
 
         if (!empty($marcas))
