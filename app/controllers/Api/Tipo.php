@@ -211,14 +211,14 @@ class  Tipo extends Controller
                         $dados = [
                             "tipo" => true,
                             "code" => 200,
-                            "mensagem" => "Tipo adicionado com sucesso.",
+                            "mensagem" => "Adicionado com sucesso.",
                             "objeto" => $categoria
                         ];
                     }
                     else
                     {
                         // Msg
-                        $dados = ["mensagem" => "Ocorreu um erro ao inserir o tipo."];
+                        $dados = ["mensagem" => "Ocorreu um erro ao inserir a linha."];
 
                     } // Error >> Ocorreu um erro ao inserir a categoria.
                 }
@@ -300,7 +300,7 @@ class  Tipo extends Controller
                     $dados = [
                         "tipo" => true,
                         "code" => 200,
-                        "mensagem" => "Tipo alterado com sucesso.",
+                        "mensagem" => "Linha alterada com sucesso.",
                         "objeto" => [
                             "antes" => $tipo,
                             "atual" => $tipoAlterado
@@ -311,7 +311,7 @@ class  Tipo extends Controller
                 else
                 {
                     // Msg
-                    $dados = ["mensagem" => "Ocorreu um erro ao alterar o tipo."];
+                    $dados = ["mensagem" => "Ocorreu um erro ao alterar a linha."];
 
                 } // Error >> Ocorreu um erro ao alterar a categoria.
             }
@@ -325,7 +325,7 @@ class  Tipo extends Controller
         else
         {
             // Msg
-            $dados = ["mensagem" => "Tipo informado não foi encontrado."];
+            $dados = ["mensagem" => "Linha informado não foi encontrado."];
 
         } // Error >> Categorias informada não foi encontrada.
 
@@ -378,7 +378,7 @@ class  Tipo extends Controller
                         $dados = [
                             "tipo" => true,
                             "code" => 200,
-                            "mensagem" => "Tipo deletado com sucesso.",
+                            "mensagem" => "Deletado com sucesso.",
                             "objeto" => $categoria
                         ];
                     }
@@ -391,7 +391,7 @@ class  Tipo extends Controller
                 else
                 {
                     // Msg
-                    $dados = ["mensagem" => "A categoria possui produtos vinculados."];
+                    $dados = ["mensagem" => "A linha possui produtos vinculados."];
 
                 } // Error >> A categoria possui produtos vinculados.
             }
@@ -405,7 +405,7 @@ class  Tipo extends Controller
         else
         {
             // Msg
-            $dados = ["mensagem" => "Tipo informado não foi encontrado."];
+            $dados = ["mensagem" => "Linha informado não foi encontrado."];
 
         } // Error >> Categorias informada não foi encontrada.
 
