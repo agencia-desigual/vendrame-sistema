@@ -7,10 +7,42 @@
     <div class="cabecalho">
         <div class="container">
             <div class="row">
+                <a style="cursor: pointer; font-size: 2em; position: absolute; color: #204f93; z-index: 999999;" onclick="window.history.back();">
+                    <i class="fa fa-arrow-left"></i>
+                </a>
+
                 <div class="col-md-12 text-center">
                     <a href="<?= BASE_URL ?>">
                         <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
                     </a>
+
+
+                    <!-- FORMULARIO -->
+                    <form id="pesquisaProduto" class="index" style="background-color: #fff;">
+                        <div class="form-group" style="margin-top: 33px;">
+                            <div class="busca" style="width: 450px; display: block; margin: 0 auto;">
+                                <input type="text" name="busca" class="form-control input-busca" id="pesquisa" aria-describedby="busca" placeholder="Encontre os produtos" style="width: 300px;">
+
+                                <button type="submit" class="btn btn-primary btn-busca" style="width: 93px; margin: 0px;">
+                                    <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+
+                                        <g>
+                                            <title>background</title>
+                                            <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+                                        </g>
+                                        <g>
+                                            <title>Layer 1</title>
+                                            <path fill="#ffffff" id="svg_2" d="m31.12,26.879l-7.342,-7.342c-1.095,1.701 -2.541,3.148 -4.242,4.242l7.343,7.342c1.172,1.172 3.071,1.172 4.241,0c1.173,-1.169 1.173,-3.068 0,-4.242z"/>
+                                            <path fill="#ffffff" id="svg_3" d="m24,12c0,-6.627 -5.373,-12 -12,-12s-12,5.373 -12,12s5.373,12 12,12s12,-5.373 12,-12zm-12,9c-4.964,0 -9,-4.036 -9,-9c0,-4.963 4.036,-9 9,-9c4.963,0 9,4.037 9,9c0,4.964 -4.037,9 -9,9z"/>
+                                            <path fill="#ffffff" id="svg_4" d="m5,12l2,0c0,-2.757 2.242,-5 5,-5l0,-2c-3.86,0 -7,3.142 -7,7z"/>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <div style="clear: both"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- FIM >> FORMULARIO -->
                 </div>
             </div>
         </div>
@@ -24,7 +56,7 @@
         <div class="container">
 
             <!-- FILTROS -->
-            <div id="secondary" class="widget-area col-xs-12 col-md-3">
+            <div id="secondary" class="widget-area col-xs-12 col-md-3" style="overflow-y: auto; height: 720px;">
 
                 <?php if (!empty($filtroNome)) : ?>
 
@@ -128,7 +160,7 @@
                 <?php if (!empty($_GET['marca'])) : ?>
                     <?php if (!empty($tipos)) : ?>
                         <aside class="widget widget_product_categories">
-                            <h3 class="widget-title">TIPOS</h3>
+                            <h3 class="widget-title">Linhas</h3>
 
                             <ul class="product-categories">
                                 <?php foreach ($tipos as $tipo) : ?>
@@ -165,7 +197,7 @@
             <!-- FIM >> FILTROS -->
 
             <!-- PRODUTOS -->
-            <div id="primary" class="col-xs-12 col-md-9">
+            <div id="primary" class="col-xs-12 col-md-9" style="overflow-y: auto; height: 740px;">
 
                 <!-- QUANTIDADE -->
                 <div class="wrap-breadcrumb">
@@ -189,21 +221,13 @@
                 <div class="products ver2 grid_full grid_sidebar hover-shadow furniture">
                     <?php foreach ($produtos as $produto) : ?>
                         <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>">
-                            <div class="item-inner">
-                                <div class="product" style="box-shadow: 0px 5px 10px -2px #ccc; padding: 15px; margin: 5px;">
-
-                                    <!-- THUMB -->
-                                    <div class="product-images">
-                                        <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>" title="">
-                                            <div class="thumb-produto" style="background-image: url('<?= $produto->imagem ?>')"></div>
-                                        </a>
-                                    </div>
-                                    <!-- FIM >> THUMB -->
+                            <div class="item-inner"  style="width: 100%;">
+                                <div class="product" style="box-shadow: 0px 7px 2px -6px #ccc; padding: 15px; margin: 5px; margin-bottom: 20px;">
 
                                     <!-- NOME -->
                                     <a href="<?= BASE_URL ?>produto-detalhes/<?= $produto->id_produto ?>">
-                                        <p class="product-title" style="padding-top: 10px;">
-                                            <?= mb_strimwidth($produto->nome, 0, 38, "...");  ?>
+                                        <p class="product-title"  style="height: auto;">
+                                            <?= $produto->nome;  ?>
                                         </p>
                                     </a>
                                     <!-- FIM >> NOME -->

@@ -7,19 +7,51 @@
 <link rel="shortcut icon" href="<?= BASE_URL; ?>assets/theme/site/assets/images/favicon.png" />
 <link rel="stylesheet" type="text/css" href="<?= BASE_URL; ?>assets/theme/site/assets/vendor/settings.css"/>
 
-    <!-- CABEÇALHO -->
-    <div style="margin-bottom: 100px" class="cabecalho">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <a href="<?= BASE_URL ?>">
-                        <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
-                    </a>
-                </div>
+<!-- CABEÇALHO -->
+<div class="cabecalho">
+    <div class="container">
+        <div class="row">
+            <a style="cursor: pointer; font-size: 2em; position: absolute; color: #204f93; z-index: 999999;" onclick="window.history.back();">
+                <i class="fa fa-arrow-left"></i>
+            </a>
+
+            <div class="col-md-12 text-center">
+                <a href="<?= BASE_URL ?>">
+                    <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
+                </a>
+
+
+                <!-- FORMULARIO -->
+                <form id="pesquisaProduto" class="index" style="background-color: #fff;">
+                    <div class="form-group" style="margin-top: 33px;">
+                        <div class="busca" style="width: 450px; display: block; margin: 0 auto;">
+                            <input type="text" name="busca" class="form-control input-busca" id="pesquisa" aria-describedby="busca" placeholder="Encontre os produtos" style="width: 300px;">
+
+                            <button type="submit" class="btn btn-primary btn-busca" style="width: 93px; margin: 0px;">
+                                <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+
+                                    <g>
+                                        <title>background</title>
+                                        <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+                                    </g>
+                                    <g>
+                                        <title>Layer 1</title>
+                                        <path fill="#ffffff" id="svg_2" d="m31.12,26.879l-7.342,-7.342c-1.095,1.701 -2.541,3.148 -4.242,4.242l7.343,7.342c1.172,1.172 3.071,1.172 4.241,0c1.173,-1.169 1.173,-3.068 0,-4.242z"/>
+                                        <path fill="#ffffff" id="svg_3" d="m24,12c0,-6.627 -5.373,-12 -12,-12s-12,5.373 -12,12s5.373,12 12,12s12,-5.373 12,-12zm-12,9c-4.964,0 -9,-4.036 -9,-9c0,-4.963 4.036,-9 9,-9c4.963,0 9,4.037 9,9c0,4.964 -4.037,9 -9,9z"/>
+                                        <path fill="#ffffff" id="svg_4" d="m5,12l2,0c0,-2.757 2.242,-5 5,-5l0,-2c-3.86,0 -7,3.142 -7,7z"/>
+                                    </g>
+                                </svg>
+                            </button>
+                            <div style="clear: both"></div>
+                        </div>
+                    </div>
+                </form>
+                <!-- FIM >> FORMULARIO -->
             </div>
         </div>
     </div>
-    <!-- FIM >> CABEÇALHO -->
+</div>
+<!-- FIM >> CABEÇALHO -->
 
     <!-- CONTEUDO -->
     <div class="wrappage">
@@ -31,43 +63,8 @@
                     <!-- PRODUTO -->
                     <div class="product-details-content">
 
-                        <!-- IMAGENS -->
-                        <div class="col-md-6 col-sm-12 slide-vertical">
-                            <div class="slider-for">
-                                <?php if (!empty($produto->imagem)) : ?>
-                                    <?php if (is_array($produto->imagem)) : ?>
-                                        <?php foreach ($produto->imagem as $imagem) : ?>
-                                            <div>
-                                              <span class="zoom">
-                                                <img class="zoom-images" src="<?= $imagem->imagem ?>" alt="<?= $produto->nome ?>">
-                                              </span>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <div>
-                                              <span class="zoom">
-                                                <img class="zoom-images" src="<?= $produto->imagem ?>" alt="<?= $produto->nome ?>">
-                                              </span>
-                                        </div>
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                            </div>
-                            <div class="slider-nav">
-                                <?php if (!empty($produto->imagem)) : ?>
-                                    <?php if (is_array($produto->imagem)) : ?>
-                                        <?php foreach ($produto->imagem as $imagem) : ?>
-                                            <div>
-                                                <img src="<?= $imagem->imagem ?>" alt="<?= $produto->nome ?>">
-                                            </div>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <!-- FIM >> IMAGENS -->
-
-                        <!-- DETALHES -->
-                        <div class="col-md-6 col-sm-12">
+                        <!-- DETALES -->
+                        <div class="col-md-12">
 
                             <!-- DETALHES -->
                             <div class="box-details-info">
@@ -77,9 +74,16 @@
                                 </div>
 
                                 <div class="wrap-price">
-                                    <p class="price-old" style="display: none" >R$ <?= number_format($produto->valorVenda, 2, ',', '.'); ?></p>
-                                    <p class="price validarDesconto" id="valorProduto" data-id-produto = "<?= $produto->id_produto ?>" data-id-usuario = "<?= $usuario->id_usuario ?>" >
+                                    <?php if(!empty($produto->desconto)): ?>
+                                        <p class="price" style="display: block; margin-bottom: 19px; margin-top: 24px;">
+                                            R$ <?= number_format(($produto->valorVenda - (($produto->desconto / 100) * $produto->valorVenda)), 2, ',', '.'); ?>
+                                            <span style="display: block; font-size: 0.4em; text-transform: uppercase; color: #000;">Valor com desconto</span>
+                                        </p>
+                                    <?php endif; ?>
+
+                                    <p class="price" style="display: block;">
                                         R$ <?= number_format($produto->valorVenda, 2, ',', '.'); ?>
+                                        <span style="display: block; font-size: 0.4em; text-transform: uppercase; color: #000;">Valor inteiro</span>
                                     </p>
                                 </div>
 
@@ -118,6 +122,10 @@
                                 <!-- DESCRIÇÃO -->
                                 <p><?= $produto->descricao ?></p>
                                 <!-- FIM >> DESCRIÇÃO -->
+
+                                <?php if(!empty($produto->prazoEntrega)): ?>
+                                    <p>Prazo de entrega: <?= $produto->prazoEntrega; ?></p>
+                                <?php endif; ?>
 
                             </div>
                             <!-- FIM >> DESCRIÇÃO E ATRIBUTOS -->

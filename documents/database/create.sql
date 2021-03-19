@@ -48,10 +48,8 @@ CREATE TABLE marca(
 CREATE TABLE categoria(
   id_categoria INT NOT NULL AUTO_INCREMENT,
   id_categoria_pai INT NULL DEFAULT NULL,
-  id_marca INT NOT NULL,
   nome VARCHAR(100) NOT NULL,
   FOREIGN KEY (id_categoria_pai) REFERENCES categoria(id_categoria),
-  FOREIGN KEY (id_marca) REFERENCES marca(id_marca),
   PRIMARY KEY (id_categoria)
 );
 
@@ -67,10 +65,26 @@ CREATE TABLE tipo(
 );
 
 
+CREATE TABLE tratamento(
+ id_tratamento INT NOT NULL AUTO_INCREMENT,
+ nome VARCHAR(100) NOT NULL,
+ PRIMARY KEY (id_tratamento)
+);
+
+
+CREATE TABLE indice(
+   id_indice INT NOT NULL AUTO_INCREMENT,
+   nome VARCHAR(100) NOT NULL,
+   PRIMARY KEY (id_indice)
+);
+
+
 CREATE TABLE produto(
     id_produto INT NOT NULL AUTO_INCREMENT,
     id_categoria INT NOT NULL,
     id_tipo INT NULL DEFAULT NULL,
+    id_tratamento INT NULL DEFAULT NULL,
+    id_indice INT NULL DEFAULT NULL,
     id_marca INT NULL DEFAULT NULL,
     id_usuario INT NULL DEFAULT NULL, -- Id do usuário que adicionou o produto
 
@@ -80,15 +94,20 @@ CREATE TABLE produto(
 
     valorPago DOUBLE NOT NULL DEFAULT 0,
     valorVenda DOUBLE NULL DEFAULT NULL, -- Pode não ser informado
+    descontoFornecedor DOUBLE NULL DEFAULT NULL,
 
     lucro DOUBLE NULL DEFAULT NULL, -- Porcentagem de lucro
     desconto DOUBLE NULL DEFAULT NULL, -- Porcentagem de desconto
+
+    prazoEntrega TEXT NULL DEFAULT NULL,
 
     status BOOLEAN NOT NULL DEFAULT true,
     cadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (id_produto),
     FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria),
+    FOREIGN KEY (id_tratamento) REFERENCES tratamento(id_tratamento),
+    FOREIGN KEY (id_indice) REFERENCES indice(id_indice),
     FOREIGN KEY (id_tipo) REFERENCES tipo(id_tipo),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
     FOREIGN KEY (id_marca) REFERENCES marca(id_marca)

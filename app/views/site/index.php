@@ -48,7 +48,7 @@
                             <?php foreach ($marcas as $marca) : ?>
                                 <div class="col-md-4 col-6 centraliza-itens">
                                     <a href="<?= BASE_URL; ?>produtos?c=true&marca=<?= $marca->id_marca ?>">
-                                        <img width="100%" src="<?= $marca->logo ?>">
+                                        <img width="100%" src="<?= $marca->logo ?>"  style="margin: 15px 0px;">
                                     </a>
                                 </div>
                             <?php endforeach; ?>
