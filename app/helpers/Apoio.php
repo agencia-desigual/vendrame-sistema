@@ -371,18 +371,6 @@ class Apoio
             ->get($where)
             ->fetchAll(\PDO::FETCH_OBJ);
 
-        // Percorre as CATEGORIAS
-        foreach ($tipos as $tipo)
-        {
-            // Verificando se possui categoria pai
-            if($tipo->id_tipo_pai != null)
-            {
-                // Add ao objeto
-                $tipo->sub = $tipo->nome;
-                $tipo->sub = $this->getTipoPai($tipo);
-            }
-        }
-
         // Retrona a lista de categorias
         return $tipos;
 

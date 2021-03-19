@@ -58,7 +58,9 @@ class Tipo extends Controller
         if($usuario->nivel == "admin")
         {
             // Busca todas as categorias
-            $tipos = $this->objHelperApoio->getTiposLista();
+            $tipos = $this->objModelTipo
+                ->get()
+                ->fetchAll(\PDO::FETCH_OBJ);
 
             // Percorre as categorias
             foreach ($tipos as $tip)

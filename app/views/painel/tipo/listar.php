@@ -12,12 +12,12 @@
                 <div class="page-title-box">
                     <div class="row align-items-center">
                         <div class="col-sm-6">
-                            <h4 class="page-title">Tipos</h4>
+                            <h4 class="page-title">linhas</h4>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-right">
                                 <li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><?= SITE_NOME ?></a></li>
-                                <li class="breadcrumb-item active">Tipos</li>
+                                <li class="breadcrumb-item active">Linhas</li>
                             </ol>
                         </div>
                     </div>
@@ -30,14 +30,13 @@
                         <div class="card m-b-30">
                             <div class="card-body">
 
-                                <h4 class="mt-0 header-title">TODOS OS TIPOS</h4>
-                                <p class="sub-title../plugins">Gerencie os tipos, você também pode exportar todos.</p>
+                                <h4 class="mt-0 header-title">TODAS AS LINHAS</h4>
+                                <p class="sub-title../plugins">Gerencie as linhas, você também pode exportar todas.</p>
 
                                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                     <tr>
-                                        <th scope="col">NOME</th>
-                                        <th scope="col">SUB.</th>
+                                        <th scope="col">LINHA</th>
                                         <th scope="col">MARCA</th>
                                         <th class="text-center" scope="col">AÇÕES</th>
                                     </tr>
@@ -46,14 +45,6 @@
                                     <?php foreach ($tipos as $tipo) : ?>
                                         <tr id="tb_<?= $tipo->id_tipo; ?>">
                                             <td><?= $tipo->nome ?></td>
-                                            <td>
-                                                <?php if(!empty($tipo->sub)): ?>
-                                                    <?= $tipo->sub; ?>
-                                                <?php else: ?>
-                                                    -
-                                                <?php endif; ?>
-                                            </td>
-
                                             <td><?= $tipo->marca->nome; ?></td>
 
                                             <td class="text-center">

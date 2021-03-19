@@ -11,12 +11,12 @@
                 <div class="page-title-box">
                     <div class="row align-items-center">
                         <div class="col-sm-6">
-                            <h4 class="page-title">Inserir Tipo</h4>
+                            <h4 class="page-title">Inserir Linha</h4>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-right">
                                 <li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><?= SITE_NOME ?></a></li>
-                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>painel/tipos">Tipos</a></li>
+                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>painel/tipos">Linhas</a></li>
                                 <li class="breadcrumb-item active">Adicionar</li>
                             </ol>
                         </div>
@@ -29,8 +29,8 @@
                         <div class="card m-b-30">
                             <div class="card-body">
 
-                                <h4 class="mt-0 header-title">Cadastrar Tipo</h4>
-                                <p class="sub-title">Cadastre um novo tipo no sistema.</p>
+                                <h4 class="mt-0 header-title">Cadastrar Linha</h4>
+                                <p class="sub-title">Cadastre uma nova Linha no sistema.</p>
 
                                 <form id="formInserirTipo">
 
@@ -55,29 +55,8 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <label>Nome do tipo</label>
+                                                    <label>Nome da linha</label>
                                                     <input type="text" class="form-control" name="nome" value="" required />
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <label>Tipo Pai</label>
-                                                    <select class="selectBusca" name="id_tipo_pai">
-                                                        <option selected value="">Selecione</option>
-                                                        <?php foreach ($tipos as $tipo): ?>
-                                                            <option value="<?= $tipo->id_tipo; ?>">
-                                                                <?php if(!empty($tipo->sub)): ?>
-                                                                    <?= $tipo->sub; ?>
-                                                                <?php else: ?>
-                                                                    <?= $tipo->nome; ?>
-                                                                <?php endif; ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

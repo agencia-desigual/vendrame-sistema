@@ -56,10 +56,8 @@ CREATE TABLE categoria(
 
 CREATE TABLE tipo(
   id_tipo INT NOT NULL AUTO_INCREMENT,
-  id_tipo_pai INT NULL DEFAULT NULL,
   id_marca INT NOT NULL,
   nome VARCHAR(100) NOT NULL,
-  FOREIGN KEY (id_tipo_pai) REFERENCES tipo(id_tipo),
   FOREIGN KEY (id_marca) REFERENCES marca(id_marca),
   PRIMARY KEY (id_tipo)
 );

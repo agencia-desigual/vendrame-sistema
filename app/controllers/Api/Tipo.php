@@ -19,7 +19,7 @@ use Sistema\Helper\Input;
 use Sistema\Helper\Seguranca;
 
 // Classe
-class Tipo extends Controller
+class  Tipo extends Controller
 {
     // Objeto
     private $objModelTipo;
@@ -196,13 +196,6 @@ class Tipo extends Controller
                 // Verifica se a marca existe
                 if(!empty($marca))
                 {
-                    // Verifica se informou o pai
-                    if(isset($post["id_tipo_pai"]) && $post["id_tipo_pai"] == 0)
-                    {
-                        // Remove
-                        unset($post["id_tipo_pai"]);
-                    }
-
                     // Insere
                     $tipo = $this->objModelTipo->insert($post);
 
@@ -295,13 +288,6 @@ class Tipo extends Controller
                 // Remove os dados inauteraveis
                 unset($post["id_tipo"]);
 
-                // Verifica se vai alterar o pai
-                if(isset($post["id_tipo_pai"]) && $post["id_tipo_pai"] == 0)
-                {
-                    // Deixa como null
-                    $post["id_tipo_pai"] = null;
-                }
-
                 // Altera os dados
                 if($this->objModelTipo->update($post, ["id_tipo" => $id]) != false)
                 {
@@ -382,41 +368,32 @@ class Tipo extends Controller
             // Verifica se o usuário possui permissão
             if($usuario->nivel == "admin")
             {
-                // Verifica se possui categorias vinculadas
-                if($this->objModelTipo->get(["id_tipo_pai" => $id])->rowCount() == 0)
+                // Verifica se possui produto nessa categoria
+                if($this->objModelProduto->get(["id_tipo" => $id])->rowCount() == 0)
                 {
-                    // Verifica se possui produto nessa categoria
-                    if($this->objModelProduto->get(["id_tipo" => $id])->rowCount() == 0)
+                    // Deleta
+                    if($this->objModelTipo->delete(["id_tipo" => $id]) != false)
                     {
-                        // Deleta
-                        if($this->objModelTipo->delete(["id_tipo" => $id]) != false)
-                        {
-                            // Array de retorno
-                            $dados = [
-                                "tipo" => true,
-                                "code" => 200,
-                                "mensagem" => "Tipo deletado com sucesso.",
-                                "objeto" => $categoria
-                            ];
-                        }
-                        else
-                        {
-                            // Msg
-                            $dados = ["mensagem" => "Ocorreu um erro ao deletar tipo."];
-                        } // Error >> Ocorreu um erro ao deletar categoria.
+                        // Array de retorno
+                        $dados = [
+                            "tipo" => true,
+                            "code" => 200,
+                            "mensagem" => "Tipo deletado com sucesso.",
+                            "objeto" => $categoria
+                        ];
                     }
                     else
                     {
                         // Msg
-                        $dados = ["mensagem" => "A categoria possui produtos vinculados."];
-
-                    } // Error >> A categoria possui produtos vinculados.
+                        $dados = ["mensagem" => "Ocorreu um erro ao deletar tipo."];
+                    } // Error >> Ocorreu um erro ao deletar categoria.
                 }
                 else
                 {
                     // Msg
-                    $dados = ["mensagem" => "O tipo possui outros tipos vinculados."];
-                } // Error >> A categoria possui outras categorias vinculadas.
+                    $dados = ["mensagem" => "A categoria possui produtos vinculados."];
+
+                } // Error >> A categoria possui produtos vinculados.
             }
             else
             {
