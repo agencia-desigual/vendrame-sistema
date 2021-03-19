@@ -63,21 +63,6 @@ class Categoria extends Controller
             // Percorre as categorias
             foreach ($categorias as $cat)
             {
-                // Verifica se não possui a marca no array
-                if(empty($marca[$cat->id_marca]))
-                {
-                    // Busca a marca
-                    $aux = $this->objModelMarca
-                        ->get(["id_marca" => $cat->id_marca])
-                        ->fetch(\PDO::FETCH_OBJ);
-
-                    // Add ao array
-                    $marca[$cat->id_marca] = $aux;
-                }
-
-                // Add a marca
-                $cat->marca = $marca[$cat->id_marca];
-
                 // Busca o numero de produtos com a categoria
                 $cat->produtos = $this->objModelProduto
                     ->get(["id_categoria" => $cat->id_categoria])
@@ -122,16 +107,10 @@ class Categoria extends Controller
             // Busca todas as categorias
             $categorias = $this->objHelperApoio->getCategoriasLista();
 
-            // Busca as marcas
-            $marcas = $this->objModelMarca
-                ->get()
-                ->fetchAll(\PDO::FETCH_OBJ);
-
             // Array de retorno
             $dados = [
                 "usuario" => $usuario,
                 "categorias" => $categorias,
-                "marcas" => $marcas,
                 "get" => $_GET,
                 "js" => [
                     "modulos" => ["Categoria"],
@@ -179,17 +158,11 @@ class Categoria extends Controller
                 // Busca todas as categorias cadastradas
                 $categorias = $this->objHelperApoio->getCategoriasLista();
 
-                // Busca a marca
-                $marca = $this->objModelMarca
-                    ->get(["id_marca" => $categoria->id_marca])
-                    ->fetch(\PDO::FETCH_OBJ);
-
                 // Array de retorno
                 $dados = [
                     "usuario" => $usuario,
                     "categoria" => $categoria,
                     "categorias" => $categorias,
-                    "marca" => $marca,
                     "js" => [
                         "modulos" => ["Categoria"],
                         "pages" => ["Select"]

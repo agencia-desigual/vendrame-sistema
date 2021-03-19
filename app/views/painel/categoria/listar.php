@@ -38,7 +38,6 @@
                                     <tr>
                                         <th scope="col">NOME</th>
                                         <th scope="col">SUB. CATEGORIAS</th>
-                                        <th scope="col">MARCA</th>
                                         <th scope="col">PRODUTOS</th>
                                         <th class="text-center" scope="col">AÇÕES</th>
                                     </tr>
@@ -55,7 +54,6 @@
                                                 <?php endif; ?>
                                             </td>
 
-                                            <td><?= $categoria->marca->nome; ?></td>
                                             <td><?= $categoria->produtos; ?></td>
 
                                             <td class="text-center">

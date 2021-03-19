@@ -186,61 +186,46 @@ class Categoria extends Controller
         if($usuario->nivel == "admin")
         {
             // Verifica se informou os dados obrigatórios
-            if(!empty($post["nome"]) &&
-                !empty($post["id_marca"]))
+            if(!empty($post["nome"]))
             {
-                // Busca a marca
-                $marca = $this->objModelMarca
-                    ->get(["id_marca" => $post["id_marca"]])
-                    ->fetch(\PDO::FETCH_OBJ);
-
-                // Verifica se a marca existe
-                if(!empty($marca))
+                // Verifica se informou o pai
+                if(isset($post["id_categoria_pai"]) && $post["id_categoria_pai"] == 0)
                 {
-                    // Verifica se informou o pai
-                    if(isset($post["id_categoria_pai"]) && $post["id_categoria_pai"] == 0)
-                    {
-                        // Remove
-                        unset($post["id_categoria_pai"]);
-                    }
+                    // Remove
+                    unset($post["id_categoria_pai"]);
+                }
 
-                    // Insere
-                    $categoria = $this->objModelCategoria->insert($post);
+                // Insere
+                $categoria = $this->objModelCategoria->insert($post);
 
-                    // Verifica se inseriu
-                    if($categoria != false)
-                    {
-                        // Busca a categoria inserida
-                        $categoria = $this->objModelCategoria
-                            ->get(["id_categoria" => $categoria])
-                            ->fetch(\PDO::FETCH_OBJ);
+                // Verifica se inseriu
+                if($categoria != false)
+                {
+                    // Busca a categoria inserida
+                    $categoria = $this->objModelCategoria
+                        ->get(["id_categoria" => $categoria])
+                        ->fetch(\PDO::FETCH_OBJ);
 
-                        // Array de sucesso
-                        $dados = [
-                            "tipo" => true,
-                            "code" => 200,
-                            "mensagem" => "Categoria adicionada com sucesso.",
-                            "objeto" => $categoria
-                        ];
-                    }
-                    else
-                    {
-                        if(!empty($arquivo))
-                        {
-                            // Deleta a imagem
-                            unlink("./storage/categoria/" . $arquivo);
-                        }
-
-                        // Msg
-                        $dados = ["mensagem" => "Ocorreu um erro ao inserir a categoria."];
-
-                    } // Error >> Ocorreu um erro ao inserir a categoria.
+                    // Array de sucesso
+                    $dados = [
+                        "tipo" => true,
+                        "code" => 200,
+                        "mensagem" => "Categoria adicionada com sucesso.",
+                        "objeto" => $categoria
+                    ];
                 }
                 else
                 {
+                    if(!empty($arquivo))
+                    {
+                        // Deleta a imagem
+                        unlink("./storage/categoria/" . $arquivo);
+                    }
+
                     // Msg
-                    $dados = ["mensagem" => "A marca informada não existe."];
-                } // Error >> A marca informada não existe.
+                    $dados = ["mensagem" => "Ocorreu um erro ao inserir a categoria."];
+
+                } // Error >> Ocorreu um erro ao inserir a categoria.
             }
             else
             {

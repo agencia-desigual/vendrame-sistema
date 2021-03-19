@@ -34,15 +34,6 @@
 
                                 <form id="formAlterarCategoria" data-id="<?= $categoria->id_categoria; ?>">
 
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Marca</label> <br>
-                                                <span><?= $marca->nome; ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <!-- NOME E NIVEL -->
                                     <div class="form-group">
                                         <div class="row">

@@ -34,15 +34,32 @@
 
                                 <form id="formInserirCategoria">
 
+                                    <!-- NOME E NIVEL -->
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label>Marca</label>
-                                                <select class="form-control selecionaMarca" required name="id_marca">
-                                                    <option selected disabled>Selecione a marca</option>
-                                                    <?php foreach ($marcas as $marca): ?>
-                                                        <option <?= (!empty($get["marca"]) && $get["marca"] == $marca->id_marca) ? "selected" : ""; ?> value="<?= $marca->id_marca; ?>">
-                                                            <?= $marca->nome; ?>
+                                                <label>Nome da categoria</label>
+                                                <input type="text" class="form-control" name="nome" value="" required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Categoria Pai</label>
+                                                <select class="selectBusca" name="id_categoria_pai">
+                                                    <option selected value="">Selecione</option>
+                                                    <?php foreach ($categorias as $cat): ?>
+                                                        <option value="<?= $cat->id_categoria; ?>">
+                                                            <?php if($cat->id_marca == $get["marca"]): ?>
+                                                                <?php if(!empty($cat->sub)): ?>
+                                                                    <?= $cat->sub; ?>
+                                                                <?php else: ?>
+                                                                    <?= $cat->nome; ?>
+                                                                <?php endif; ?>
+                                                            <?php endif; ?>
                                                         </option>
                                                     <?php endforeach; ?>
                                                 </select>
@@ -50,43 +67,8 @@
                                         </div>
                                     </div>
 
-                                    <?php if(!empty($get["marca"])): ?>
-                                        <!-- NOME E NIVEL -->
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <label>Nome da categoria</label>
-                                                    <input type="text" class="form-control" name="nome" value="" required />
-                                                </div>
-                                            </div>
-                                        </div>
 
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <label>Categoria Pai</label>
-                                                    <select class="selectBusca" name="id_categoria_pai">
-                                                        <option selected value="">Selecione</option>
-                                                        <?php foreach ($categorias as $cat): ?>
-                                                            <option value="<?= $cat->id_categoria; ?>">
-                                                                <?php if($cat->id_marca == $get["marca"]): ?>
-                                                                    <?php if(!empty($cat->sub)): ?>
-                                                                        <?= $cat->sub; ?>
-                                                                    <?php else: ?>
-                                                                        <?= $cat->nome; ?>
-                                                                    <?php endif; ?>
-                                                                <?php endif; ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
-                                    <?php endif; ?>
+                                    <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
                                 </form>
 
                             </div>

@@ -307,13 +307,6 @@ class Apoio
             $where["id_categoria"] = $id;
         }
 
-        // Verifica se informou id
-        if(!empty($idMarca))
-        {
-            // Add o where
-            $where["id_marca"] = $idMarca;
-        }
-
         // Buscando todas as CATEGORIAS
         $categorias = $objModelCategoria
             ->get($where)
