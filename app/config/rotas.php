@@ -48,6 +48,20 @@ $Rotas->onGroup("api-categoria","POST","update/{p}","update");
 $Rotas->onGroup("api-categoria","DELETE","delete/{p}","delete");
 
 
+// Indices
+$Rotas->group("api-indice","api/indice","Api\Indice");
+$Rotas->onGroup("api-indice","POST","insert","insert");
+$Rotas->onGroup("api-indice","POST","update/{p}","update");
+$Rotas->onGroup("api-indice","DELETE","delete/{p}","delete");
+
+
+// Tratamento
+$Rotas->group("api-tratamento","api/tratamento","Api\Tratamento");
+$Rotas->onGroup("api-tratamento","POST","insert","insert");
+$Rotas->onGroup("api-tratamento","POST","update/{p}","update");
+$Rotas->onGroup("api-tratamento","DELETE","delete/{p}","delete");
+
+
 // Tipos
 $Rotas->group("api-tipo","api/tipo","Api\Tipo");
 $Rotas->onGroup("api-tipo","GET","get","getAll");
@@ -133,6 +147,16 @@ $Rotas->on("GET","painel/marca/alterar/{p}","Marca::alterar");
 $Rotas->on("GET","painel/categorias","Categoria::listar");
 $Rotas->on("GET","painel/categoria/adicionar","Categoria::adicionar");
 $Rotas->on("GET","painel/categoria/alterar/{p}","Categoria::alterar");
+
+// -- Indices
+$Rotas->on("GET","painel/indices","Indice::listar");
+$Rotas->on("GET","painel/indice/adicionar","Indice::adicionar");
+$Rotas->on("GET","painel/indice/alterar/{p}","Indice::alterar");
+
+// -- Tratamento
+$Rotas->on("GET","painel/tratamentos","Tratamento::listar");
+$Rotas->on("GET","painel/tratamento/adicionar","Tratamento::adicionar");
+$Rotas->on("GET","painel/tratamento/alterar/{p}","Tratamento::alterar");
 
 // -- Tipo
 $Rotas->on("GET","painel/tipos","Tipo::listar");

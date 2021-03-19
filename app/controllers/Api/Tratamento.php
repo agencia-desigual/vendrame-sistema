@@ -17,10 +17,10 @@ use Sistema\Helper\Input;
 use Sistema\Helper\Seguranca;
 
 // Classe
-class Indice extends Controller
+class Tratamento extends Controller
 {
     // Objeto
-    private $objModelIndice;
+    private $objModelTratamento;
     private $objModelProduto;
     private $objModelMarca;
 
@@ -39,7 +39,7 @@ class Indice extends Controller
 
         // Instancia os objeto
         $this->objModelProduto = new Produto();
-        $this->objModelIndice = new \Model\Indice();
+        $this->objModelTratamento = new \Model\Tratamento();
         $this->objModelMarca = new \Model\Marca();
 
         $this->objHelperApoio = new Apoio();
@@ -58,7 +58,7 @@ class Indice extends Controller
      * -----------------------------------------------------------------
      * @author igorcacerez
      * -----------------------------------------------------------------
-     * @url api/indice/insert
+     * @url api/tratamento/insert
      * @method POST
      */
     public function insert()
@@ -67,8 +67,7 @@ class Indice extends Controller
         $dados = null;
         $usuario = null;
         $post = null;
-        $arquivo = null;
-        $indice = null;
+        $tratamento = null;
 
         // Recupera o usuário
         $usuario = $this->usuario;
@@ -83,14 +82,14 @@ class Indice extends Controller
             if(!empty($post["nome"]))
             {
                 // Insere
-                $indice = $this->objModelIndice->insert($post);
+                $tratamento = $this->objModelTratamento->insert($post);
 
                 // Verifica se inseriu
-                if($indice != false)
+                if($tratamento != false)
                 {
                     // Busca a categoria inserida
-                    $indice = $this->objModelIndice
-                        ->get(["id_indice" => $indice])
+                    $tratamento = $this->objModelTratamento
+                        ->get(["id_tratamento" => $tratamento])
                         ->fetch(\PDO::FETCH_OBJ);
 
                     // Array de sucesso
@@ -98,7 +97,7 @@ class Indice extends Controller
                         "tipo" => true,
                         "code" => 200,
                         "mensagem" => "Adicionado com sucesso.",
-                        "objeto" => $indice
+                        "objeto" => $tratamento
                     ];
                 }
                 else
@@ -136,7 +135,7 @@ class Indice extends Controller
      * -----------------------------------------------------------------
      * @param int $id [id]
      * -----------------------------------------------------------------
-     * @url api/indice/update/[ID]
+     * @url api/tratamento/update/[ID]
      * @method POST
      */
     public function update($id)
@@ -145,8 +144,8 @@ class Indice extends Controller
         $dados = null;
         $usuario = null;
         $post = null;
-        $indice = null;
-        $indiceAlterado = null;
+        $tratamento = null;
+        $tratamentoAlterado = null;
 
         // Recupera o usuário
         $usuario = $this->usuario;
@@ -155,25 +154,25 @@ class Indice extends Controller
         $post = $_POST;
 
         // Busca a categoria
-        $indice = $this->objModelIndice
-            ->get(["id_indice" => $id])
+        $tratamento = $this->objModelTratamento
+            ->get(["id_tratamento" => $id])
             ->fetch(\PDO::FETCH_OBJ);
 
         // Verifica se encontrou a categoria
-        if(!empty($indice))
+        if(!empty($tratamento))
         {
             // Verifica se o usuário possui permissão
             if($usuario->nivel == "admin")
             {
                 // Remove os dados inauteraveis
-                unset($post["id_indice"]);
+                unset($post["id_tratamento"]);
 
                 // Altera os dados
-                if($this->objModelIndice->update($post, ["id_indice" => $id]) != false)
+                if($this->objModelTratamento->update($post, ["id_tratamento" => $id]) != false)
                 {
                     // Busca a categoria alterada
-                    $indiceAlterado = $this->objModelIndice
-                        ->get(["id_indice" => $id])
+                    $tratamentoAlterado = $this->objModelTratamento
+                        ->get(["id_tratamento" => $id])
                         ->fetch(\PDO::FETCH_OBJ);
 
                     // Array de sucesso
@@ -182,8 +181,8 @@ class Indice extends Controller
                         "code" => 200,
                         "mensagem" => "Alterado com sucesso.",
                         "objeto" => [
-                            "antes" => $indice,
-                            "atual" => $indiceAlterado
+                            "antes" => $tratamento,
+                            "atual" => $tratamentoAlterado
                         ]
                     ];
 
@@ -205,7 +204,7 @@ class Indice extends Controller
         else
         {
             // Msg
-            $dados = ["mensagem" => "Indice informado não foi encontrado."];
+            $dados = ["mensagem" => "Tratamento informado não foi encontrado."];
 
         } // Error >> Categorias informada não foi encontrada.
 
@@ -224,7 +223,7 @@ class Indice extends Controller
      * -----------------------------------------------------------------
      * @param int $id [id]
      * -----------------------------------------------------------------
-     * @url api/indice/delete/[ID]
+     * @url api/tratamento/delete/[ID]
      * @method DELETE
      */
     public function delete($id)
@@ -232,34 +231,34 @@ class Indice extends Controller
         // Variaveis
         $dados = null;
         $usuario = null;
-        $indice = null;
+        $tratamento = null;
 
         // Recupera o usuario
         $usuario = $this->usuario;
 
         // Busca a categoria
-        $indice = $this->objModelIndice
-            ->get(["id_indice" => $id])
+        $tratamento = $this->objModelTratamento
+            ->get(["id_tratamento" => $id])
             ->fetch(\PDO::FETCH_OBJ);
 
         // Verifica se encontrou a categoria
-        if(!empty($indice))
+        if(!empty($tratamento))
         {
             // Verifica se o usuário possui permissão
             if($usuario->nivel == "admin")
             {
                 // Verifica se possui produto nessa categoria
-                if($this->objModelProduto->get(["id_indice" => $id])->rowCount() == 0)
+                if($this->objModelProduto->get(["id_tratamento" => $id])->rowCount() == 0)
                 {
                     // Deleta
-                    if($this->objModelIndice->delete(["id_indice" => $id]) != false)
+                    if($this->objModelTratamento->delete(["id_tratamento" => $id]) != false)
                     {
                         // Array de retorno
                         $dados = [
                             "tipo" => true,
                             "code" => 200,
                             "mensagem" => "Deletado com sucesso.",
-                            "objeto" => $indice
+                            "objeto" => $tratamento
                         ];
                     }
                     else
@@ -285,7 +284,7 @@ class Indice extends Controller
         else
         {
             // Msg
-            $dados = ["mensagem" => "Indice informado não foi encontrado."];
+            $dados = ["mensagem" => "Tratamento informado não foi encontrado."];
 
         } // Error >> Categorias informada não foi encontrada.
 

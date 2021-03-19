@@ -12,10 +12,10 @@ namespace Controller;
 use Helper\Apoio;
 use Sistema\Controller;
 
-class Indice extends Controller
+class Tratamento extends Controller
 {
     // Objetos
-    private $objModelIndice;
+    private $objModelTratamento;
     private $objModelMarca;
     private $objModelProduto;
 
@@ -28,7 +28,7 @@ class Indice extends Controller
         parent::__construct();
 
         // Instanci os objetos
-        $this->objModelIndice= new \Model\Indice();
+        $this->objModelTratamento = new \Model\Tratamento();
         $this->objModelMarca = new \Model\Marca();
         $this->objModelProduto = new \Model\Produto();
 
@@ -41,14 +41,14 @@ class Indice extends Controller
      * Método responsável por listar todas as
      * categorias cadastradas no sistema.
      * ---------------------------------------------
-     * @url painel/indices
+     * @url painel/tratamentos
      */
     public function listar()
     {
         // Variaveis
         $dados = null;
         $usuario = null;
-        $indices = null;
+        $tratamentos = null;
 
         // Recupera o usuário logado
         $usuario = $this->objHelperApoio->seguranca();
@@ -57,7 +57,7 @@ class Indice extends Controller
         if($usuario->nivel == "admin")
         {
             // Busca todos os indices
-            $indices = $this->objModelIndice
+            $tratamentos = $this->objModelTratamento
                 ->get()
                 ->fetchAll(\PDO::FETCH_OBJ);
 
@@ -65,14 +65,14 @@ class Indice extends Controller
             // Array de retorno
             $dados = [
                 "usuario" => $usuario,
-                "indices" => $indices,
+                "tratamentos" => $tratamentos,
                 "js" => [
-                    "modulos" => ["Indice"]
+                    "modulos" => ["Tratamento"]
                 ]
             ];
 
             // View
-            $this->view("painel/indice/listar", $dados);
+            $this->view("painel/tratamento/listar", $dados);
         }
 
     } // End >> fun::listar()
@@ -83,7 +83,7 @@ class Indice extends Controller
      * no sistema, verificando se o usuário possui
      * permissão.
      * ---------------------------------------------
-     * @url painel/indice/adicionar
+     * @url painel/tratamento/adicionar
      */
     public function adicionar()
     {
@@ -102,13 +102,13 @@ class Indice extends Controller
                 "usuario" => $usuario,
                 "get" => $_GET,
                 "js" => [
-                    "modulos" => ["Indice"],
+                    "modulos" => ["Tratamento"],
                     "pages" => ["Select"]
                 ]
             ];
 
             // View
-            $this->view("painel/indice/adicionar", $dados);
+            $this->view("painel/tratamento/adicionar", $dados);
         }
 
     } // End >> fun::adicionar()
@@ -119,9 +119,9 @@ class Indice extends Controller
      * necessárias e montar a página de alteração de
      * uma determinada categoria.
      * ---------------------------------------------
-     * @param $id [Id do indice]
+     * @param $id [Id do tratamento]
      * ---------------------------------------------
-     * @url painel/indice/alterar/{ID}
+     * @url painel/tratamento/alterar/{ID}
      */
     public function alterar($id)
     {
@@ -137,8 +137,8 @@ class Indice extends Controller
         if($usuario->nivel == "admin")
         {
             // Busca a indice a ser alterada
-            $indice = $this->objModelIndice
-                ->get(["id_indice" => $id])
+            $tratamento = $this->objModelTratamento
+                ->get(["id_tratamento" => $id])
                 ->fetch(\PDO::FETCH_OBJ);
 
             // Verifica se existe
@@ -147,15 +147,15 @@ class Indice extends Controller
                 // Array de retorno
                 $dados = [
                     "usuario" => $usuario,
-                    "indice" => $indice,
+                    "tratamento" => $tratamento,
                     "js" => [
-                        "modulos" => ["Indice"],
+                        "modulos" => ["Tratamento"],
                         "pages" => ["Select"]
                     ]
                 ];
 
                 // View
-                $this->view("painel/indice/alterar", $dados);
+                $this->view("painel/tratamento/alterar", $dados);
             }
             else
             {
