@@ -3,6 +3,12 @@
     <div class="index">
         <div class="container">
             <div class="row">
+                <?php if($usuario->nivel == "admin"): ?>
+                    <a href="<?= BASE_URL; ?>painel" style="padding-top: 31px;">
+                        Painel Administrativo
+                    </a>
+                <?php endif; ?>
+
                 <div class="col"></div>
                 <div class="col-md-7">
                     <div class="margin-form centraliza-itens-sem-text">

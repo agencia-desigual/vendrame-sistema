@@ -15,6 +15,12 @@
                 <i class="fa fa-arrow-left"></i>
             </a>
 
+            <?php if($usuario->nivel == "admin"): ?>
+                <a href="<?= BASE_URL; ?>painel" style="right: 40px; position: absolute; color: #204f93; z-index: 999999;">
+                    Painel Administrativo
+                </a>
+            <?php endif; ?>
+
             <div class="col-md-12 text-center">
                 <a href="<?= BASE_URL ?>">
                     <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">

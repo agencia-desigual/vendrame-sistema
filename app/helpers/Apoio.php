@@ -183,11 +183,6 @@ class Apoio
 
         $where = ["id_categoria_pai" => "IS NULL"];
 
-        if (!empty($idMarca))
-        {
-            $where = ["id_marca" => $idMarca, "id_categoria_pai" => "IS NULL"];
-        }
-
         if (!empty($idCat))
         {
             $where = ["id_categoria" => $idCat];

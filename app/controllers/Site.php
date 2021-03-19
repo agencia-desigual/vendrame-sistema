@@ -24,6 +24,8 @@ class Site extends CI_controller
     private $objModelAtributo;
     private $objModelAtributoProduto;
     private $objModelTipo;
+    private $objModelIndice;
+    private $objModelTratamento;
 
 
     // Método construtor
@@ -41,6 +43,8 @@ class Site extends CI_controller
         $this->objModelAtributo = new \Model\Atributo();
         $this->objModelAtributoProduto = new AtributoProduto();
         $this->objModelTipo = new \Model\Tipo();
+        $this->objModelTratamento = new \Model\Tratamento();
+        $this->objModelIndice = new \Model\Indice();
 
     } // End >> fun::__construct()
 
@@ -173,7 +177,49 @@ class Site extends CI_controller
             "marca" => "",
             "categoria" => "",
             "tipo" => "",
+            "indice" => "",
+            "tratamento" => "",
+            "preco" => "",
             "order" => ""
+        ];
+
+        $precos = [
+            1 => [
+                "nome" => "Até R$100,00",
+                "valor" => "valorVenda <= 100"
+            ],
+            2 => [
+                "nome" => "De R$100,00 à R$250,00",
+                "valor" => "(valorVenda >= 100 AND valorVenda < 250)"
+            ],
+            3 => [
+                "nome" => "De R$250,00 à R$500,00",
+                "valor" => "(valorVenda >= 250 AND valorVenda < 500)"
+            ],
+            4 => [
+                "nome" => "De R$500,00 à R$800,00",
+                "valor" => "(valorVenda >= 500 AND valorVenda < 800)"
+            ],
+            5 => [
+                "nome" => "De R$800,00 à R$1100,00",
+                "valor" => "(valorVenda >= 800 AND valorVenda < 1100)"
+            ],
+            6 => [
+                "nome" => "De R$1100,00 à R$1600,00",
+                "valor" => "(valorVenda >= 100 AND valorVenda < 1600)"
+            ],
+            7 => [
+                "nome" => "De R$1600,00 à R$2100,00",
+                "valor" => "(valorVenda >= 1600 AND valorVenda < 2100)"
+            ],
+            8 => [
+                "nome" => "De R$2100,00 à R$2600,00",
+                "valor" => "(valorVenda >= 1100 AND valorVenda <= 2600)"
+            ],
+            9 => [
+                "nome" => "Acima de R$2600,00",
+                "valor" => "valorVenda >= 2600"
+            ],
         ];
 
         // URL
@@ -208,14 +254,94 @@ class Site extends CI_controller
                 $filtro["categoria"] = "&categoria=" . $_GET['categoria'];
 
             }
-
-
+        }
+        else
+        {
             // Busca todas as categorias da marca
-            $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
+            $categoriasMarca = $this->objHelperApoio->getCategorias();
+        }
 
-            // Busca todos os tipos da marca
-            $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
+        // Verifica se tem filtro por indice
+        if(!empty($_GET["indice"]))
+        {
+            // Busca o indice
+            $indice = $this->objModelIndice
+                ->get(["id_indice" => $_GET["indice"]])
+                ->fetch(\PDO::FETCH_OBJ);
 
+            // Verifica se encontrou algo
+            if(!empty($indice))
+            {
+                // Monta a sql
+                $sql .= " AND id_indice = {$indice->id_indice}";
+
+                // Add na url
+                $url .= "&indice=" . $_GET["indice"];
+
+                // Item para formação de novas urls
+                $filtro["indice"] = "&indice=" . $_GET['indice'];
+
+            }
+        }
+        else
+        {
+            // Busca o indice
+            $indice = $this->objModelIndice
+                ->get()
+                ->fetchAll(\PDO::FETCH_OBJ);
+        }
+
+
+        // Verifica se tem filtro por indice
+        if(!empty($_GET["tratamento"]))
+        {
+            // Busca o indice
+            $tratamento = $this->objModelTratamento
+                ->get(["id_tratamento" => $_GET["tratamento"]])
+                ->fetch(\PDO::FETCH_OBJ);
+
+            // Verifica se encontrou algo
+            if(!empty($tratamento))
+            {
+                // Monta a sql
+                $sql .= " AND id_tratamento = {$tratamento->id_tratamento}";
+
+                // Add na url
+                $url .= "&tratamento=" . $_GET["tratamento"];
+
+                // Item para formação de novas urls
+                $filtro["tratamento"] = "&tratamento=" . $_GET['tratamento'];
+
+            }
+        }
+        else
+        {
+            // Busca o indice
+            $tratamento = $this->objModelTratamento
+                ->get()
+                ->fetchAll(\PDO::FETCH_OBJ);
+        }
+
+
+        // Verifica se tem filtro por indice
+        if(!empty($_GET["preco"]))
+        {
+            // Busca o indice
+            $precoAux = $precos[$_GET["preco"]];
+
+            // Verifica se encontrou algo
+            if(!empty($precoAux))
+            {
+                // Monta a sql
+                $sql .= " AND " . $precoAux["valor"];
+
+                // Add na url
+                $url .= "&preco=" . $_GET["preco"];
+
+                // Item para formação de novas urls
+                $filtro["preco"] = "&preco=" . $_GET['preco'];
+
+            }
         }
 
         // Verifica se fez uma busca por marca
@@ -230,25 +356,8 @@ class Site extends CI_controller
             // Item para formação de novas urls
             $filtro["marca"] = "&marca=" . $_GET['marca'];
 
-
-            // Verifica se tem categoria na url
-            if (!empty($_GET['categoria']))
-            {
-                // Busca todas as categorias da marca
-                $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca'],$_GET['categoria']);
-
-                // Busca todos os tipos da marca
-                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
-            }
-            else
-            {
-                // Busca todas as categorias da marca
-                $categoriasMarca = $this->objHelperApoio->getCategorias($_GET['marca']);
-
-                // Busca todos os tipos da marca
-                $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
-            }
-
+            // Busca todos os tipos da marca
+            $tipo = $this->objHelperApoio->getTipos("",$_GET['marca']);
         }
 
         // Verifica se fez uma busca por marca
@@ -298,6 +407,8 @@ class Site extends CI_controller
             $filtroNome["busca"] = $_GET['busca'];
         }
 
+
+
         // ==============================================================
         // PAGINAÇÃO ====================================================
 
@@ -308,67 +419,69 @@ class Site extends CI_controller
         $sql .= " GROUP BY id_produto";
 
         // Ordem de exibição
-        if(!empty($_GET["order"]))
-        {
-            // Verifica como deve ordernar
-            switch ($_GET["order"])
-            {
-                case "recente":
-                    $sql .= " ORDER BY id_produto DESC";
+//        if(!empty($_GET["order"]))
+//        {
+//            // Verifica como deve ordernar
+//            switch ($_GET["order"])
+//            {
+//                case "recente":
+//                    $sql .= " ORDER BY id_produto DESC";
+//
+//                    // Add na url
+//                    $url .= "&order=recente";
+//
+//                    // Item para formação de novas urls
+//                    $filtro["order"] = "&order=recente";
+//                    break;
+//
+//                case "menor-preco":
+//                    $sql .= " ORDER BY valorVenda ASC";
+//
+//                    // Add na url
+//                    $url .= "&order=" . $_GET["order"];
+//
+//                    // Item para formação de novas urls
+//                    $filtro["order"] = "&order=" . $_GET['order'];
+//                    break;
+//
+//                case "maior-preco":
+//                    $sql .= " ORDER BY valorVenda DESC";
+//
+//                    // Add na url
+//                    $url .= "&order=" . $_GET["order"];
+//
+//                    // Item para formação de novas urls
+//                    $filtro["order"] = "&order=" . $_GET['order'];
+//                    break;
+//
+//                case "antigo":
+//                    $sql .= " ORDER BY id_produto ASC";
+//
+//                    // Add na url
+//                    $url .= "&order=" . $_GET["order"];
+//
+//                    // Item para formação de novas urls
+//                    $filtro["order"] = "&order=" . $_GET['order'];
+//                    break;
+//
+//                default:
+//                    $sql .= " ORDER BY valorVenda ASC";
+//
+//                    // Add na url
+//                    $url .= "&order=" . $_GET["order"];
+//
+//                    // Item para formação de novas urls
+//                    $filtro["order"] = "&order=" . $_GET['order'];
+//                    break;
+//            }
+//        }
+//        else
+//        {
+//            // Sql - Ordena pelos mais recentes
+//            $sql .= " ORDER BY valorVenda ASC";
+//        }
 
-                    // Add na url
-                    $url .= "&order=recente";
-
-                    // Item para formação de novas urls
-                    $filtro["order"] = "&order=recente";
-                    break;
-
-                case "menor-preco":
-                    $sql .= " ORDER BY valorVenda ASC";
-
-                    // Add na url
-                    $url .= "&order=" . $_GET["order"];
-
-                    // Item para formação de novas urls
-                    $filtro["order"] = "&order=" . $_GET['order'];
-                    break;
-
-                case "maior-preco":
-                    $sql .= " ORDER BY valorVenda DESC";
-
-                    // Add na url
-                    $url .= "&order=" . $_GET["order"];
-
-                    // Item para formação de novas urls
-                    $filtro["order"] = "&order=" . $_GET['order'];
-                    break;
-
-                case "antigo":
-                    $sql .= " ORDER BY id_produto ASC";
-
-                    // Add na url
-                    $url .= "&order=" . $_GET["order"];
-
-                    // Item para formação de novas urls
-                    $filtro["order"] = "&order=" . $_GET['order'];
-                    break;
-
-                default:
-                    $sql .= " ORDER BY valorVenda ASC";
-
-                    // Add na url
-                    $url .= "&order=" . $_GET["order"];
-
-                    // Item para formação de novas urls
-                    $filtro["order"] = "&order=" . $_GET['order'];
-                    break;
-            }
-        }
-        else
-        {
-            // Sql - Ordena pelos mais recentes
-            $sql .= " ORDER BY valorVenda ASC";
-        }
+        $sql .= " ORDER BY id_tipo DESC";
 
         // Url
         $urlPaginacao = $url . "&";
@@ -412,13 +525,9 @@ class Site extends CI_controller
         {
             foreach ($produtos as $produto)
             {
-                $produto->imagem = $this->objHelperApoio
-                    ->getImagem($produto->id_produto, "produto");
-
-                if (is_array($produto->imagem))
-                {
-                    $produto->imagem = $produto->imagem[0]->imagem;
-                }
+                $produto->linha = $this->objModelTipo
+                    ->get(["id_tipo" => $produto->id_tipo])
+                    ->fetch(\PDO::FETCH_OBJ);
             }
         }
 
@@ -446,6 +555,36 @@ class Site extends CI_controller
 
                 // Vincula o nome
                 $filtroNome["marca"] = $nomeMarca->nome;
+
+            }
+
+            if (!empty($filtro['indice']))
+            {
+                $idIndice = explode("=",$filtro['indice']);
+                $idIndice = $idIndice['1'];
+
+                // Busca o nome da marca
+                $nomeIndice = $this->objModelIndice
+                    ->get(['id_indice' => $idIndice])
+                    ->fetch(\PDO::FETCH_OBJ);
+
+                // Vincula o nome
+                $filtroNome["indice"] = $nomeIndice->nome;
+
+            }
+
+            if (!empty($filtro['tratamento']))
+            {
+                $idTratamento = explode("=",$filtro['tratamento']);
+                $idTratamento = $idTratamento['1'];
+
+                // Busca o nome da marca
+                $nomeTratamento = $this->objModelTratamento
+                    ->get(['id_tratamento' => $idTratamento])
+                    ->fetch(\PDO::FETCH_OBJ);
+
+                // Vincula o nome
+                $filtroNome["tratamento"] = $nomeTratamento->nome;
 
             }
 
@@ -492,6 +631,15 @@ class Site extends CI_controller
                 }
 
             }
+
+            if (!empty($filtro['preco']))
+            {
+                $idpreco = explode("=",$filtro['preco']);
+                $idpreco = $idpreco['1'];
+
+                // Vincula o nome
+                $filtroNome["preco"] = $precos[$idpreco]["nome"];
+            }
         }
 
 
@@ -500,6 +648,9 @@ class Site extends CI_controller
             "usuario" => $usuario,
             "filtro" => $filtro,
             "tipos" => $tipo,
+            "indices" => $indice,
+            "tratamentos" => $tratamento,
+            "precos" => $precos,
             "marcas" => $marcas,
             "categorias" => $categoriasMarca,
             "produtos" => $produtos,
