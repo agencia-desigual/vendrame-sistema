@@ -155,8 +155,13 @@ class Produto extends Controller
                         $post["lucro"] = str_replace(".","", $post["lucro"]);
                         $post["lucro"] = str_replace(",",".", $post["lucro"]);
 
+                        // Configura a porcentagem do desconto fornecedor
+                        $post["descontoFornecedor"] = str_replace(".","", $post["descontoFornecedor"]);
+                        $post["descontoFornecedor"] = str_replace(",",".", $post["descontoFornecedor"]);
+
                         // Calcula o valor de venda
-                        $post["valorVenda"] = (($post["lucro"] / 100 ) * $post["valorPago"]) + $post["valorPago"];
+                        $aux = $post["valorPago"] - (($post["descontoFornecedor"] / 100 ) * $post["valorPago"]);
+                        $post["valorVenda"] = (($post["lucro"] / 100 ) * $aux) + $aux;
 
                         // Verifica se tem desconto
                         if(!empty($post["desconto"]))
@@ -170,6 +175,9 @@ class Produto extends Controller
                         $salva = [
                             "id_categoria" => $post["id_categoria"],
                             "id_marca" => $post["id_marca"],
+                            "id_indice" => $post["id_indice"],
+                            "id_tratamento" => $post["id_tratamento"],
+                            "id_tipo" => $post["id_tipo"],
                             "id_usuario" => $usuario->id_usuario,
                             "nome" => $post["nome"],
                             "referencia" => $post["referencia"],
@@ -177,6 +185,8 @@ class Produto extends Controller
                             "valorPago" => $post["valorPago"],
                             "valorVenda" => $post["valorVenda"],
                             "lucro" => $post["lucro"],
+                            "descontoFornecedor" => $post["descontoFornecedor"],
+                            "prazoEntrega" => $post["prazoEntrega"],
                             "desconto" => (!empty($post["desconto"])) ? $post["desconto"] : 0,
                             "status" => (isset($post["status"])) ? $post["status"] : true,
                             "cadastro" => date("Y-m-d H:i:s")
@@ -298,6 +308,15 @@ class Produto extends Controller
                     $lucro = $post["lucro"];
                 }
 
+
+                // Verifica se vai alterar o lucro
+                if(!empty($post["descontoFornecedor"]))
+                {
+                    // Configura o valor pago
+                    $post["descontoFornecedor"] = str_replace(".","", $post["descontoFornecedor"]);
+                    $post["descontoFornecedor"] = str_replace(",",".", $post["descontoFornecedor"]);
+                }
+
                 // Verifica se vai alterar o desconto
                 if(!empty($post["desconto"]))
                 {
@@ -307,7 +326,8 @@ class Produto extends Controller
                 }
 
                 // Reculcula o valor de venda
-                $post["valorVenda"] = (($post["lucro"] / 100 ) * $post["valorPago"]) + $post["valorPago"];
+                $aux = $post["valorPago"] - (($post["descontoFornecedor"] / 100 ) * $post["valorPago"]);
+                $post["valorVenda"] = (($post["lucro"] / 100 ) * $aux) + $aux;
 
                 // Altera as informações
                 if($this->objModelProduto->update($post, ["id_produto" => $id]) != false)

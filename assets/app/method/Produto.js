@@ -174,10 +174,11 @@ $(".selecionaMarca").on("change", function () {
  * Método responsável por realizar o calculo do
  * valor em que o produto deve ser vendido.
  */
-$("#lucro").keyup(function () {
+$("#descontoFornecedor").keyup(function () {
 
     var pago = $("#valorPago").val();
-    var lucro = $(this).val();
+    var desconto = $(this).val();
+    var lucro = $("#lucro").val();
 
     // limpa
     pago = pago.replace(".","");
@@ -188,10 +189,15 @@ $("#lucro").keyup(function () {
     lucro = lucro.replace(",",".");
     parseFloat(lucro);
 
+    desconto = desconto.replace(".","");
+    desconto = desconto.replace(",",".");
+    parseFloat(desconto);
+
     console.log(pago);
     console.log(lucro);
 
     // Calcula a valor
+    pago = parseFloat(parseFloat(pago) - parseFloat((parseFloat(desconto) / 100) * parseFloat(pago)));
     var valorLucro = parseFloat(parseFloat((parseFloat(lucro) / 100) * parseFloat(pago)) + parseFloat(pago));
 
     console.log(valorLucro);

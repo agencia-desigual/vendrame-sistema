@@ -56,6 +56,24 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <label>Linha</label>
+                                                    <select class="selectBusca" name="id_tipo" required>
+                                                        <option selected value="">Selecione</option>
+                                                        <?php foreach ($tipos as $tipo): ?>
+                                                            <option value="<?= $tipo->id_tipo; ?>">
+                                                                <?php if(!empty($tipo->sub)): ?>
+                                                                    <?= $tipo->sub; ?>
+                                                                <?php else: ?>
+                                                                    <?= $tipo->nome; ?>
+                                                                <?php endif; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
                                                     <label>Categoria</label>
                                                     <select class="selectBusca" name="id_categoria" required>
                                                         <option selected value="">Selecione</option>
@@ -71,26 +89,38 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        <!-- INDICE E TRATAMENTO -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Índice</label>
+                                                    <select class="selectBusca" name="id_indice" required>
+                                                        <option selected value="">Selecione</option>
+                                                        <?php foreach ($indices as $indice): ?>
+                                                            <option value="<?= $indice->id_indice; ?>">
+                                                                <?= $indice->nome; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Tipo</label>
-                                                    <select class="selectBusca" name="id_tipo" required>
+                                                    <label>Tratamento</label>
+                                                    <select class="selectBusca" name="id_tratamento" required>
                                                         <option selected value="">Selecione</option>
-                                                        <?php foreach ($tipos as $tipo): ?>
-                                                            <option value="<?= $tipo->id_tipo; ?>">
-                                                                <?php if(!empty($tipo->sub)): ?>
-                                                                    <?= $tipo->sub; ?>
-                                                                <?php else: ?>
-                                                                    <?= $tipo->nome; ?>
-                                                                <?php endif; ?>
+                                                        <?php foreach ($tratamentos as $tratamento): ?>
+                                                            <option value="<?= $tratamento->id_tratamento; ?>">
+                                                                <?= $tratamento->nome; ?>
                                                             </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
-
 
                                         <!-- SKU E NOME-->
                                         <div class="row">
@@ -112,21 +142,28 @@
 
                                         <!-- Valor Pago E Lucro-->
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Valor Pago</label>
                                                     <input type="text" id="valorPago" class="form-control maskValor" name="valorPago" value="" required />
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Porcentagem de lucro</label>
                                                     <input type="text" id="lucro" class="form-control maskValor" name="lucro" value="" required />
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Desconto do fornecedor (%)</label>
+                                                    <input type="text" id="descontoFornecedor" class="form-control maskValor" name="descontoFornecedor" value="" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Valor de Venda</label>
                                                     <span style="display: block;" id="valorVenda">-</span>
@@ -156,6 +193,13 @@
                                         </div>
 
                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Prazo de entrega médio</label>
+                                                    <input type="text" class="form-control" name="prazoEntrega" value="" required />
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Descrição do produto</label>

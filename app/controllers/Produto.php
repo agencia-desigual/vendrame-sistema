@@ -28,6 +28,8 @@ class Produto extends Controller
     private $objModelImagem;
     private $objModelAtributoProduto;
     private $objModelAtributo;
+    private $objModelIndice;
+    private $objModelTratamento;
 
     private $objHelperApoio;
 
@@ -47,6 +49,8 @@ class Produto extends Controller
         $this->objModelImagem = new Imagem();
         $this->objModelAtributo = new \Model\Atributo();
         $this->objModelAtributoProduto = new AtributoProduto();
+        $this->objModelIndice = new \Model\Indice();
+        $this->objModelTratamento = new \Model\Tratamento();
 
         $this->objHelperApoio = new Apoio();
 
@@ -141,7 +145,7 @@ class Produto extends Controller
             }
 
             // Busca todas as categorias
-            $categorias = $this->objHelperApoio->getCategoriasLista(null, $idMarca);
+            $categorias = $this->objHelperApoio->getCategoriasLista();
 
             // Busca todas os tipos
             $tipos = $this->objHelperApoio->getTiposLista(null, $idMarca);
@@ -151,12 +155,24 @@ class Produto extends Controller
                 ->get(null)
                 ->fetchAll(\PDO::FETCH_OBJ);
 
+            // Busca os indices
+            $indices = $this->objModelIndice
+                ->get()
+                ->fetchAll(\PDO::FETCH_OBJ);
+
+            // Busca os tratamentos
+            $tratamentos = $this->objModelTratamento
+                ->get()
+                ->fetchAll(\PDO::FETCH_OBJ);
+
             // Array de retorno
             $dados = [
                 "usuario" => $usuario,
                 "tipos" => $tipos,
                 "categorias" => $categorias,
                 "marcas" => $marcas,
+                "indices" => $indices,
+                "tratamentos" => $tratamentos,
                 "get" => $_GET,
                 "js" => [
                     "modulos" => ["Produto"],
@@ -206,10 +222,20 @@ class Produto extends Controller
                 $ids = "";
 
                 // Busca todas as categorias
-                $categorias = $this->objHelperApoio->getCategoriasLista(null, $produto->id_marca);
+                $categorias = $this->objHelperApoio->getCategoriasLista();
 
                 // Busca todas os tipos
                 $tipos = $this->objHelperApoio->getTiposLista(null, $produto->id_marca);
+
+                // Busca os indices
+                $indices = $this->objModelIndice
+                    ->get()
+                    ->fetchAll(\PDO::FETCH_OBJ);
+
+                // Busca os tratamentos
+                $tratamentos = $this->objModelTratamento
+                    ->get()
+                    ->fetchAll(\PDO::FETCH_OBJ);
 
                 // Busca a marca
                 $produto->marca = $this->objModelMarca
@@ -265,6 +291,8 @@ class Produto extends Controller
                     "tipos" => $tipos,
                     "categorias" => $categorias,
                     "produto" => $produto,
+                    "indices" => $indices,
+                    "tratamentos" => $tratamentos,
                     "pag" => $pag,
                     "atributos" => $atributos,
                     "js" => [
