@@ -316,9 +316,6 @@ class Produto extends Controller
             // Verifica se informou a marca
             if(!empty($_GET["id_marca"]))
             {
-                // Busca as categorias
-                $categorias = $this->objHelperApoio->getCategoriasLista(null, $_GET["id_marca"]);
-
                 // Busca os tipos
                 $tipos = $this->objHelperApoio->getTiposLista(null, $_GET["id_marca"]);
             }
@@ -327,7 +324,6 @@ class Produto extends Controller
             $dados = [
                 "usuario" => $usuario,
                 "tipos" => $tipos,
-                "categorias" => $categorias,
                 "marcas" => $marcas,
                 "get" => $_GET,
                 "js" => [

@@ -55,25 +55,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Filtre por Categoria</label>
-                                                    <select class="selectBusca" name="id_categoria">
-                                                        <option selected value="0">Selecione</option>
-                                                        <?php foreach ($categorias as $categoria): ?>
-                                                            <option value="<?= $categoria->id_categoria; ?>">
-                                                                <?php if(!empty($categoria->sub)): ?>
-                                                                    <?= $categoria->sub; ?>
-                                                                <?php else: ?>
-                                                                    <?= $categoria->nome; ?>
-                                                                <?php endif; ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Filtre por   Tipo</label>
+                                                    <label>Filtre por linha</label>
                                                     <select class="selectBusca" name="id_tipo" required>
                                                         <option selected value="0">Selecione</option>
                                                         <?php foreach ($tipos as $tipo): ?>
