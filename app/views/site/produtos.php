@@ -62,7 +62,7 @@
         <div class="container">
 
             <!-- FILTROS -->
-            <div id="secondary" class="widget-area col-xs-12 col-md-4" style="overflow-y: auto; height: 720px;">
+            <div id="secondary" class="widget-area col-xs-12 col-md-4" style="overflow-y: auto;">
 
                 <?php if (!empty($filtroNome)) : ?>
 
@@ -241,27 +241,7 @@
                 <!-- FIM >> INDICES -->
 
 
-                <!-- INDICES -->
-                <?php if (!empty($tratamentos) && is_array($tratamentos)) : ?>
-                    <aside class="widget widget_product_categories">
-                        <h3 class="widget-title">Tratamentos</h3>
-                        <ul class="product-categories">
-                            <?php foreach ($tratamentos as $tratamento) : ?>
-
-                                <!-- MARCAS -->
-                                <li>
-                                    <a href="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['order'] . $filtro['tipo'] . $filtro['indice'] . $filtro['marca'] . $filtro['preco'] ?>&tratamento=<?= $tratamento->id_tratamento ?>" title="<?= $tratamento->nome ?>"><?= $tratamento->nome ?></a>
-                                </li>
-                                <!-- FIM >> MARCAS -->
-
-                            <?php endforeach; ?>
-                        </ul>
-                    </aside>
-                <?php endif; ?>
-                <!-- FIM >> INDICES -->
-
-
-                <!-- INDICES -->
+                <!-- PREÇOS -->
                 <?php if (!empty($precos)) : ?>
                     <aside class="widget widget_product_categories">
                         <h3 class="widget-title">Preços</h3>
@@ -281,11 +261,30 @@
                 <!-- FIM >> INDICES -->
 
 
+                <!-- TRATAMENTOS -->
+                <?php if (!empty($tratamentos) && is_array($tratamentos)) : ?>
+                    <aside class="widget widget_product_categories">
+                        <h3 class="widget-title">Tratamentos</h3>
+                        <ul class="product-categories">
+                            <?php foreach ($tratamentos as $tratamento) : ?>
+
+                                <!-- MARCAS -->
+                                <li>
+                                    <a href="<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['order'] . $filtro['tipo'] . $filtro['indice'] . $filtro['marca'] . $filtro['preco'] ?>&tratamento=<?= $tratamento->id_tratamento ?>" title="<?= $tratamento->nome ?>"><?= $tratamento->nome ?></a>
+                                </li>
+                                <!-- FIM >> MARCAS -->
+
+                            <?php endforeach; ?>
+                        </ul>
+                    </aside>
+                <?php endif; ?>
+                <!-- FIM >> INDICES -->
+
             </div>
             <!-- FIM >> FILTROS -->
 
             <!-- PRODUTOS -->
-            <div id="primary" class="col-xs-12 col-md-8" style="overflow-y: auto; height: 740px;">
+            <div id="primary" class="col-xs-12 col-md-8">
 
                 <!-- QUANTIDADE -->
                 <div class="wrap-breadcrumb">
@@ -360,6 +359,10 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
+
+        var a = $("#primary").height() - 130;
+        $("#secondary").css("height", a + "px");
+
 
         var owl = $('.owl-carousel');
         owl.owlCarousel({

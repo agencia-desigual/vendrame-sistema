@@ -76,21 +76,23 @@
                             <div class="box-details-info">
 
                                 <div class="product-name">
-                                    <h1><?= $produto->nome ?></h1>
+                                    <h1 style="padding-bottom: 33px;"><?= $produto->nome ?></h1>
                                 </div>
 
                                 <div class="wrap-price">
+                                    <p class="price" style="display: block;">
+                                        <span style="font-size: 1.2em; font-weight: bold;">R$ <?= number_format($produto->valorVenda, 2, ',', '.'); ?></span>
+                                        <span style="margin-top: -7px; display: block; font-size: 0.4em; text-transform: uppercase; color: #000;">Valor inteiro</span>
+                                    </p>
+
+
                                     <?php if(!empty($produto->desconto)): ?>
-                                        <p class="price" style="display: block; margin-bottom: 19px; margin-top: 24px;">
+                                        <p class="price" style="font-size: 2em; display: block; margin-bottom: 19px; margin-top: 24px;">
                                             R$ <?= number_format(($produto->valorVenda - (($produto->desconto / 100) * $produto->valorVenda)), 2, ',', '.'); ?>
-                                            <span style="display: block; font-size: 0.4em; text-transform: uppercase; color: #000;">Valor com desconto</span>
+                                            <span style="margin-top: -13px; display: block; font-size: 0.4em; text-transform: uppercase; color: #000;">Valor com desconto</span>
                                         </p>
                                     <?php endif; ?>
 
-                                    <p class="price" style="display: block;">
-                                        R$ <?= number_format($produto->valorVenda, 2, ',', '.'); ?>
-                                        <span style="display: block; font-size: 0.4em; text-transform: uppercase; color: #000;">Valor inteiro</span>
-                                    </p>
                                 </div>
 
                             </div>

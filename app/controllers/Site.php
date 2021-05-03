@@ -226,7 +226,10 @@ class Site extends CI_controller
         $url = BASE_URL . "produtos?c=true";
 
         // Monta o SQL
-        $sql = "SELECT * FROM produto WHERE status = true";
+        $sql = "SELECT produto.*, 
+                    (SELECT nome FROM tipo t WHERE t.id_tipo = produto.id_tipo) as nomeLinha 
+                    FROM produto
+                        WHERE status = true";
 
         // Verifica se tem filtro por categoria
         if(!empty($_GET["categoria"]))
@@ -297,7 +300,7 @@ class Site extends CI_controller
         {
             // Busca o indice
             $tratamento = $this->objModelTratamento
-                ->get(["id_tratamento" => $_GET["tratamento"]])
+                ->get(["id_tratamento" => $_GET["tratamento"]],"nome ASC")
                 ->fetch(\PDO::FETCH_OBJ);
 
             // Verifica se encontrou algo
@@ -318,7 +321,7 @@ class Site extends CI_controller
         {
             // Busca o indice
             $tratamento = $this->objModelTratamento
-                ->get()
+                ->get(null, "nome ASC")
                 ->fetchAll(\PDO::FETCH_OBJ);
         }
 
@@ -365,7 +368,7 @@ class Site extends CI_controller
         {
             // Busca a categoria
             $tipo = $this->objModelTipo
-                ->get(["id_tipo" => $_GET["tipo"]])
+                ->get(["id_tipo" => $_GET["tipo"]], "nome ASC")
                 ->fetch(\PDO::FETCH_OBJ);
 
             // Verifica se encontrou algo
@@ -481,7 +484,8 @@ class Site extends CI_controller
 //            $sql .= " ORDER BY valorVenda ASC";
 //        }
 
-        $sql .= " ORDER BY id_tipo DESC";
+
+        $sql .= " ORDER BY nomeLinha ASC";
 
         // Url
         $urlPaginacao = $url . "&";
