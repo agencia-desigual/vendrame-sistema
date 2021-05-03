@@ -123,9 +123,10 @@ class Produto extends Controller
         // Verifica se o usuário possui permissão
         if($usuario->nivel == "admin")
         {
+            $post["referencia"] = "NAO INFORMADO";
+
             // Verifica se informou os dados obrigatórios
             if(!empty($post["nome"]) &&
-                !empty($post["referencia"]) &&
                 !empty($post["id_marca"]) &&
                 !empty($post["id_categoria"]) &&
                 !empty($post["valorPago"]) &&
@@ -515,8 +516,16 @@ class Produto extends Controller
                 $post["valorPago"] = str_replace(".","", $post["valorPago"]);
                 $post["valorPago"] = str_replace(",",".", $post["valorPago"]);
 
-                // Array de alteração
-                $altera = ["valorPago" => $post["valorPago"]];
+                if(strtolower($post["acao"]) == "aumentar")
+                {
+                    // Array de alteração
+                    $altera = ["valorPago =" => "((({$post["valorPago"]} / 100) * valorPago) + valorPago)"];
+                }
+                else
+                {
+                    // Array de alteração
+                    $altera = ["valorPago =" => "(valorPago - (({$post["valorPago"]} / 100) * valorPago))"];
+                }
             }
             elseif(!empty($post["lucro"]))
             {

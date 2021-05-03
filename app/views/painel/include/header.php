@@ -207,8 +207,8 @@
                             </span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="<?= BASE_URL; ?>painel/reajuste/valor-pago">Alterar Valor Pago</a></li>
-                            <li><a href="<?= BASE_URL; ?>painel/reajuste/lucro">Alterar Lucro (%)</a></li>
+                            <li><a href="<?= BASE_URL; ?>painel/reajuste/valor-pago">Alterar Valor de Custo (%)</a></li>
+                            <li><a href="<?= BASE_URL; ?>painel/reajuste/lucro">Alterar Margem (%)</a></li>
                             <li><a href="<?= BASE_URL; ?>painel/reajuste/desconto">Alterar Desconto (%)</a></li>
                         </ul>
                     </li>

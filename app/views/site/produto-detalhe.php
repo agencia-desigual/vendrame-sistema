@@ -145,7 +145,7 @@
                 <?php if (!empty($fichaTecnica)) : ?>
                     <div class="hoz-tab-container space-padding-tb-30">
                         <ul class="tabs">
-                            <li class="item" rel="description" style="display: none;">Ficha técnica</li>
+                            <li class="item" rel="description" style="display: none;">Disponibilidades</li>
                         </ul>
                         <div class="tab-container">
                             <div id="description" class="tab-content">

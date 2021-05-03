@@ -29,14 +29,14 @@
                         <div class="card m-b-30">
                             <div class="card-body">
 
-                                <h4 class="mt-0 header-title">Reajuste de valor pago</h4>
+                                <h4 class="mt-0 header-title">Reajuste de valor de custo</h4>
                                 <p class="sub-title">Altere multiplos produtos de uma unica vez.</p>
 
                                 <form id="formReajusteProduto">
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <label>Filtre por Marca</label>
                                                 <select class="form-control" onchange="location.href = '<?= BASE_URL; ?>painel/reajuste/valor-pago?id_marca=' + this.value;" required name="id_marca">
                                                     <option selected value="0">Selecione a marca</option>
@@ -50,11 +50,13 @@
                                         </div>
                                     </div>
 
+
+
                                     <?php if(!empty($get["id_marca"])): ?>
                                         <!-- Categoria e Tipo -->
-                                        <div class="row"
-                                            <div class="col-md-6">
-                                                <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
                                                     <label>Filtre por linha</label>
                                                     <select class="selectBusca" name="id_tipo" required>
                                                         <option selected value="0">Selecione</option>
@@ -74,11 +76,23 @@
                                     <?php endif; ?>
 
                                     <!-- Valor Pago E Lucro-->
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Valor Pago</label>
-                                                <input type="text" class="form-control maskValor" name="valorPago" value="" required />
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Ação</label>
+                                                    <select class="form-control" name="acao">
+                                                        <option value="aumentar">Aumentar</option>
+                                                        <option value="diminuir">Diminuir</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Valor (%)</label>
+                                                    <input type="text" class="form-control maskValor" name="valorPago" value="" required />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

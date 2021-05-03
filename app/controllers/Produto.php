@@ -219,13 +219,15 @@ class Produto extends Controller
             // Verifica se o produto existe
             if(!empty($produto))
             {
+                // Busca as marcas
+                $marcas = $this->objModelMarca
+                    ->get(null)
+                    ->fetchAll(\PDO::FETCH_OBJ);
+
                 $ids = "";
 
                 // Busca todas as categorias
                 $categorias = $this->objHelperApoio->getCategoriasLista();
-
-                // Busca todas os tipos
-                $tipos = $this->objHelperApoio->getTiposLista(null, $produto->id_marca);
 
                 // Busca os indices
                 $indices = $this->objModelIndice
@@ -285,6 +287,22 @@ class Produto extends Controller
                 }
 
 
+                if(!empty($_GET["marca"]))
+                {
+                    // Busca todas os tipos
+                    $tipos = $this->objHelperApoio->getTiposLista(null, $_GET["marca"]);
+
+                    $get = $_GET;
+                }
+                else
+                {
+                    // Busca todas os tipos
+                    $tipos = $this->objHelperApoio->getTiposLista(null, $produto->id_marca);
+
+                    $get["marca"] = $produto->id_marca;
+                }
+
+
                 // Array de retorno
                 $dados = [
                     "usuario" => $usuario,
@@ -295,6 +313,8 @@ class Produto extends Controller
                     "tratamentos" => $tratamentos,
                     "pag" => $pag,
                     "atributos" => $atributos,
+                    "marcas" => $marcas,
+                    "get" => $get,
                     "js" => [
                         "modulos" => ["Produto","FichaTecnica"],
                         "pages" => ["Select"]

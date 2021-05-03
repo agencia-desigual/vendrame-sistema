@@ -37,7 +37,6 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">NOME</th>
-                                        <th scope="col">SUB. CATEGORIAS</th>
                                         <th scope="col">PRODUTOS</th>
                                         <th class="text-center" scope="col">AÇÕES</th>
                                     </tr>
@@ -46,13 +45,6 @@
                                     <?php foreach ($categorias as $categoria) : ?>
                                         <tr id="tb_<?= $categoria->id_categoria ?>">
                                             <td><?= $categoria->nome ?></td>
-                                            <td>
-                                                <?php if(!empty($categoria->sub)): ?>
-                                                    <?= $categoria->sub; ?>
-                                                <?php else: ?>
-                                                    -
-                                                <?php endif; ?>
-                                            </td>
 
                                             <td><?= $categoria->produtos; ?></td>
 

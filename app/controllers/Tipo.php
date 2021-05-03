@@ -184,17 +184,17 @@ class Tipo extends Controller
                 // Busca todas as categorias cadastradas
                 $tipos = $this->objHelperApoio->getTiposLista();
 
-                // Busca a marca
-                $marca = $this->objModelMarca
-                    ->get(["id_marca" => $tipo->id_marca])
-                    ->fetch(\PDO::FETCH_OBJ);
+                // Busca as marcas
+                $marcas = $this->objModelMarca
+                    ->get(null)
+                    ->fetchAll(\PDO::FETCH_OBJ);
 
                 // Array de retorno
                 $dados = [
                     "usuario" => $usuario,
                     "tipo" => $tipo,
                     "tipos" => $tipos,
-                    "marca" => $marca,
+                    "marcas" => $marcas,
                     "js" => [
                         "modulos" => ["Tipo"],
                         "pages" => ["Select"]

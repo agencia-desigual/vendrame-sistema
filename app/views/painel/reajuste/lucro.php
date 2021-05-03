@@ -17,7 +17,7 @@
                             <ol class="breadcrumb float-right">
                                 <li class="breadcrumb-item"><a href="<?= BASE_URL ?>"><?= SITE_NOME ?></a></li>
                                 <li class="breadcrumb-item"><a href="<?= BASE_URL ?>painel/produtos">Produtos</a></li>
-                                <li class="breadcrumb-item active">Rejuste de Lucro</li>
+                                <li class="breadcrumb-item active">Rejuste de Margem</li>
                             </ol>
                         </div>
                     </div>
@@ -29,14 +29,14 @@
                         <div class="card m-b-30">
                             <div class="card-body">
 
-                                <h4 class="mt-0 header-title">Reajuste de Lucro (%)</h4>
+                                <h4 class="mt-0 header-title">Reajuste de Margem (%)</h4>
                                 <p class="sub-title">Altere multiplos produtos de uma unica vez.</p>
 
                                 <form id="formReajusteProduto">
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <label>Filtre por Marca</label>
                                                 <select class="form-control" onchange="location.href = '<?= BASE_URL; ?>painel/reajuste/lucro?id_marca=' + this.value;" required name="id_marca">
                                                     <option selected value="0">Selecione a marca</option>
@@ -52,9 +52,9 @@
 
                                     <?php if(!empty($get["id_marca"])): ?>
                                         <!-- Categoria e Tipo -->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
                                                     <label>Filtre por linha</label>
                                                     <select class="selectBusca" name="id_tipo" required>
                                                         <option selected value="0">Selecione</option>
@@ -77,7 +77,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Porcentagem de Lucro (%)</label>
+                                                <label>Porcentagem de Margem (%)</label>
                                                 <input type="text" class="form-control maskValor" name="lucro" value="" required />
                                             </div>
                                         </div>

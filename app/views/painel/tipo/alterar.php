@@ -37,8 +37,17 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label>Marca</label> <br>
-                                                <span><?= $marca->nome; ?></span>
+                                                <div class="form-group">
+                                                    <label>Marca</label>
+                                                    <select class="form-control" required name="id_marca">
+                                                        <option selected disabled>Selecione a marca</option>
+                                                        <?php foreach ($marcas as $marca): ?>
+                                                            <option <?= ($tipo->id_marca == $marca->id_marca) ? "selected" : ""; ?> value="<?= $marca->id_marca; ?>">
+                                                                <?= $marca->nome; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -296,6 +296,14 @@ class  Tipo extends Controller
                         ->get(["id_tipo" => $id])
                         ->fetch(\PDO::FETCH_OBJ);
 
+                    // Verifica se alterou a marca
+                    if($tipoAlterado->id_marca != $tipo->id_marca)
+                    {
+                        // Altera todos os produto
+                        $this->objModelProduto
+                            ->update(["id_marca" => $tipoAlterado->id_marca], ["id_tipo" => $id]);
+                    }
+
                     // Array de sucesso
                     $dados = [
                         "tipo" => true,

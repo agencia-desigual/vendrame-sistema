@@ -45,7 +45,7 @@
 
                                     <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link <?= ($pag == 'ficha') ? 'active' : ''; ?>" data-toggle="tab" href="#tab-ficha" role="tab" aria-selected="false">
-                                            <span class="d-none d-md-block">FICHA TÉCNICA</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span>
+                                            <span class="d-none d-md-block">DISPONIBILIDADES</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span>
                                         </a>
                                     </li>
 
@@ -72,7 +72,14 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>Marca</label>
-                                                            <span style="display: block"><?= $produto->marca->nome; ?></span>
+                                                            <select class="form-control selecionaMarcaEditar" data-id="<?= $produto->id_produto; ?>" required name="id_marca">
+                                                                <option selected disabled>Selecione a marca</option>
+                                                                <?php foreach ($marcas as $marca): ?>
+                                                                    <option <?= (!empty($get["marca"]) && $get["marca"] == $marca->id_marca) ? "selected" : ""; ?> value="<?= $marca->id_marca; ?>">
+                                                                        <?= $marca->nome; ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -150,15 +157,15 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Referência (SKU)</label>
-                                                            <input type="text" class="form-control" name="referencia" value="<?= $produto->referencia; ?>" required />
+                                                            <label>Nome</label>
+                                                            <input type="text" class="form-control" name="nome" value="<?= $produto->nome; ?>" required />
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Nome</label>
-                                                            <input type="text" class="form-control" name="nome" value="<?= $produto->nome; ?>" required />
+                                                            <label>Prazo de entrega médio</label>
+                                                            <input type="text" class="form-control" name="prazoEntrega" value="<?= $produto->prazoEntrega; ?>" required />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,14 +175,14 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Valor Pago</label>
+                                                            <label>Valor de Custo</label>
                                                             <input type="text" id="valorPago" class="form-control maskValor" name="valorPago" value="<?= number_format($produto->valorPago, 2, "",""); ?>" required />
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Porcentagem de lucro</label>
+                                                            <label>Porcentagem de Margem (%)</label>
                                                             <input type="text" id="lucro" class="form-control maskValor" name="lucro" value="<?= number_format($produto->lucro, 2, "",""); ?>" required />
                                                         </div>
                                                     </div>
@@ -218,13 +225,6 @@
 
 
                                                 <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Prazo de entrega médio</label>
-                                                            <input type="text" class="form-control" name="prazoEntrega" value="<?= $produto->prazoEntrega; ?>" required />
-                                                        </div>
-                                                    </div>
-
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>Descrição do produto</label>
@@ -405,7 +405,7 @@
                                     <div class="tab-pane p-3 <?= ($pag == 'ficha') ? 'active' : ''; ?>" id="tab-ficha" role="tabpanel">
                                         <p class="mb-0">
                                             <form id="formInserirFichaTecnica" data-id="<?= $produto->id_produto; ?>">
-                                                <h4 class="mt-0 header-title">Ficha Técnica</h4>
+                                                <h4 class="mt-0 header-title">Disponibilidades</h4>
                                         <p class="sub-title">Cadastre informações sobre o produto.</p>
 
                                         <!-- IMAGEM -->
@@ -413,7 +413,12 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Campo</label>
-                                                    <input name="campo" type="text" class="form-control" placeholder="Ex: Altura" />
+                                                    <select class="form-control" name="campo">
+                                                        <option value="Esférico">Esférico</option>
+                                                        <option value="Cilíndrico">Cilíndrico</option>
+                                                        <option value="Adição">Adição</option>
+                                                        <option value="Altura">Altura</option>
+                                                    </select>
                                                 </div>
 
                                                 <div class="col-md-6">

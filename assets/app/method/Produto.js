@@ -174,6 +174,25 @@ $(".selecionaMarca").on("change", function () {
  * Método responsável por realizar o calculo do
  * valor em que o produto deve ser vendido.
  */
+$(".selecionaMarcaEditar").on("change", function () {
+
+    // Marca selecionada
+    var marca = this.value;
+    var id = $(this).data("id");
+
+    // Url
+    var url = Global.config.url + "painel/produto/alterar/"+ id +"?marca=" + marca;
+
+    // Redireciona
+    location.href = url;
+
+});
+
+
+/**
+ * Método responsável por realizar o calculo do
+ * valor em que o produto deve ser vendido.
+ */
 $("#descontoFornecedor").keyup(function () {
 
     var pago = $("#valorPago").val();

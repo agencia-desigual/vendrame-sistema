@@ -126,15 +126,15 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Referência (SKU)</label>
-                                                    <input type="text" class="form-control" name="referencia" value="" required />
+                                                    <label>Nome</label>
+                                                    <input type="text" class="form-control" name="nome" value="" required />
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Nome</label>
-                                                    <input type="text" class="form-control" name="nome" value="" required />
+                                                    <label>Prazo de entrega médio</label>
+                                                    <input type="text" class="form-control" name="prazoEntrega" value="" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -144,14 +144,14 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Valor Pago</label>
+                                                    <label>Valor de Custo</label>
                                                     <input type="text" id="valorPago" class="form-control maskValor" name="valorPago" value="" required />
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Porcentagem de lucro</label>
+                                                    <label>Porcentagem de Margem (%)</label>
                                                     <input type="text" id="lucro" class="form-control maskValor" name="lucro" value="" required />
                                                 </div>
                                             </div>
@@ -193,13 +193,6 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Prazo de entrega médio</label>
-                                                    <input type="text" class="form-control" name="prazoEntrega" value="" required />
-                                                </div>
-                                            </div>
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Descrição do produto</label>

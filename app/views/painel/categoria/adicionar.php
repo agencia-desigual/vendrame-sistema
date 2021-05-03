@@ -44,7 +44,9 @@
                                         </div>
                                     </div>
 
+                                    <input type="hidden" name="id_categoria_pai" value="" />
 
+                                    <!--
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -66,6 +68,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    -->
 
 
                                     <button type="submit" class="btn btn-primary float-right">Cadastrar</button>
