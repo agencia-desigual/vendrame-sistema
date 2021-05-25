@@ -45,6 +45,14 @@ CREATE TABLE marca(
 );
 
 
+CREATE TABLE banner(
+  id_banner INT NOT NULL AUTO_INCREMENT,
+  imagem VARCHAR(150) NOT NULL,
+  cadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_banner)
+);
+
+
 CREATE TABLE categoria(
   id_categoria INT NOT NULL AUTO_INCREMENT,
   id_categoria_pai INT NULL DEFAULT NULL,

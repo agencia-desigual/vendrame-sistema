@@ -100,6 +100,12 @@ $Rotas->onGroup("api-atributo","DELETE","produto/{p}","desvinculaProduto");
 $Rotas->onGroup("api-atributo","POST","produto/{p}/{p}","vinculaProduto");
 
 
+// Banner
+$Rotas->group("api-banner","api/banner","Api\Banner");
+$Rotas->onGroup("api-banner","POST","insert","insert");
+$Rotas->onGroup("api-banner","DELETE","delete/{p}","delete");
+
+
 /**
  *  ===========================================================
  *                      ROTAS DO SITE
