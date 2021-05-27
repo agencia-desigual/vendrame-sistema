@@ -169,3 +169,12 @@ CREATE TABLE atributo_produto(
   FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
 
 );
+
+CREATE TABLE servico(
+    id_servico INT NOT NULL AUTO_INCREMENT,
+    nome  VARCHAR(100) NOT NULL,
+    descricao TEXT NULL DEFAULT NULL,
+    valor DOUBLE NOT NULL DEFAULT 0,
+    status BOOLEAN NOT NULL DEFAULT true,
+    PRIMARY KEY (id_servico)
+);
