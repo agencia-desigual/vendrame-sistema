@@ -19,7 +19,5 @@
 <script type="text/javascript" src="<?= BASE_URL; ?>assets/theme/site/assets/js/store.js"></script>
 
 
-
-
 </body>
 </html>

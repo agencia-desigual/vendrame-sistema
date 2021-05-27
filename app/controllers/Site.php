@@ -26,7 +26,7 @@ class Site extends CI_controller
     private $objModelTipo;
     private $objModelIndice;
     private $objModelTratamento;
-
+    private $objModelBanner;
 
     // Método construtor
     function __construct()
@@ -45,6 +45,7 @@ class Site extends CI_controller
         $this->objModelTipo = new \Model\Tipo();
         $this->objModelTratamento = new \Model\Tratamento();
         $this->objModelIndice = new \Model\Indice();
+        $this->objModelBanner = new \Model\Banner();
 
     } // End >> fun::__construct()
 
@@ -78,10 +79,16 @@ class Site extends CI_controller
             }
         }
 
+        // Busca todos os banners cadastrados
+        $banners = $this->objModelBanner
+            ->get()
+            ->fetchAll(\PDO::FETCH_OBJ);
+
         // Dados da view
         $dados = [
             "usuario" => $usuario,
             "marcas" => $marcas,
+            "banners" => $banners,
             "js" => [
                 "modulos" => ["Produto"]
             ]

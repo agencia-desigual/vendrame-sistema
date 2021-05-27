@@ -9,9 +9,35 @@
                     </a>
                 <?php endif; ?>
 
+                <?php if(!empty($banners)): ?>
+                    <div class="col-md-12 mt-3">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <?php $cont = 1; ?>
+                                <?php foreach ($banners as $banner): ?>
+                                    <div class="carousel-item <?= ($cont == 1) ? 'active' : ''; ?>">
+                                        <img class="d-block w-100" src="<?= BASE_URL; ?>storage/banner/<?= $banner->imagem; ?>" alt="First slide">
+                                    </div>
+                                    <?php $cont++; ?>
+                                <?php endforeach; ?>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="row">
                 <div class="col"></div>
                 <div class="col-md-7">
-                    <div class="margin-form centraliza-itens-sem-text">
+                    <div class="margin-form centraliza-itens-sem-text" <?= (!empty($banners) ? 'style="margin-top: 59px;"' : ''); ?>>
 
                         <!-- FORMULARIO -->
                         <form id="pesquisaProduto">
