@@ -187,7 +187,12 @@ class Site extends CI_controller
             "indice" => "",
             "tratamento" => "",
             "preco" => "",
-            "order" => ""
+            "order" => "",
+            "promocao" => "",
+            "esf" => "",
+            "cil" => "",
+            "adicao" => "",
+            "altura" => ""
         ];
 
         $precos = [
@@ -418,6 +423,102 @@ class Site extends CI_controller
         }
 
 
+        // Verifica se fez uma busca por Cilindro
+        if(!empty($_GET["cil"]))
+        {
+            // Arruma
+            $_GET["cil"] = str_replace(".","", $_GET["cil"]);
+            $_GET["cil"] = str_replace(",",".", $_GET["cil"]);
+
+            // Add a query
+            $sql .= " AND cil = {$_GET["cil"]}";
+
+            // Add na url
+            $url .= "&cil=" . $_GET["cil"];
+
+            // Item para formação de novas urls
+            $filtro["cil"] = "&cil=" . $_GET['cil'];
+
+            // Vincula o nome
+            $filtroNome["cil"] = $_GET['cil'];
+        }
+
+        // Verifica se fez uma busca por Altura
+        if(!empty($_GET["altura"]))
+        {
+            // Arruma
+            $_GET["altura"] = str_replace(".","", $_GET["altura"]);
+            $_GET["altura"] = str_replace(",",".", $_GET["altura"]);
+
+            // Add a query
+            $sql .= " AND altura = {$_GET["altura"]}";
+
+            // Add na url
+            $url .= "&altura=" . $_GET["altura"];
+
+            // Item para formação de novas urls
+            $filtro["altura"] = "&altura=" . $_GET['altura'];
+
+            // Vincula o nome
+            $filtroNome["altura"] = $_GET['altura'];
+        }
+
+        // Verifica se fez uma busca por Adicao
+        if(!empty($_GET["adicao"]))
+        {
+            // Arruma
+            $_GET["adicao"] = str_replace(".","", $_GET["adicao"]);
+            $_GET["adicao"] = str_replace(",",".", $_GET["adicao"]);
+
+            // Add a query
+            $sql .= " AND (adicaoMin >= {$_GET["adicao"]} AND adicaoMax <= {$_GET["adicao"]})";
+
+            // Add na url
+            $url .= "&adicao=" . $_GET["adicao"];
+
+            // Item para formação de novas urls
+            $filtro["adicao"] = "&adicao=" . $_GET['adicao'];
+
+            // Vincula o nome
+            $filtroNome["adicao"] = $_GET['adicao'];
+        }
+
+        // Verifica se fez uma busca por Esférico
+        if(!empty($_GET["esf"]))
+        {
+            // Arruma
+            $_GET["esf"] = str_replace(".","", $_GET["esf"]);
+            $_GET["esf"] = str_replace(",",".", $_GET["esf"]);
+
+            // Add a query
+            $sql .= " AND (esfMin >= {$_GET["esf"]} AND esfMax <= {$_GET["esf"]})";
+
+            // Add na url
+            $url .= "&esf=" . $_GET["esf"];
+
+            // Item para formação de novas urls
+            $filtro["esf"] = "&esf=" . $_GET['esf'];
+
+            // Vincula o nome
+            $filtroNome["esf"] = $_GET['esf'];
+        }
+
+        // Verifica se fez uma busca por Promocao
+        if(!empty($_GET["promocao"]))
+        {
+            // Add a query
+            $sql .= " AND valorPromocao > 0";
+
+            // Add na url
+            $url .= "&promocao=" . 1;
+
+            // Item para formação de novas urls
+            $filtro["promocao"] = "&promocao=" . 1;
+
+            // Vincula o nome
+            $filtroNome["promocao"] = 1;
+        }
+
 
         // ==============================================================
         // PAGINAÇÃO ====================================================
@@ -425,74 +526,8 @@ class Site extends CI_controller
         // Recupera os dados get
         $get = $_GET;
 
-        // Group By
-        $sql .= " GROUP BY id_produto";
-
-        // Ordem de exibição
-//        if(!empty($_GET["order"]))
-//        {
-//            // Verifica como deve ordernar
-//            switch ($_GET["order"])
-//            {
-//                case "recente":
-//                    $sql .= " ORDER BY id_produto DESC";
-//
-//                    // Add na url
-//                    $url .= "&order=recente";
-//
-//                    // Item para formação de novas urls
-//                    $filtro["order"] = "&order=recente";
-//                    break;
-//
-//                case "menor-preco":
-//                    $sql .= " ORDER BY valorVenda ASC";
-//
-//                    // Add na url
-//                    $url .= "&order=" . $_GET["order"];
-//
-//                    // Item para formação de novas urls
-//                    $filtro["order"] = "&order=" . $_GET['order'];
-//                    break;
-//
-//                case "maior-preco":
-//                    $sql .= " ORDER BY valorVenda DESC";
-//
-//                    // Add na url
-//                    $url .= "&order=" . $_GET["order"];
-//
-//                    // Item para formação de novas urls
-//                    $filtro["order"] = "&order=" . $_GET['order'];
-//                    break;
-//
-//                case "antigo":
-//                    $sql .= " ORDER BY id_produto ASC";
-//
-//                    // Add na url
-//                    $url .= "&order=" . $_GET["order"];
-//
-//                    // Item para formação de novas urls
-//                    $filtro["order"] = "&order=" . $_GET['order'];
-//                    break;
-//
-//                default:
-//                    $sql .= " ORDER BY valorVenda ASC";
-//
-//                    // Add na url
-//                    $url .= "&order=" . $_GET["order"];
-//
-//                    // Item para formação de novas urls
-//                    $filtro["order"] = "&order=" . $_GET['order'];
-//                    break;
-//            }
-//        }
-//        else
-//        {
-//            // Sql - Ordena pelos mais recentes
-//            $sql .= " ORDER BY valorVenda ASC";
-//        }
-
-
-        $sql .= " ORDER BY nomeLinha ASC";
+        // Group By e Order By
+        $sql .= " GROUP BY id_produto ORDER BY nomeLinha ASC";
 
         // Url
         $urlPaginacao = $url . "&";
@@ -654,6 +689,10 @@ class Site extends CI_controller
         }
 
 
+        // Recupera os dados get
+        $get = $_GET;
+
+
         // Dados da view
         $dados = [
             "usuario" => $usuario,
@@ -667,6 +706,7 @@ class Site extends CI_controller
             "produtos" => $produtos,
             "qtdeProdutos" => count($produtos),
             "filtroNome" => $filtroNome,
+            "get" => $get,
             "paginacao" => [
                 "url" => $urlPaginacao,
                 "pag" => $pag,
