@@ -172,6 +172,63 @@ class Produto extends Controller
                             $post["desconto"] = str_replace(",",".", $post["desconto"]);
                         }
 
+                        // Verifica se tem promoção
+                        if(!empty($post["valorPromocao"]))
+                        {
+                            // Configura o valor do desconto
+                            $post["valorPromocao"] = str_replace(".","", $post["valorPromocao"]);
+                            $post["valorPromocao"] = str_replace(",",".", $post["valorPromocao"]);
+                        }
+
+                        // Verifica se tem esferico Min
+                        if(!empty($post["esfMin"]))
+                        {
+                            // Configura o valor do desconto
+                            $post["esfMin"] = str_replace(".","", $post["esfMin"]);
+                            $post["esfMin"] = str_replace(",",".", $post["esfMin"]);
+                        }
+
+                        // Verifica se tem esferico Max
+                        if(!empty($post["esfMax"]))
+                        {
+                            // Configura o valor do desconto
+                            $post["esfMax"] = str_replace(".","", $post["esfMax"]);
+                            $post["esfMax"] = str_replace(",",".", $post["esfMax"]);
+                        }
+
+                        // Verifica se tem adicao Min
+                        if(!empty($post["adicaoMin"]))
+                        {
+                            // Configura o valor do desconto
+                            $post["adicaoMin"] = str_replace(".","", $post["adicaoMin"]);
+                            $post["adicaoMin"] = str_replace(",",".", $post["adicaoMin"]);
+                        }
+
+                        // Verifica se tem adicao Max
+                        if(!empty($post["adicaoMax"]))
+                        {
+                            // Configura o valor do desconto
+                            $post["adicaoMax"] = str_replace(".","", $post["adicaoMax"]);
+                            $post["adicaoMax"] = str_replace(",",".", $post["adicaoMax"]);
+                        }
+
+                        // Verifica se tem cilindrico
+                        if(!empty($post["cil"]))
+                        {
+                            // Configura o valor do desconto
+                            $post["cil"] = str_replace(".","", $post["cil"]);
+                            $post["cil"] = str_replace(",",".", $post["cil"]);
+                        }
+
+                        // Verifica se tem altura
+                        if(!empty($post["altura"]))
+                        {
+                            // Configura o valor do desconto
+                            $post["altura"] = str_replace(".","", $post["altura"]);
+                            $post["altura"] = str_replace(",",".", $post["altura"]);
+                        }
+
+
                         // Array de inserção
                         $salva = [
                             "id_categoria" => $post["id_categoria"],
@@ -188,6 +245,15 @@ class Produto extends Controller
                             "lucro" => $post["lucro"],
                             "descontoFornecedor" => $post["descontoFornecedor"],
                             "prazoEntrega" => $post["prazoEntrega"],
+
+                            "valorPromocao" => $post["valorPromocao"],
+                            "esfMin" => $post["esfMin"],
+                            "esfMax" => $post["esfMax"],
+                            "cil" => $post["cil"],
+                            "adicaoMin" => $post["adicaoMin"],
+                            "adicaoMax" => $post["adicaoMax"],
+                            "altura" => $post["altura"],
+
                             "desconto" => (!empty($post["desconto"])) ? $post["desconto"] : 0,
                             "status" => (isset($post["status"])) ? $post["status"] : true,
                             "cadastro" => date("Y-m-d H:i:s")
@@ -325,6 +391,64 @@ class Produto extends Controller
                     $post["desconto"] = str_replace(".","", $post["desconto"]);
                     $post["desconto"] = str_replace(",",".", $post["desconto"]);
                 }
+
+
+                // Verifica se tem promoção
+                if(!empty($post["valorPromocao"]))
+                {
+                    // Configura o valor do desconto
+                    $post["valorPromocao"] = str_replace(".","", $post["valorPromocao"]);
+                    $post["valorPromocao"] = str_replace(",",".", $post["valorPromocao"]);
+                }
+
+                // Verifica se tem esferico Min
+                if(!empty($post["esfMin"]))
+                {
+                    // Configura o valor do desconto
+                    $post["esfMin"] = str_replace(".","", $post["esfMin"]);
+                    $post["esfMin"] = str_replace(",",".", $post["esfMin"]);
+                }
+
+                // Verifica se tem esferico Max
+                if(!empty($post["esfMax"]))
+                {
+                    // Configura o valor do desconto
+                    $post["esfMax"] = str_replace(".","", $post["esfMax"]);
+                    $post["esfMax"] = str_replace(",",".", $post["esfMax"]);
+                }
+
+                // Verifica se tem adicao Min
+                if(!empty($post["adicaoMin"]))
+                {
+                    // Configura o valor do desconto
+                    $post["adicaoMin"] = str_replace(".","", $post["adicaoMin"]);
+                    $post["adicaoMin"] = str_replace(",",".", $post["adicaoMin"]);
+                }
+
+                // Verifica se tem adicao Max
+                if(!empty($post["adicaoMax"]))
+                {
+                    // Configura o valor do desconto
+                    $post["adicaoMax"] = str_replace(".","", $post["adicaoMax"]);
+                    $post["adicaoMax"] = str_replace(",",".", $post["adicaoMax"]);
+                }
+
+                // Verifica se tem cilindrico
+                if(!empty($post["cil"]))
+                {
+                    // Configura o valor do desconto
+                    $post["cil"] = str_replace(".","", $post["cil"]);
+                    $post["cil"] = str_replace(",",".", $post["cil"]);
+                }
+
+                // Verifica se tem altura
+                if(!empty($post["altura"]))
+                {
+                    // Configura o valor do desconto
+                    $post["altura"] = str_replace(".","", $post["altura"]);
+                    $post["altura"] = str_replace(",",".", $post["altura"]);
+                }
+                
 
                 // Reculcula o valor de venda
                 $aux = $post["valorPago"] - (($post["descontoFornecedor"] / 100 ) * $post["valorPago"]);

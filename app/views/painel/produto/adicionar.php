@@ -172,7 +172,7 @@
                                         </div>
 
 
-                                        <!-- Desconto E Status-->
+                                        <!-- Desconto E Valor Promocional -->
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -183,6 +183,68 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <label>Valor Promocional</label>
+                                                    <input type="text" class="form-control maskValor" name="valorPromocao" value="" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Esferico -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Esférico (Mínimo)</label>
+                                                    <input type="text" class="form-control maskValor" name="esfMin" value="" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Esférico (Máximo)</label>
+                                                    <input type="text" class="form-control maskValor" name="esfMax" value="" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Adição -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Adição (Mínimo)</label>
+                                                    <input type="text" class="form-control maskValor" name="adicaoMin" value="" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Adição (Máximo)</label>
+                                                    <input type="text" class="form-control maskValor" name="adicaoMax" value="" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Cilindrico e Altura -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Cilindrico</label>
+                                                    <input type="text" class="form-control maskValor" name="cil" value="" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Altura</label>
+                                                    <input type="text" class="form-control maskValor" name="altura" value="" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Status -->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
                                                     <label>Status</label>
                                                     <select class="form-control" name="status">
                                                         <option value="1">Ativo</option>
@@ -192,6 +254,8 @@
                                             </div>
                                         </div>
 
+
+                                        <!-- DESCRICAO -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">

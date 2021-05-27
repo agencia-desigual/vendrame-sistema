@@ -43,17 +43,17 @@
                                         </a>
                                     </li>
 
-                                    <li class="nav-item waves-effect waves-light">
+                                   <!-- <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link <?= ($pag == 'ficha') ? 'active' : ''; ?>" data-toggle="tab" href="#tab-ficha" role="tab" aria-selected="false">
                                             <span class="d-none d-md-block">DISPONIBILIDADES</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span>
                                         </a>
-                                    </li>
+                                    </li> -->
 
-                                    <li class="nav-item waves-effect waves-light">
+                                   <!-- <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link <?= ($pag == 'galeria') ? 'active' : ''; ?>" data-toggle="tab" href="#tab-galeria" role="tab" aria-selected="true">
                                             <span class="d-none d-md-block">GALERIA</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
 
 
@@ -203,6 +203,8 @@
                                                 </div>
 
 
+
+
                                                 <!-- Desconto E Status-->
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -214,6 +216,67 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
+                                                            <label>Valor Promocional</label>
+                                                            <input type="text" class="form-control maskValor" name="valorPromocao" value="<?= number_format($produto->valorPromocao, 2, "",""); ?>" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Esferico -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Esférico (Mínimo)</label>
+                                                            <input type="text" class="form-control maskValor" name="esfMin" value="<?= number_format($produto->esfMin, 2, "",""); ?>" required />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Esférico (Máximo)</label>
+                                                            <input type="text" class="form-control maskValor" name="esfMax" value="<?= number_format($produto->esfMax, 2, "",""); ?>" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Adição -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Adição (Mínimo)</label>
+                                                            <input type="text" class="form-control maskValor" name="adicaoMin" value="<?= number_format($produto->adicaoMin, 2, "",""); ?>" required />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Adição (Máximo)</label>
+                                                            <input type="text" class="form-control maskValor" name="adicaoMax" value="<?= number_format($produto->adicaoMax, 2, "",""); ?>" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Cilindrico e Altura -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Cilindrico</label>
+                                                            <input type="text" class="form-control maskValor" name="cil" value="<?= number_format($produto->cil, 2, "",""); ?>" required />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Altura</label>
+                                                            <input type="text" class="form-control maskValor" name="altura" value="<?= number_format($produto->altura, 2, "",""); ?>" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Status -->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
                                                             <label>Status</label>
                                                             <select class="form-control" name="status">
                                                                 <option <?= ($produto->status == true) ? "selected" : ""; ?> value="1">Ativo</option>
@@ -223,7 +286,7 @@
                                                     </div>
                                                 </div>
 
-
+                                                <!-- Descricao -->
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
@@ -311,6 +374,14 @@
                                             <?php endif; ?>
                                         </div>
                                     </div>
+
+
+
+
+
+
+
+
 
                                     <!-- GALERIA -->
                                     <div class="tab-pane p-3 <?= ($pag == 'galeria') ? 'active' : ''; ?>" id="tab-galeria" role="tabpanel">

@@ -101,11 +101,19 @@ CREATE TABLE produto(
     valorPago DOUBLE NOT NULL DEFAULT 0,
     valorVenda DOUBLE NULL DEFAULT NULL, -- Pode não ser informado
     descontoFornecedor DOUBLE NULL DEFAULT NULL,
+    valorPromocao DOUBLE NOT NULL DEFAULT 0,
 
     lucro DOUBLE NULL DEFAULT NULL, -- Porcentagem de lucro
     desconto DOUBLE NULL DEFAULT NULL, -- Porcentagem de desconto
 
     prazoEntrega TEXT NULL DEFAULT NULL,
+
+    esfMin DOUBLE NOT NULL DEFAULT 0,
+    esfMax DOUBLE NOT NULL DEFAULT 0,
+    cil DOUBLE NOT NULL DEFAULT 0,
+    adicaoMin DOUBLE NOT NULL DEFAULT 0,
+    adicaoMax DOUBLE NOT NULL DEFAULT 0,
+    altura DOUBLE NOT NULL DEFAULT 0,
 
     status BOOLEAN NOT NULL DEFAULT true,
     cadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
