@@ -63,6 +63,7 @@ class Banner extends Controller
                 $objFile = new File();
 
                 // Informa as configurações
+                $objFile->setStorange($caminho);
                 $objFile->setMaxSize(1 * MB);
                 $objFile->setExtensaoValida(["png","jpg","jpeg","gif"]);
                 $objFile->setFile($_FILES["arquivo"]);
@@ -81,7 +82,7 @@ class Banner extends Controller
                         {
                             // Array de inserção
                             $salva = [
-                                "arquivo" => $arquivo,
+                                "imagem" => $arquivo,
                                 "cadastro" => date("Y-m-d H:i:s")
                             ];
 

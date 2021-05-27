@@ -180,3 +180,7 @@ $Rotas->on("GET","painel/produto/adicionar","Produto::adicionar");
 $Rotas->on("GET","painel/produto/alterar/{p}/{p}","Produto::alterar");
 $Rotas->on("GET","painel/produto/alterar/{p}","Produto::alterar");
 $Rotas->on("GET","painel/reajuste/{p}","Produto::reajuste");
+
+// -- BANNER
+$Rotas->on("GET","painel/banners","Banner::listar");
+$Rotas->on("GET","painel/banner/adicionar","Banner::adicionar");

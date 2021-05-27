@@ -113,6 +113,17 @@
 
                     <!-- USUÁRIOS -->
                     <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="far fa-images"></i><span> Banner <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="<?= BASE_URL; ?>painel/banner/adicionar">Adicionar</a></li>
+                            <li><a href="<?= BASE_URL; ?>painel/banners">Listar Todos</a></li>
+                        </ul>
+                    </li>
+                    <!-- FIM >> USUÁRIOS -->
+
+
+                    <!-- USUÁRIOS -->
+                    <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-user-shield"></i><span> Usuários <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
                             <li><a href="<?= BASE_URL; ?>painel/usuario/adicionar">Adicionar</a></li>
