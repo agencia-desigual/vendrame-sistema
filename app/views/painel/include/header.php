@@ -208,6 +208,17 @@
 
                     <!-- PRODUTOS -->
                     <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-hammer"></i><span> Serviços <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="<?= BASE_URL; ?>painel/servico/adicionar">Adicionar</a></li>
+                            <li><a href="<?= BASE_URL; ?>painel/servicos">Listar Todos</a></li>
+                        </ul>
+                    </li>
+                    <!-- FIM >> PRODUTOS -->
+
+
+                    <!-- PRODUTOS -->
+                    <li>
                         <a href="javascript:void(0);" class="waves-effect">
                             <i class="fas fa-dollar-sign"></i>
                             <span>

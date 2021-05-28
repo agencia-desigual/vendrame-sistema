@@ -58,17 +58,34 @@ class Servico extends Controller
             // Verifica se informou os campos obrigatórios
             if(!empty($post["nome"]) && !empty($post["valor"]))
             {
+                // Limpa o valor
+                $post["valor"] = str_replace(".","", $post["valor"]);
+                $post["valor"] = str_replace(",",".", $post["valor"]);
+
+                // Verifica se não informou uma marca
+                if(empty($post["marca"]))
+                {
+                    // Remove
+                    unset($post["marca"]);
+                }
+
                 // Insere
                 $obj = $this->objModelServico->insert($post);
 
                 // Verifica se inseriu
                 if(!empty($obj))
                 {
+                    // Busca o objeto inserido
+                    $obj = $this->objModelServico
+                        ->get(["id_servico" => $obj])
+                        ->fetch(\PDO::FETCH_OBJ);
+
                     // Informa que deu certo
                     $dados = [
                         "tipo" => true,
                         "code" => 200,
-                        "mensagem" => "Adicionado com sucesso."
+                        "mensagem" => "Adicionado com sucesso.",
+                        "objeto" => $obj
                     ];
                 }
                 else
@@ -103,7 +120,7 @@ class Servico extends Controller
      * @param $id [Id do serviço]
      * --------------------------------------------------
      * @url api/servico/update/[ID]
-     * @method PUT
+     * @method POST
      */
     public function update($id)
     {
@@ -127,12 +144,22 @@ class Servico extends Controller
             // Verifica se existe
             if(!empty($obj))
             {
-                // Recupera os dados put
-                $objInput = new Input();
-                $put = $objInput->put();
+                // Recupera os dados post
+                $put = $_POST;
 
                 // Remove os dados que não pode ser alterado
                 unset($put["id_servico"]);
+
+                // Limpa o valor
+                $put["valor"] = str_replace(".","", $put["valor"]);
+                $put["valor"] = str_replace(",",".", $put["valor"]);
+
+                // Verifica se não informou uma marca
+                if(empty($put["id_marca"]))
+                {
+                    // Remove
+                    $put["id_marca"] = null;
+                }
 
                 // Altera
                 if($this->objModelServico->update($put, ["id_servico" => $id]) != false)

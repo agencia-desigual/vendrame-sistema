@@ -109,7 +109,7 @@ $Rotas->onGroup("api-banner","DELETE","delete/{p}","delete");
 // Serviço
 $Rotas->group("api-servico","api/servico","Api\Servico");
 $Rotas->onGroup("api-servico","POST","insert","insert");
-$Rotas->onGroup("api-servico","PUT","update/{p}","update");
+$Rotas->onGroup("api-servico","POST","update/{p}","update");
 $Rotas->onGroup("api-servico","DELETE","delete/{p}","delete");
 
 
@@ -191,3 +191,8 @@ $Rotas->on("GET","painel/reajuste/{p}","Produto::reajuste");
 // -- BANNER
 $Rotas->on("GET","painel/banners","Banner::listar");
 $Rotas->on("GET","painel/banner/adicionar","Banner::adicionar");
+
+// -- SERVICO
+$Rotas->on("GET","painel/servicos","Servico::listar");
+$Rotas->on("GET","painel/servico/adicionar","Servico::adicionar");
+$Rotas->on("GET","painel/servico/alterar/{p}","Servico::alterar");
