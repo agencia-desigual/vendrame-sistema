@@ -106,6 +106,13 @@ $Rotas->onGroup("api-banner","POST","insert","insert");
 $Rotas->onGroup("api-banner","DELETE","delete/{p}","delete");
 
 
+// Serviço
+$Rotas->group("api-servico","api/servico","Api\Servico");
+$Rotas->onGroup("api-servico","POST","insert","insert");
+$Rotas->onGroup("api-servico","PUT","update/{p}","update");
+$Rotas->onGroup("api-servico","DELETE","delete/{p}","delete");
+
+
 /**
  *  ===========================================================
  *                      ROTAS DO SITE

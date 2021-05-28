@@ -172,9 +172,12 @@ CREATE TABLE atributo_produto(
 
 CREATE TABLE servico(
     id_servico INT NOT NULL AUTO_INCREMENT,
+    id_marca INT NOT NULL,
+    tipo ENUM('sevico','padronizacao') NOT NULL,
     nome  VARCHAR(100) NOT NULL,
     descricao TEXT NULL DEFAULT NULL,
     valor DOUBLE NOT NULL DEFAULT 0,
     status BOOLEAN NOT NULL DEFAULT true,
-    PRIMARY KEY (id_servico)
+    PRIMARY KEY (id_servico),
+    FOREIGN KEY (id_marca) REFERENCES marca(id_marca)
 );

@@ -6,6 +6,7 @@ namespace Controller\Api;
 // Importações
 use Helper\Apoio;
 use Sistema\Controller;
+use Sistema\Helper\Input;
 use Sistema\Helper\Seguranca;
 
 // Inicia a Classe
@@ -95,13 +96,139 @@ class Servico extends Controller
     } // End >> fun::insert()
 
 
+    /**
+     * Método responsável por alterar um determinado
+     * serviço do sistema.
+     * --------------------------------------------------
+     * @param $id [Id do serviço]
+     * --------------------------------------------------
+     * @url api/servico/update/[ID]
+     * @method PUT
+     */
     public function update($id)
     {
         // Veriaveis
         $dados = null;
         $usuario = null;
+        $put = null;
+        $obj = null;
 
+        // Recupera o usuario
+        $usuario = $this->objSeguranca->security();
+
+        // Verifica se é admin
+        if($usuario->nivel == "admin")
+        {
+            // Busca o objeto
+            $obj = $this->objModelServico
+                ->get(["id_servico" => $id])
+                ->fetch(\PDO::FETCH_OBJ);
+
+            // Verifica se existe
+            if(!empty($obj))
+            {
+                // Recupera os dados put
+                $objInput = new Input();
+                $put = $objInput->put();
+
+                // Remove os dados que não pode ser alterado
+                unset($put["id_servico"]);
+
+                // Altera
+                if($this->objModelServico->update($put, ["id_servico" => $id]) != false)
+                {
+                    // Retorna o sucesso
+                    $dados = [
+                        "tipo" => true,
+                        "code" => 200,
+                        "mensagem" => "Serviço alterado com sucesso."
+                    ];
+                }
+                else
+                {
+                    // Msg
+                    $dados = ["mensagem" => "Ocorreu um erro ao alterar serviço."];
+                } // Error >> Ocorreu um erro ao alterar serviço.
+            }
+            else
+            {
+                // Msg
+                $dados = ["mensagem" => "Serviço informado não foi encontrado."];
+            } // Error >> Serviço informado não foi encontrado.
+        }
+        else
+        {
+            // Msg
+            $dados = ["mensagem" => "Usuário sem permissão"];
+        } // Error >> Usuário sem permissão
+
+        // Retorno
+        $this->api($dados);
 
     } // End >> fun::update()
+
+
+    /**
+     * Método responsável por deletar um determinado
+     * serviço do sistema.
+     * --------------------------------------------------
+     * @param $id [Id do serviço]
+     * --------------------------------------------------
+     * @url api/servico/delete/[ID]
+     * @method DELETE
+     */
+    public function delete($id)
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $obj = null;
+
+        // Recupera o usuário
+        $usuario = $this->objSeguranca->security();
+
+        // Verifica se possui permissão
+        if($usuario->nivel == "admin")
+        {
+            // Busca o objeto
+            $obj = $this->objModelServico
+                ->get(["id_servico" => $id])
+                ->fetch(\PDO::FETCH_OBJ);
+
+            // Verifica se o objeto existe
+            if(!empty($obj))
+            {
+                // Deleta
+                if($this->objModelServico->delete(["id_servico" => $id]) != false)
+                {
+                    // Informa que deletou
+                    $dados = [
+                        "tipo" => true,
+                        "code" => 200,
+                        "mensagem" => "Serviço deletado com sucesso."
+                    ];
+                }
+                else
+                {
+                    // Msg
+                    $dados = ["mensagem" => "Ocorreu um erro ao deletar o serviço."];
+                } // Error >> Ocorreu um erro ao deletar o serviço.
+            }
+            else
+            {
+                // Msg
+                $dados = ["mensagem" => "Esse serviço já foi deletado."];
+            } // Error >> Esse serviço já foi deletado.
+        }
+        else
+        {
+            // Msg
+            $dados = ["mensagem" => "Usuário sem permissão"];
+        } // Error >> Usuário sem permissão
+
+        // Retorno
+        $this->api($dados);
+
+    } // End >> fun::delete();
 
 } // End >> Class::Servico
