@@ -70,6 +70,9 @@
                                     <div class="resultado"></div>
                                 </div>
                                 <small id="emailHelp" class="form-text text-muted"><a style="color: #204f93; text-decoration: none" href="<?= BASE_URL ?>produtos">Ver todos os produtos</a></small>
+                                <a href="<?= BASE_URL ?>servicos" class="btn btn-primary" style="border: none;margin-top: 40px; background: #204f93 !important">
+                                   Ver Serviços
+                                </a>
                             </div>
                         </form>
                         <!-- FIM >> FORMULARIO -->

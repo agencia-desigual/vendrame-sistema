@@ -27,6 +27,7 @@ class Site extends CI_controller
     private $objModelIndice;
     private $objModelTratamento;
     private $objModelBanner;
+    private $objModelServico;
 
     // Método construtor
     function __construct()
@@ -46,6 +47,7 @@ class Site extends CI_controller
         $this->objModelTratamento = new \Model\Tratamento();
         $this->objModelIndice = new \Model\Indice();
         $this->objModelBanner = new \Model\Banner();
+        $this->objModelServico = new \Model\Servico();
 
     } // End >> fun::__construct()
 
@@ -734,7 +736,6 @@ class Site extends CI_controller
      */
     public function produtoDetalhes($id = null)
     {
-
         // Variaveis
         $dados = null;
         $usuario = null;
@@ -817,6 +818,198 @@ class Site extends CI_controller
         }
 
     }
+
+
+    /**
+     * Método responsável por exibir todos os servicos
+     * e filtrar os mesmo, tambem utilizar paginação.
+     * ------------------------------------------------------
+     * @url servicos
+     */
+    public function servicos()
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $marcas = null;
+        $where = null;
+        $filtroNome = null;
+        $servicos = null;
+
+        // Verificando se o usuario está logado
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // URL
+        $url = BASE_URL . "servicos?c=true";
+
+        // Monta o where
+        $where["status"] = true;
+
+        // ==============================================================
+        // FILTROS ======================================================
+
+        // Array de filtros na url
+        $filtro = [
+            "marca" => "",
+            "tipo" => ""
+        ];
+
+        // Verifica se fez uma busca por marca
+        if(!empty($_GET["marca"]))
+        {
+            $aux = $this->objModelMarca
+                ->get(["id_marca" => $_GET["marca"]])
+                ->fetch(\PDO::FETCH_OBJ);
+
+            // Add a query
+            $where["id_marca"] = $_GET["marca"];
+
+            // Add na url
+            $url .= "&marca=" . $_GET["marca"];
+
+            // Item para formação de novas urls
+            $filtro["marca"] = "&marca=" . $_GET['marca'];
+            $filtroNome["marca"] = $aux->nome;
+        }
+
+        // Verifica se fez uma busca por marca
+        if(!empty($_GET["tipo"]))
+        {
+            // Add a query
+            $where["tipo"] = $_GET["tipo"];
+
+            // Add na url
+            $url .= "&tipo=" . $_GET["tipo"];
+
+            // Item para formação de novas urls
+            $filtro["tipo"] = "&tipo=" . $_GET['tipo'];
+            $filtroNome["tipo"] = ($_GET['tipo'] == "servico" ? "Serviços e tratamentos" : "Padronizações Vendrame");
+        }
+
+        // ==============================================================
+        // PAGINAÇÃO ====================================================
+
+        // Recupera os dados get
+        $get = $_GET;
+
+        // Url
+        $urlPaginacao = $url . "&";
+
+        // Informações sobre paginação ---------------------------
+        $pag = (isset($get["pag"])) ? $get["pag"] : 1;
+        $limite = NUM_PAG;
+
+        // Atribui a variável inicio, o inicio de onde os registros vão ser mostrados
+        // por página, exemplo 0 à 10, 11 à 20 e assim por diante
+        $inicio = ($pag * $limite) - $limite;
+
+
+
+        // ==============================================================
+        // BUSCAS =======================================================
+
+        // Busca todas as marcas
+        $marcas = $this->objModelMarca
+            ->get()
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+
+        // Busca todos os produtos
+        $servicos = $this->objModelServico
+            ->get($where, "id_servico DESC", "{$inicio},{$limite}", "*","id_servico")
+            ->fetchAll(\PDO::FETCH_OBJ);
+
+        // Total de resultados
+        $total = $this->objModelServico
+            ->get($where)
+            ->rowCount();
+
+        // Total de páginas
+        $totalPaginas = $total / $limite;
+        $totalPaginas = ceil($totalPaginas);
+
+
+        // Dados da view
+        $dados = [
+            "usuario" => $usuario,
+            "filtro" => $filtro,
+            "marcas" => $marcas,
+            "servicos" => $servicos,
+            "qtdeProdutos" => count($servicos),
+            "filtroNome" => $filtroNome,
+            "get" => $get,
+            "paginacao" => [
+                "url" => $urlPaginacao,
+                "pag" => $pag,
+                "total" => $totalPaginas,
+                "total_itens" => $total
+            ],
+            "js" => [
+                "modulos" => ["Servico"]
+            ]
+        ];
+
+        // Carrega a view
+        $this->view("site/servico/servicos", $dados);
+
+    } // End >> fun::servicos()
+
+
+
+    /**
+     * Método responsável por montar a página inicial do
+     * catalogo de servicos
+     * ------------------------------------------------------
+     * @url servico-detalhes{id}
+     */
+    public function servicoDetalhes($id)
+    {
+        // Variaveis
+        $dados = null;
+        $usuario = null;
+        $marca = null;
+
+        // Verificando se o usuario está logado
+        $usuario = $this->objHelperApoio->seguranca();
+
+        // Busca o servico
+        $servico = $this->objModelServico
+            ->get(["id_servico" => $id])
+            ->fetch(\PDO::FETCH_OBJ);
+
+        // Verifica se encontoru
+        if(!empty($servico))
+        {
+            // Verifica se existe marca
+            if(!empty($servico->id_marca))
+            {
+                // Busca a marca
+                $marca = $this->objModelMarca
+                    ->get(["id_marca" => $servico->id_marca])
+                    ->fetch(\PDO::FETCH_OBJ);
+            }
+
+            // Retorno
+            $dados = [
+                "usuario" => $usuario,
+                "servico" => $servico,
+                "marca" => $marca,
+                "js" => [
+                    "modulos" => ["Servico"]
+                ]
+            ];
+
+            // Chama a view
+            $this->view("site/servico/detalhe", $dados);
+        }
+        else
+        {
+            // Exibe todos
+            $this->servicos();
+        } // Exibe todos
+
+    } // End >> fun::servicoDetalhes()
+
 
 
     /**

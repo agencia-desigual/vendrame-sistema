@@ -53,7 +53,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Tipo</label>
-                                                <select class="form-control" name="status">
+                                                <select class="form-control" name="tipo">
                                                     <option <?= ($servico->tipo == "servico") ? "selected" : ""; ?> value="servico">Serviços e tratamentos</option>
                                                     <option <?= ($servico->tipo == "padronizacao") ? "selected" : ""; ?> value="padronizacao">Padronizações Vendrame</option>
                                                 </select>

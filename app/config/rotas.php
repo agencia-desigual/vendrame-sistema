@@ -128,6 +128,10 @@ $Rotas->on("GET","produtos","Site::produtos");
 $Rotas->on("GET","produtos/{p}","Site::produtos");
 $Rotas->on("GET","produto-detalhes/{p}","Site::produtoDetalhes");
 
+// -- Rotas sem grupo --- INDEX
+$Rotas->on("GET","servicos","Site::servicos");
+$Rotas->on("GET","servico-detalhes/{p}","Site::servicoDetalhes");
+
 // -- Rotas sem grupo --- LOGIN
 $Rotas->on("GET","login","Site::login");
 
