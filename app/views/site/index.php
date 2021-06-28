@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <div class="text-center mb-4">
                                     <a href="<?= BASE_URL ?>">
-                                        <img class="logo" src="<?= BASE_URL ?>assets/theme/site/img/logo-azul.png">
+                                        <svg fill="#204f93" width="300px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 417.83 42.44">
                                     </a>
                                 </div>
                                 <div class="busca">

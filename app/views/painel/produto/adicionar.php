@@ -195,14 +195,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Esférico (Mínimo)</label>
-                                                    <input type="text" class="form-control maskValor" name="esfMin" value="" required />
+                                                    <input type="text" class="form-control" name="esfMin" value="" required />
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Esférico (Máximo)</label>
-                                                    <input type="text" class="form-control maskValor" name="esfMax" value="" required />
+                                                    <input type="text" class="form-control" name="esfMax" value="" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -212,14 +212,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Adição (Mínimo)</label>
-                                                    <input type="text" class="form-control maskValor" name="adicaoMin" value="" required />
+                                                    <input type="text" class="form-control" name="adicaoMin" value="" required />
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Adição (Máximo)</label>
-                                                    <input type="text" class="form-control maskValor" name="adicaoMax" value="" required />
+                                                    <input type="text" class="form-control" name="adicaoMax" value="" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -229,14 +229,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Cilindrico</label>
-                                                    <input type="text" class="form-control maskValor" name="cil" value="" required />
+                                                    <input type="text" class="form-control" name="cil" value="" required />
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Altura</label>
-                                                    <input type="text" class="form-control maskValor" name="altura" value="" required />
+                                                    <input type="text" class="form-control" name="altura" value="" required />
                                                 </div>
                                             </div>
                                         </div>
