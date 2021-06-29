@@ -222,12 +222,21 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p style="padding: 30px 0px 15px; font-size: 1.2em;">
+                                                            <b>ATENÇÃO:</b> Nos itens abaixo adicione a virgula do decimal manualmente.
+                                                            <br> Exemplo: se for 3 escreva 3,00
+                                                        </p>
+                                                    </div>
+                                                </div>
+
                                                 <!-- Esferico -->
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Esférico (Mínimo)</label>
-                                                            <input type="text" class="form-control maskValor" name="esfMin" value="<?= number_format($produto->esfMin, 2, "",""); ?>" required />
+                                                            <input type="text" class="form-control" name="esfMin" value="<?= number_format($produto->esfMin, 2, "",""); ?>" required />
                                                         </div>
                                                     </div>
 

@@ -432,7 +432,7 @@
                                     <?php if(!empty($produto->valorPromocao)): ?>
                                         <p class="product-price" style="color: red; height: auto; margin-bottom: 0px; padding-bottom: 0px; padding-left: 10px; padding-top: 13px;">
                                             R$ <?= number_format($produto->valorPromocao, 2, ",", ".") ?>
-                                            <span style="font-size: 9px;">promocional</span>
+                                            <span style="font-size: 9px;">á vista</span>
                                         </p>
                                     <?php endif; ?>
                                     <!-- FIM >> PREÇO -->

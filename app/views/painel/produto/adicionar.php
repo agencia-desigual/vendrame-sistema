@@ -189,6 +189,15 @@
                                             </div>
                                         </div>
 
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p style="padding: 30px 0px 15px; font-size: 1.2em;">
+                                                    <b>ATENÇÃO:</b> Nos itens abaixo adicione a virgula do decimal manualmente.
+                                                    <br> Exemplo: se for 3 escreva 3,00
+                                                </p>
+                                            </div>
+                                        </div>
+
 
                                         <!-- Esferico -->
                                         <div class="row">
