@@ -243,7 +243,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Esférico (Máximo)</label>
-                                                            <input type="text" class="form-control maskValor" name="esfMax" value="<?= number_format($produto->esfMax, 2, ",",""); ?>" required />
+                                                            <input type="text" class="form-control" name="esfMax" value="<?= number_format($produto->esfMax, 2, ",",""); ?>" required />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -253,14 +253,14 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Adição (Mínimo)</label>
-                                                            <input type="text" class="form-control maskValor" name="adicaoMin" value="<?= number_format($produto->adicaoMin, 2, ",",""); ?>" required />
+                                                            <input type="text" class="form-control" name="adicaoMin" value="<?= number_format($produto->adicaoMin, 2, ",",""); ?>" required />
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Adição (Máximo)</label>
-                                                            <input type="text" class="form-control maskValor" name="adicaoMax" value="<?= number_format($produto->adicaoMax, 2, ",",""); ?>" required />
+                                                            <input type="text" class="form-control" name="adicaoMax" value="<?= number_format($produto->adicaoMax, 2, ",",""); ?>" required />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -270,14 +270,14 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Cilindrico</label>
-                                                            <input type="text" class="form-control maskValor" name="cil" value="<?= number_format($produto->cil, 2, ",",""); ?>" required />
+                                                            <input type="text" class="form-control" name="cil" value="<?= number_format($produto->cil, 2, ",",""); ?>" required />
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Altura</label>
-                                                            <input type="text" class="form-control maskValor" name="altura" value="<?= number_format($produto->altura, 2, ",",""); ?>" required />
+                                                            <input type="text" class="form-control" name="altura" value="<?= number_format($produto->altura, 2, ",",""); ?>" required />
                                                         </div>
                                                     </div>
                                                 </div>
