@@ -158,7 +158,7 @@
 
                         <?php if(!empty($filtroNome["cil"])): ?>
                             <span onclick="removeFiltro('cil', '<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['order'] . $filtro['tipo'] . $filtro['indice'] . $filtro['marca'] . $filtro['preco'] . $filtro['promocao'] . $filtro['esf'] . $filtro['adicao'] . $filtro['altura']; ?>')" class="badge-primary">
-                                <?= "Cilíndro: ". $filtroNome['cil'] ?>
+                                <?= "Cilíndrico: ". $filtroNome['cil'] ?>
                                 <p>x</p>
                             </span>
                         <?php endif; ?>
@@ -339,7 +339,7 @@
                 <!-- ESFÉRICO -->
                 <aside class="widget widget_product_categories">
                     <h3 class="widget-title">Esférico</h3>
-                    <input placeholder="ex: 1,50" class="form-control inpAux maskValor" id="inpEsf" <?= (!empty($filtro['esf']) ? 'value="'. number_format($get['esf'], 2,',','') .'"' : ''); ?> />
+                    <input placeholder="ex: 1,50" class="form-control inpAux" id="inpEsf" <?= (!empty($filtro['esf']) ? 'value="'. number_format($get['esf'], 2,',','') .'"' : ''); ?> />
                     <button class="btnAux" onclick="location.href = '<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['order'] . $filtro['tipo'] . $filtro['indice'] . $filtro['marca'] . $filtro['preco'] . $filtro['promocao'] . $filtro['cil'] . $filtro['adicao'] . $filtro['altura']  . '&esf='; ?>' + $('#inpEsf').val()">
                         OK
                     </button>
@@ -349,8 +349,8 @@
 
                 <!-- CILÍNDRO -->
                 <aside class="widget widget_product_categories">
-                    <h3 class="widget-title">Cilíndro</h3>
-                    <input placeholder="ex: 1,50" class="form-control inpAux maskValor" id="inpCil" <?= (!empty($filtro['cil']) ? 'value="'. number_format($get['cil'], 2,',','') .'"' : ''); ?> />
+                    <h3 class="widget-title">Cilíndrico</h3>
+                    <input placeholder="ex: 1,50" class="form-control inpAux" id="inpCil" <?= (!empty($filtro['cil']) ? 'value="'. number_format($get['cil'], 2,',','') .'"' : ''); ?> />
                     <button class="btnAux" onclick="location.href = '<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['order'] . $filtro['tipo'] . $filtro['indice'] . $filtro['marca'] . $filtro['preco'] . $filtro['promocao'] . $filtro['esf'] . $filtro['adicao'] . $filtro['altura'] . '&cil='; ?>' + $('#inpCil').val()">
                         OK
                     </button>
@@ -361,7 +361,7 @@
                 <!-- ADIÇÃO -->
                 <aside class="widget widget_product_categories">
                     <h3 class="widget-title">Adição</h3>
-                    <input placeholder="ex: 1,50" class="form-control inpAux maskValor" id="inpAdicao" <?= (!empty($filtro['adicao']) ? 'value="'. number_format($get['adicao'], 2,',','') .'"' : ''); ?> />
+                    <input placeholder="ex: 1,50" class="form-control inpAux" id="inpAdicao" <?= (!empty($filtro['adicao']) ? 'value="'. number_format($get['adicao'], 2,',','') .'"' : ''); ?> />
                     <button class="btnAux" onclick="location.href = '<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['order'] . $filtro['tipo'] . $filtro['indice'] . $filtro['marca'] . $filtro['preco'] . $filtro['promocao'] . $filtro['esf'] . $filtro['cil'] . $filtro['altura'] . '&adicao='; ?>' + $('#inpAdicao').val()">
                         OK
                     </button>
@@ -372,7 +372,7 @@
                 <!-- ADIÇÃO -->
                 <aside class="widget widget_product_categories">
                     <h3 class="widget-title">Altura</h3>
-                    <input placeholder="ex: 1,50" class="form-control inpAux maskValor" id="inpAltura" <?= (!empty($filtro['altura']) ? 'value="'. number_format($get['altura'], 2,',','') .'"' : ''); ?> />
+                    <input placeholder="ex: 1,50" class="form-control inpAux" id="inpAltura" <?= (!empty($filtro['altura']) ? 'value="'. number_format($get['altura'], 2,',','') .'"' : ''); ?> />
                     <button class="btnAux" onclick="location.href = '<?= BASE_URL ?>produtos?c=true<?= $filtro['busca'] . $filtro['categoria'] . $filtro['order'] . $filtro['tipo'] . $filtro['indice'] . $filtro['marca'] . $filtro['preco'] . $filtro['promocao'] . $filtro['esf'] . $filtro['cil'] . $filtro['adicao'] . '&altura='; ?>' + $('#inpAltura').val()">
                         OK
                     </button>
